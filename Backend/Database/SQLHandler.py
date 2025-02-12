@@ -79,13 +79,13 @@ class SQLHandler:
         except mysql.connector.Error as err:
             logging.error(f"Error creating schema: {err}")
 
-    def InsertModel(self, CropType, MarkNr, CVR, Polygon):
+    def InsertField(self, CropType, MarkNr, CVR, Polygon):
         """Insert a new fiel record into the database."""
         try:
             
             
             insert_query = """
-            INSERT INTO Models (CropType, MarkNr, CVR, Polygon) 
+            INSERT INTO Field (CropType, MarkNr, CVR, Polygon) 
             VALUES (%s, %s, %s, %s)
             """
             self.cursor.execute(insert_query, (CropType, MarkNr, CVR, Polygon))
