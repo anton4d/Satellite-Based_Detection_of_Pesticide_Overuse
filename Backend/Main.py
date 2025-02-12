@@ -1,6 +1,7 @@
 import logging
 import dotenv
 import os
+from Gis.geojsonToDB import GeoJsonToDB
 from Database.SQLHandler import SQLHandler
 
 def setup_logging(log_file="app.log"):
@@ -22,6 +23,10 @@ def main():
         password=os.getenv("DBPASSWORD"),
         database=os.getenv("DBDB")
     )
+    geojson_path = '/home/rawberry/Desktop/Satellite-Based_Detection_of_Pesticide_Overuse/Shapefiles/Marker_2019.geojson'
+
+    geojsonToDB = GeoJsonToDB(geojson_path, db_handler)
+    geojsonToDB.process_geojson()
 
 
 
