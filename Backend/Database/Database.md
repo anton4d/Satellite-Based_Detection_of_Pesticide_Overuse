@@ -8,26 +8,23 @@
     - Data: ID
 - Name: crops
     - Data: VARCHAR
- 
-- Name: TimeStamp
-    - Data: TimeStamp
-
+- Name: MarkNr
+    - Data: VARCHAR
+- Name: CVR
+    - Data: VARCHAR
 - Name: averageRed
     - Data: VARCHAR
 - Name: AverageNirRed
     - Data: VARCHAR
 - Name: AverageNDVI
     - Data: VARCHAR
-
-### PointTable
-- Name: FieldID
-    - Data: ID
-- Name: X
-    - DATA: VARCHAR
-- Name: Y
-    - DATA: VARCHAR
-
-### SateliteTable
+- Name: polygon
+    - Data: POLYGON
+- Name: TimeStamp
+    - Data: TimeStamp
+- Name: UPDATEStamp
+    - Data: TimeStamp
+### TileTable
 - Name: FieldID
     - Data: ID
 - Name: tileId
