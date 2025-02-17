@@ -16,15 +16,19 @@ class GeoJsonToDB:
     def geojson_to_wkt(self, geometry):
         """Convert GeoJSON geometry to WKT format."""
         geom = shape(geometry)  
-        logging.info(geom.wkt)
-        return geom.wkt  
+        wkt = geom.wkt
+        logging.info(f"Generated WKT: {wkt}")
+        return wkt
 
     def insert_geojson_to_db(self, geojson_data):
         """Iterate through the GeoJSON features and insert them into the database."""
         for feature in geojson_data['features']:
 
+
             properties = feature.get('properties', {})
+            cropType = properties.get('Afgroede', None)
             marknr = properties.get('Marknr', None)
+            Journalnr = properties.get('Journalnr', None)
             cvr = properties.get('CVR', None)
             afgkode = properties.get('Afgkode', None)
 
@@ -33,7 +37,7 @@ class GeoJsonToDB:
             polygon_wkt = polygon_wkt.strip()
             polygon_wkt = polygon_wkt.replace("  ", " ")
 
-            self.sql_handler.InsertField(CropType="Kartofler", MarkNr=marknr, CVR=cvr, Polygon=polygon_wkt)
+            self.sql_handler.InsertField(CropType=cropType, MarkNr=marknr, Journalnr=Journalnr, CVR=cvr, Polygon=polygon_wkt)
 
     def process_geojson(self):
         geojson_data = self.load_geojson()
