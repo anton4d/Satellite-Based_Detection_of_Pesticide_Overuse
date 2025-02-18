@@ -96,6 +96,15 @@ class SQLHandler:
             logging.error(f"Error inserting data: {err}")
             raise
 
+    def getAllFieldPolygons(self):
+        "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary."
+        query = "SELECT FieldID, ST_AsText(Polygon) FROM Field;"
+        self.cursor.execute(query)
+        results = self.cursor.fetchall()
+
+        fieldDict = {field_id: polygon_wkt for field_id, polygon_wkt in results}
+        return fieldDict
+
 
 if __name__ == "__main__":
     
