@@ -18,23 +18,12 @@ class CatalogApiHandler:
             self.ApiToken = ApiToken
 
     
-
-    def ConvertWktToNestedCords(self, PolygonWkt):
-        """Converts a Wkt To the the Nested structure that the api takes"""
-        polygon = wkt.loads(PolygonWkt)
-
-        exteriorCoords = list(polygon.exterior.coords)
-
-        NestedCoords = [[list(coord) for coord in exteriorCoords]]
-        return NestedCoords
-
-    
-    def GetPictureDates(self,PolygonWkt, FeildId):
+    def GetPictureDates(self,Polygon, FeildId):
         """Gets a list of dates between the from and To date Where the Satalite took a picture based on a polygon"""
 
         logging.info(f"Calling the Catalog api for catalog data on Feild with id: {FeildId}...")
         
-        polygonWithNestedCoords = self.ConvertWktToNestedCords(PolygonWkt)
+        
 
         url = "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search"
         headers = {
@@ -48,7 +37,7 @@ class CatalogApiHandler:
             "datetime": f"{self.FromDate}/{self.ToDate}",
             "intersects": {
                 "type": "Polygon",
-                "coordinates": polygonWithNestedCoords
+                "coordinates": Polygon
             },
             "limit": 100
         }
@@ -73,7 +62,7 @@ class CatalogApiHandler:
         elif response.status_code == 401:
             logging.error("Access code has expired or is incorrect.")
             self.ApiToken = self.TokenApiHandler.GetToken()
-            Data = self.GetPictureDates(PolygonWkt=PolygonWkt, FeildId=FeildId)
+            Data = self.GetPictureDates(Polygon=Polygon, FeildId=FeildId)
             return Data
         else:
             description = responseJson.get("description", "No description provided")

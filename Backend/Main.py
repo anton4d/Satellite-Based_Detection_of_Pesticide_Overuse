@@ -2,6 +2,7 @@ import logging
 import dotenv
 import os
 from Gis.geojsonToDB import GeoJsonToDB
+from Gis.WktHandler import ConvertWktToNestedCords
 from Database.SQLHandler import SQLHandler
 from Api.CatalogApiHandler import CatalogApiHandler
 from Api.TokenApiHandler import TokenApiHandler
@@ -27,15 +28,10 @@ def main():
     )
     geojson_path = '../Shapefiles/Marker_2020.geojson'
 
-    geojsonToDB = GeoJsonToDB(geojson_path, db_handler)
-    #geojsonToDB.process_geojson()
-
-    fields = db_handler.getAllFieldPolygons()
-
-    if fields:
-        first_field_id, first_polygon_wkt = next(iter(fields.items()))
+    geojsonToDB = GeoJsonToDB(
+        geojson_path, 
+        db_handler)
     
-
     Token_ApiHandler = TokenApiHandler(
         ClientId=os.getenv("ApiClienId"),
         ClientSecret=os.getenv("ApiClienSecret"),
@@ -47,9 +43,18 @@ def main():
         ApiToken=os.getenv("APIToken"),
         TokenApiHandler=Token_ApiHandler
         )
-        
+    
+
+
+
+    #geojsonToDB.process_geojson()
+    fields = db_handler.getAllFieldPolygons()
+
+    if fields:
+        first_field_id, first_polygon_wkt = next(iter(fields.items()))
     logging.info(first_polygon_wkt)
-    CatalogData = Catalog_ApiHandler.GetPictureDates(PolygonWkt=first_polygon_wkt,FeildId=first_field_id)
+    polygon = ConvertWktToNestedCords(first_polygon_wkt)
+    CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=polygon,FeildId=first_field_id)
 
 
 

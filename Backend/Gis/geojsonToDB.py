@@ -2,7 +2,6 @@ import json
 import logging
 from shapely.geometry import shape
 from pyproj import CRS, Transformer
-from Database.SQLHandler import SQLHandler
 
 class GeoJsonToDB:
     def __init__(self, geojson_path, sql_handler):
