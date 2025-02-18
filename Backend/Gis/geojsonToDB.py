@@ -1,6 +1,7 @@
 import json
 import logging
 from shapely.geometry import shape
+from pyproj import CRS, Transformer
 from Database.SQLHandler import SQLHandler
 
 class GeoJsonToDB:
@@ -8,14 +9,28 @@ class GeoJsonToDB:
         self.geojson_path = geojson_path
         self.sql_handler = sql_handler
 
+        # Data from Miljøstyrelse is using a Coordinate Reference System (CRS) that is incompatible with Copernicus API
+        # Using pyproj to transform the CRS to a compatible one
+        self.crs_from = CRS("EPSG:25832")
+        self.crs_to = CRS("EPSG:4326")
+        self.transformer = Transformer.from_crs(self.crs_from, self.crs_to, always_xy=True)
+
     def load_geojson(self):
         """Load the GeoJSON file."""
         with open(self.geojson_path, 'r') as f:
             return json.load(f)
 
     def geojson_to_wkt(self, geometry):
-        """Convert GeoJSON geometry to WKT format."""
+        """Convert GeoJSON geometry to the correct CRS & then WKT format."""
         geom = shape(geometry)  
+
+        # CRS Formatting
+        new_coords = []
+        for coord in geom.exterior.coords:
+            lon, lat = self.transformer.transform(coord[0], coord[1])
+            new_coords.append((lon, lat))
+        geom = shape({"type": "Polygon", "coordinates": [new_coords]})
+
         wkt = geom.wkt
         logging.info(f"Generated WKT: {wkt}")
         return wkt
