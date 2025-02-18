@@ -6,6 +6,7 @@ from Gis.WktHandler import ConvertWktToNestedCords
 from Database.SQLHandler import SQLHandler
 from Api.CatalogApiHandler import CatalogApiHandler
 from Api.TokenApiHandler import TokenApiHandler
+from Api.ProcessApiHandler import ProcessApiHandler
 
 def setup_logging(log_file="app.log"):
     logging.basicConfig(
@@ -44,6 +45,11 @@ def main():
         TokenApiHandler=Token_ApiHandler
         )
     
+    Process_ApiHandler = ProcessApiHandler(
+        ApiToken=os.getenv("APIToken"),
+        TokenApiHandler=Token_ApiHandler,
+        SQLHandler=db_handler
+    )
 
 
 
@@ -55,6 +61,8 @@ def main():
     logging.info(first_polygon_wkt)
     polygon = ConvertWktToNestedCords(first_polygon_wkt)
     CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=polygon,FeildId=first_field_id)
+    date = next(iter(CatalogData))
+    Process_ApiHandler.processDateIntoData(date,polygon)
 
 
 
