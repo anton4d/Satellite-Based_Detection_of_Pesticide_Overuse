@@ -4,6 +4,7 @@ import os
 from Gis.geojsonToDB import GeoJsonToDB
 from Database.SQLHandler import SQLHandler
 from Api.CatalogApiHandler import CatalogApiHandler
+from Api.TokenApiHandler import TokenApiHandler
 
 def setup_logging(log_file="app.log"):
     logging.basicConfig(
@@ -26,7 +27,7 @@ def main():
     )
     geojson_path = '../Shapefiles/Marker_2020.geojson'
 
-    #geojsonToDB = GeoJsonToDB(geojson_path, db_handler)
+    geojsonToDB = GeoJsonToDB(geojson_path, db_handler)
     #geojsonToDB.process_geojson()
 
     fields = db_handler.getAllFieldPolygons()
@@ -34,13 +35,19 @@ def main():
     if fields:
         first_field_id, first_polygon_wkt = next(iter(fields.items()))
     
-    Catalog_ApiHandler = CatalogApiHandler(
+
+    Token_ApiHandler = TokenApiHandler(
         ClientId=os.getenv("ApiClienId"),
         ClientSecret=os.getenv("ApiClienSecret"),
+    )
+
+    Catalog_ApiHandler = CatalogApiHandler(
         FromDate="2024-10-01T00:00:00Z",
         ToDate="2025-02-01T23:59:59Z",
-        ApiToken=os.getenv("APIToken")
+        ApiToken=os.getenv("APIToken"),
+        TokenApiHandler=Token_ApiHandler
         )
+        
     logging.info(first_polygon_wkt)
     CatalogData = Catalog_ApiHandler.GetPictureDates(PolygonWkt=first_polygon_wkt,FeildId=first_field_id)
 

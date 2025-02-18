@@ -5,46 +5,19 @@ import logging
 import json
 import sys
 
+
 class CatalogApiHandler:
-    def __init__(self,ClientId,ClientSecret,FromDate,ToDate,ApiToken):
-        self.ClientId = ClientId
-        self.ClientSecret = ClientSecret
+    def __init__(self,FromDate,ToDate,ApiToken,TokenApiHandler):
         self.FromDate = FromDate
         self.ToDate = ToDate
+        self.TokenApiHandler = TokenApiHandler
 
         if ApiToken is None:
-            self.GetToken()
+            self.ApiToken = self.TokenApiHandler.GetToken()
         else:
             self.ApiToken = ApiToken
 
-    def GetToken(self):
-        """Gets an Access Token from the API based on the client credentials"""
-
-        logging.info("Attempting to get an API Token...")
-        
-        dotenvFile = dotenv.find_dotenv()
-        AuthServerUrl = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
-        TokenRequestPayload = {"grant_type": "client_credentials"}
-
-        tokenResponse = requests.post(
-            AuthServerUrl,
-            data=TokenRequestPayload,
-            verify=False,
-            allow_redirects=False,
-            auth=(self.ClientId, self.ClientSecret)
-        )
-
-        if tokenResponse.status_code != 200:
-            logging.error(f"Failed to obtain token. Status code: {tokenResponse.status_code}")
-            logging.error(f"Response: {tokenResponse.text}")
-            raise Exception("Authentication failed. Check your credentials.")
-
-        token = tokenResponse.json()
-        self.ApiToken = token["access_token"]
-        dotenv.set_key(dotenvFile, "APIToken", self.ApiToken)
-
-        logging.info("Successfully obtained a new token.")
-
+    
 
     def ConvertWktToNestedCords(self, PolygonWkt):
         """Converts a Wkt To the the Nested structure that the api takes"""
@@ -99,7 +72,7 @@ class CatalogApiHandler:
             return uniqueDates
         elif response.status_code == 401:
             logging.error("Access code has expired or is incorrect.")
-            self.GetToken()
+            self.ApiToken = self.TokenApiHandler.GetToken()
             Data = self.GetPictureDates(PolygonWkt=PolygonWkt, FeildId=FeildId)
             return Data
         else:
