@@ -42,4 +42,4 @@ if __name__ == "__main__":
     
     split_files = split_geojson(input_file, output_dir)
     
-    print(f"Split files saved to: {split_files}")
+    logging.info(f"Split files saved to: {split_files}")
