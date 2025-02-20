@@ -166,5 +166,5 @@ Models/*
 
 # But don't ignore the models folder itself
 !Models/
-
+*.tiff
 ResponseCatalog.txt
