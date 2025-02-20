@@ -55,7 +55,7 @@ class GeoJsonToDB:
             if not self.sql_handler.field_exists(marknr, markblok):
                 self.sql_handler.InsertField(CropType=cropType, MarkNr=marknr, Journalnr=journalnr, Markblok=markblok, CVR=cvr, Polygon=polygon_wkt)
             else:
-                logging.info(f"Skipping existing field with MarkNr {marknr} and Markblok {markblok}")
+                logging.debug(f"Skipping existing field with MarkNr {marknr} and Markblok {markblok}")
 
     def process_geojson(self):
         geojson_data = self.load_geojson()
