@@ -3,6 +3,7 @@ import dotenv
 import logging
 import json
 import sys
+import os
 from datetime import datetime, timedelta
 
 class ProcessApiHandler:
@@ -23,18 +24,18 @@ class ProcessApiHandler:
         """
         dateObj = datetime.strptime(date, "%Y-%m-%d")
         
-        dateBefore = (dateObj - timedelta(days=1)).strftime("%Y-%m-%dT00:00:00Z")  # Start of previous day
-        dateAfter = (dateObj + timedelta(days=1)).strftime("%Y-%m-%dT23:59:59Z")  # End of next day
+        dateBefore = (dateObj - timedelta(days=1)).strftime("%Y-%m-%dT00:00:00Z")
+        dateAfter = (dateObj + timedelta(days=1)).strftime("%Y-%m-%dT23:59:59Z")
         
         return dateBefore, dateAfter
 
-    def processDateIntoData(self,Date,polygon):
+    def processDateIntoImages(self,Date,polygon,FieldId):
         """
         Takes a date and polygon and inserts the data from the picture of the date and polygon into the database
         """
         logging.info(f"Get picture from satalite on the date of: {Date}")
         dateBefore, dateAfter = self.getSurroundingDates(Date)
-        logging.info(f"converted the date into before date: {dateBefore} and After date: {dateAfter} ")
+        logging.debug(f"converted the date into before date: {dateBefore} and After date: {dateAfter} ")
 
         url = "https://sh.dataspace.copernicus.eu/api/v1/process"
         headers = {
@@ -42,35 +43,29 @@ class ProcessApiHandler:
         "Authorization": f"Bearer {self.ApiToken}"
         }
         evalscript = """
-            //VERSION=3
-
-            let minVal = 0.0;
-            let maxVal = 0.4;
-
-            let viz = new HighlightCompressVisualizer(minVal, maxVal);
-
-            function evaluatePixel(samples) {
-                let val = [samples.B04, samples.B03, samples.B02];
-                val = viz.processList(val);
-                val.push(samples.dataMask);
-                return val;
-            }
-
-            function setup() {
-            return {
-                input: [{
-                bands: [
-                    "B02",
-                    "B03",
-                    "B04",
-                    "dataMask"
-                ]
-                }],
-                output: {
-                bands: 4
+                function setup() {
+                return {
+                    input: [
+                    {
+                        bands: ["B04", "B08","dataMask"],
+                        units: "REFLECTANCE",
+                    },
+                    ],
+                    output: {
+                    id: "default",
+                    bands: 3,
+                    sampleType: SampleType.UINT16,
+                    },
                 }
-            }
-            }
+                }
+
+                function evaluatePixel(sample) {
+                return [
+                    sample.B04,
+                    sample.B08,
+                    sample.dataMask,
+                ]
+                }
         """
         data = {
         "input": {
@@ -86,8 +81,7 @@ class ProcessApiHandler:
                 "timeRange": {
                     "from": dateBefore,
                     "to": dateAfter
-                },
-                "maxCloudCoverage": 95
+                    }
                 },
                 "type": "sentinel-2-l1c"
             }
@@ -111,10 +105,16 @@ class ProcessApiHandler:
         response = requests.post(url, headers=headers, json=data)
         StatusCode = response.status_code
         if StatusCode == 200:
-            image_path = "new_image.tiff"
-            with open(image_path, "wb") as f:
-                f.write(response.content)
-            logging.info(f"Image successfully saved as {image_path}")
+            folderName = f"Pictures/FieldId{FieldId}"  
+
+            os.makedirs(folderName, exist_ok=True)
+            image_path = os.path.join(folderName, f"{Date}.tiff")
+            try:
+                with open(image_path, "wb") as f: 
+                    f.write(response.content)
+                logging.info(f"Image successfully saved as {image_path}")
+            except Exception as e:
+                logging.error(f"Failed to save image: {e}")
         
         else:
             logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
