@@ -50,6 +50,7 @@ class SQLHandler:
                 MarkNr VARCHAR(255) NOT NULL,
                 CVR VARCHAR(255),
                 Journalnr VARCHAR(255) NOT NULL,
+                Markblok VARCHAR(255),
                 Polygon POLYGON NOT NULL,
                 AverageRed VARCHAR(255),
                 AverageNIR VARCHAR(255),
@@ -80,21 +81,29 @@ class SQLHandler:
         except mysql.connector.Error as err:
             logging.error(f"Error creating schema: {err}")
 
-    def InsertField(self, CropType, MarkNr, Journalnr, CVR, Polygon):
+    def InsertField(self, CropType, MarkNr, Journalnr, Markblok, CVR, Polygon):
         """Insert a new fiel record into the database."""
         try:
             
             
             insert_query = """
-            INSERT INTO Field (CropType, MarkNr, Journalnr, CVR, Polygon) 
-            VALUES (%s, %s, %s, %s, ST_GeomFromText(%s))
+            INSERT INTO Field (CropType, MarkNr, Journalnr, Markblok, CVR, Polygon) 
+            VALUES (%s, %s, %s, %s, %s, ST_GeomFromText(%s))
             """
-            self.cursor.execute(insert_query, (CropType, MarkNr, Journalnr, CVR, Polygon))
+            self.cursor.execute(insert_query, (CropType, MarkNr, Journalnr, Markblok, CVR, Polygon))
             self.connection.commit()
-            logging.info(f"Inserted new field into the database with MarkNr '{MarkNr}'.")
+            logging.info(f"Inserted new field into the database with MarkNr '{MarkNr}' and Markblok '{Markblok}'.")
         except mysql.connector.Error as err:
             logging.error(f"Error inserting data: {err}")
             raise
+
+    def field_exists(self, marknr, markblok):
+        """Check if a field already exists based on MarkNr or Journalnr"""
+        # If MarkNr & Markblok is not already in the database, special operator that allows comparison for null values.
+        query = "SELECT EXISTS(SELECT 1 FROM Field WHERE MarkNr = %s AND (Markblok <=> %s))"
+        self.cursor.execute(query, (marknr, markblok))
+        
+        return self.cursor.fetchone()[0]
 
     def getAllFieldPolygons(self):
         "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary."

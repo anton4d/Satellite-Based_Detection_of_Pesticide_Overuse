@@ -42,7 +42,8 @@ class GeoJsonToDB:
             properties = feature.get('properties', {})
             cropType = properties.get('Afgroede', None)
             marknr = properties.get('Marknr', None)
-            Journalnr = properties.get('Journalnr', None)
+            journalnr = properties.get('Journalnr', None)
+            markblok = properties.get('Markblok', None)
             cvr = properties.get('CVR', None)
             afgkode = properties.get('Afgkode', None)
 
@@ -50,8 +51,11 @@ class GeoJsonToDB:
             polygon_wkt = self.geojson_to_wkt(geometry)
             polygon_wkt = polygon_wkt.strip()
             polygon_wkt = polygon_wkt.replace("  ", " ")
-
-            self.sql_handler.InsertField(CropType=cropType, MarkNr=marknr, Journalnr=Journalnr, CVR=cvr, Polygon=polygon_wkt)
+            
+            if not self.sql_handler.field_exists(marknr, markblok):
+                self.sql_handler.InsertField(CropType=cropType, MarkNr=marknr, Journalnr=journalnr, Markblok=markblok, CVR=cvr, Polygon=polygon_wkt)
+            else:
+                logging.info(f"Skipping existing field with MarkNr {marknr} and Markblok {markblok}")
 
     def process_geojson(self):
         geojson_data = self.load_geojson()
