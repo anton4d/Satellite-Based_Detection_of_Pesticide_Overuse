@@ -18,7 +18,7 @@ class CatalogApiHandler:
             self.ApiToken = ApiToken
 
     
-    def GetPictureDates(self,Polygon, FeildId):
+    def GetPictureDates(self,Polygon, FeildId, next = 0):
         """Gets a list of dates between the from and To date Where the Satalite took a picture based on a polygon"""
 
         logging.info(f"Calling the Catalog api for catalog data on Feild with id: {FeildId}...")
@@ -30,6 +30,7 @@ class CatalogApiHandler:
             "Content-Type": "application/json",
             "Authorization": f"Bearer {self.ApiToken}"
         }
+        
         data = {
             "collections": [
                 "sentinel-2-l1c"
@@ -41,6 +42,8 @@ class CatalogApiHandler:
             },
             "limit": 100
         }
+        if next != 0:
+            data["next"] = next
         response = requests.post(url, headers=headers, json=data)
         responseJson = response.json()
         if response.status_code == 200:
@@ -58,6 +61,14 @@ class CatalogApiHandler:
                     logging.debug(f"Added new date: {dateOnly}")
             with open("ResponseCatalog.txt", "w") as f:
                 json.dump(responseJson, f, indent=4)
+            context = responseJson.get("context", [])
+            logging.debug(context)
+            next = context.get("next", "No next")
+            logging.info(next)
+            if next != "No next":
+                logging.info(f"list has:{len(uniqueDates)} dates in it before next")
+                uniqueDates.update(self.GetPictureDates(Polygon, FeildId, next)) 
+                logging.info(f"list has:{len(uniqueDates)} dates in it after next")
             return uniqueDates
         elif response.status_code == 401:
             logging.error("Access code has expired or is incorrect.")
