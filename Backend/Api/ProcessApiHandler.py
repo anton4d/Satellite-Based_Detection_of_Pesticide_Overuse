@@ -120,7 +120,7 @@ class ProcessApiHandler:
             logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
             if StatusCode == 401:
                 self.ApiToken = self.TokenApiHandler.GetToken()
-                self.processDateIntoData(Date,polygon)
+                self.processDateIntoImages(Date,polygon)
             else:
                 raise Exception(f"API request failed with status {response.status_code}: {description}")
 
