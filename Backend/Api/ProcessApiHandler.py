@@ -121,6 +121,7 @@ class ProcessApiHandler:
             if StatusCode == 401:
                 self.ApiToken = self.TokenApiHandler.GetToken()
                 self.processDateIntoImages(Date,polygon)
+
             else:
                 raise Exception(f"API request failed with status {response.status_code}: {description}")
 
