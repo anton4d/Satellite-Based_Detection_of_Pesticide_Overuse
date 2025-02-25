@@ -63,7 +63,7 @@ def main():
 
     #mock up data 
     #polygonWkt = "POLYGON ((8.943654 56.213578, 8.963054 56.221977, 9.002713 56.223409, 9.021598 56.2194, 9.026406 56.193335, 9.019367 56.181585, 8.986575 56.177572, 8.960651 56.176426, 8.946058 56.186935, 8.93998 56.204221, 8.946058 56.208327, 8.943654 56.213578))"
-    logging.info(first_polygon_wkt)
+    logging.debug(first_polygon_wkt)
     polygon = ConvertWktToNestedCords(first_polygon_wkt)
     CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=polygon,FeildId=first_field_id)
     logging.info(f"Catalog Api found: {len(CatalogData)} number of dates")
