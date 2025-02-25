@@ -102,25 +102,26 @@ class ProcessApiHandler:
         "evalscript": evalscript
         }
 
-        response = requests.post(url, headers=headers, json=data)
-        StatusCode = response.status_code
-        if StatusCode == 200:
-            folderName = f"Pictures/FieldId{FieldId}"  
+     
+        with requests.post(url, headers=headers, json=data) as response:
+            StatusCode = response.status_code
+            if StatusCode == 200:
+                folderName = f"Pictures/FieldId{FieldId}"  
 
-            os.makedirs(folderName, exist_ok=True)
-            image_path = os.path.join(folderName, f"{Date}.tiff")
-            try:
-                with open(image_path, "wb") as f: 
-                    f.write(response.content)
-                logging.info(f"Image successfully saved as {image_path}")
-            except Exception as e:
-                logging.error(f"Failed to save image: {e}")
-        
-        else:
-            logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
-            if StatusCode == 401:
-                self.ApiToken = self.TokenApiHandler.GetToken()
-                self.processDateIntoImages(Date,polygon)
+                os.makedirs(folderName, exist_ok=True)
+                image_path = os.path.join(folderName, f"{Date}.tiff")
+                try:
+                    with open(image_path, "wb") as f: 
+                        f.write(response.content)
+                    logging.info(f"Image successfully saved as {image_path}")
+                except Exception as e:
+                    logging.error(f"Failed to save image: {e}")
+            
             else:
-                raise Exception(f"API request failed with status {response.status_code}: {description}")
+                logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
+                if StatusCode == 401:
+                    self.ApiToken = self.TokenApiHandler.GetToken()
+                    self.processDateIntoImages(Date,polygon)
+                else:
+                    raise Exception(f"API request failed with status {response.status_code}: {description}")
 
