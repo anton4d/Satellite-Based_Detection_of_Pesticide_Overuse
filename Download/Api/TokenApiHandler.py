@@ -18,22 +18,21 @@ class TokenApiHandler:
             dotenvFile = dotenv.find_dotenv()
             AuthServerUrl = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
             TokenRequestPayload = {"grant_type": "client_credentials"}
-
-            tokenResponse = requests.post(
+            with requests.post(
                 AuthServerUrl,
                 data=TokenRequestPayload,
                 verify=False,
                 allow_redirects=False,
                 auth=(self.ClientId, self.ClientSecret)
-            )
+            ) as tokenResponse :
+                
+                if tokenResponse.status_code != 200:
+                    logging.error(f"Failed to obtain token. Status code: {tokenResponse.status_code}")
+                    logging.error(f"Response: {tokenResponse.text}")
+                    raise Exception("Authentication failed. Check your credentials.")
 
-            if tokenResponse.status_code != 200:
-                logging.error(f"Failed to obtain token. Status code: {tokenResponse.status_code}")
-                logging.error(f"Response: {tokenResponse.text}")
-                raise Exception("Authentication failed. Check your credentials.")
-
-            tokenjson = tokenResponse.json()
-            token = tokenjson["access_token"]
-            dotenv.set_key(dotenvFile, "APIToken", token)
-            logging.info("Successfully obtained a new token.")
-            return token    
+                tokenjson = tokenResponse.json()
+                token = tokenjson["access_token"]
+                dotenv.set_key(dotenvFile, "APIToken", token)
+                logging.info("Successfully obtained a new token.")
+                return token    
