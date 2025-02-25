@@ -64,11 +64,11 @@ class CatalogApiHandler:
             context = responseJson.get("context", [])
             logging.debug(context)
             next = context.get("next", "No next")
-            logging.info(next)
+            logging.debug(next)
             if next != "No next":
-                logging.info(f"list has:{len(uniqueDates)} dates in it before next")
+                logging.debug(f"list has:{len(uniqueDates)} dates in it before next")
                 uniqueDates.update(self.GetPictureDates(Polygon, FeildId, next)) 
-                logging.info(f"list has:{len(uniqueDates)} dates in it after next")
+                logging.debug(f"list has:{len(uniqueDates)} dates in it after next")
             return uniqueDates
         elif response.status_code == 401:
             logging.error("Access code has expired or is incorrect.")

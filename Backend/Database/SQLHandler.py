@@ -34,9 +34,9 @@ class SQLHandler:
             self.setup_schema()
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-                logging.info("Invalid username or password.")
+                logging.error("Invalid username or password.")
             elif err.errno == errorcode.ER_BAD_DB_ERROR:
-                logging.info(f"Database '{self.database}' does not exist.")
+                logging.error(f"Database '{self.database}' does not exist.")
             else:
                 logging.error(err)
 
@@ -112,6 +112,7 @@ class SQLHandler:
         results = self.cursor.fetchall()
 
         fieldDict = {field_id: polygon_wkt for field_id, polygon_wkt in results}
+        logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
         return fieldDict
 
 

@@ -8,7 +8,7 @@ def shapefile_to_geojson(shapefile_path, geojson_output_path):
         gdf = gpd.read_file(shapefile_path)
         
         # Checking the number of features to understand the data size
-        logging.info(f"Number of features in the shapefile: {len(gdf)}")
+        logging.debug(f"Number of features in the shapefile: {len(gdf)}")
         
         filter_values = [
             "Kartofler, lægge- (certificerede)",
@@ -24,12 +24,12 @@ def shapefile_to_geojson(shapefile_path, geojson_output_path):
         filtered_gdf = gdf[gdf['Afgroede'].isin(filter_values)]
 
         # Convert the GeoDataFrame to GeoJSON format
-        logging.info(f"Writing GeoJSON to: {geojson_output_path}")
+        logging.debug(f"Writing GeoJSON to: {geojson_output_path}")
         filtered_gdf.to_file(geojson_output_path, driver="GeoJSON")
         
         logging.info(f"Conversion successful! The GeoJSON file has been saved at: {geojson_output_path}")
     except Exception as e:
-        logging.info(f"Error during conversion: {e}")
+        logging.error(f"Error during conversion: {e}")
 
 
 if __name__ == "__main__":
