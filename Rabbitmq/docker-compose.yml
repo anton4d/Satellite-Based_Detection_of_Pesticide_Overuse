@@ -2,7 +2,6 @@ services:
   rabbitmq:
     image: rabbitmq:3
     restart: always
-    name: some-rabbitmq
     environment:
       hostname: = "My-rabbitmq"
     ports:
