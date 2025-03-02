@@ -88,8 +88,8 @@ class ProcessApiHandler:
             ]
         },
         "output": {
-            "width": 512,
-            "height": 512,
+            "width": 1024,
+            "height": 1024,
             "responses": [
             {
                 "identifier": "default",
@@ -117,11 +117,12 @@ class ProcessApiHandler:
                 except Exception as e:
                     logging.error(f"Failed to save image: {e}")
             
+
             else:
                 logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
                 if StatusCode == 401:
                     self.ApiToken = self.TokenApiHandler.GetToken()
-                    self.processDateIntoImages(Date,polygon)
+                    self.processDateIntoImages(Date,polygon, FieldId)
                 else:
                     raise Exception(f"API request failed with status {response.status_code}: {description}")
 
