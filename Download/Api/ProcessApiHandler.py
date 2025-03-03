@@ -48,7 +48,7 @@ class ProcessApiHandler:
                     input: [
                     {
                         bands: ["B04", "B08","dataMask"],
-                        units: "REFLECTANCE",
+                        units: "DN",
                     },
                     ],
                     output: {

@@ -12,7 +12,7 @@ from Api.CatalogApiHandler import CatalogApiHandler
 from Api.TokenApiHandler import TokenApiHandler
 from Api.ProcessApiHandler import ProcessApiHandler
 
-def setup_logging(log_file="app.log"):
+def setup_logging(log_file="Download.log"):
     logging.basicConfig(
         filename=log_file,
         level=logging.INFO,  

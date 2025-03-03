@@ -31,7 +31,7 @@ class GeoJsonToDB:
         geom = shape({"type": "Polygon", "coordinates": [new_coords]})
 
         wkt = geom.wkt
-        logging.info(f"Generated WKT: {wkt}")
+        logging.debug(f"Generated WKT: {wkt}")
         return wkt
 
     def insert_geojson_to_db(self, geojson_data):
