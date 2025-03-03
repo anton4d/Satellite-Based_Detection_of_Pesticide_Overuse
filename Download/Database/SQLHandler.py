@@ -52,9 +52,6 @@ class SQLHandler:
                 Journalnr VARCHAR(255) NOT NULL,
                 Markblok VARCHAR(255),
                 Polygon POLYGON NOT NULL,
-                AverageRed VARCHAR(255),
-                AverageNIR VARCHAR(255),
-                AverageNDVI VARCHAR(255),
                 UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
@@ -62,20 +59,6 @@ class SQLHandler:
             self.cursor.execute(create_table_query)
             self.connection.commit()
 
-            create_table_query = """
-            CREATE TABLE IF NOT EXISTS Tile (
-                TileID INT AUTO_INCREMENT PRIMARY KEY,
-                NirRed VARCHAR(255) NOT NULL,
-                Red VARCHAR(255) NOT NULL,
-                NDVI VARCHAR(255) NOT NULL,
-                UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                FieldId INT NOT NULL,
-                FOREIGN KEY (FieldId) REFERENCES Field(FieldId)
-            );
-            """
-            self.cursor.execute(create_table_query)
-            self.connection.commit()
 
             logging.info("Database schema is set up.")
         except mysql.connector.Error as err:

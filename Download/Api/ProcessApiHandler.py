@@ -124,5 +124,5 @@ class ProcessApiHandler:
                     self.ApiToken = self.TokenApiHandler.GetToken()
                     self.processDateIntoImages(Date,polygon, FieldId)
                 else:
-                    raise Exception(f"API request failed with status {response.status_code}: {description}")
+                    raise Exception(f"API request failed with status {response.status_code}")
 

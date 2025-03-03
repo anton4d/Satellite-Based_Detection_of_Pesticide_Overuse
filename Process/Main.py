@@ -26,7 +26,7 @@ def main():
         db_handler
     )
     imagePath="../Download/Pictures/FieldId1/Test.tiff"
-    To_Db.TiffToDatabase(imagePath)
+    To_Db.InsertAveragePointsIntoDataBase(imagePath,1,"2024-05-01")
     
     logging.info("Stopping the Process aplication")
 
