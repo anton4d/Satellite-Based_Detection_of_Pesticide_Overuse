@@ -63,9 +63,9 @@ def main():
     csv_file = "../Shapefiles/CSV/denmarkBB.csv"
     df_regions = pd.read_csv(csv_file)
 
-    # Iterate through each region
+    # Iterate through each regionBB
     for x, row in df_regions.iterrows():
-        logging.info(f"Processing region {x + 1}")
+        logging.info(f"Processing regionBB {x + 1}")
 
         # Convert bounding box to polygon
         bbPoly = box(row["min_lon"], row["min_lat"], row["max_lon"], row["max_lat"])
@@ -77,13 +77,13 @@ def main():
         nestedBB = ConvertWktToNestedCords(bbPolyWKT)
 
         # Set a unique FieldId for tracking
-        FieldId = f"Region_{x+1}"
+        FieldId = f"RegionBB_{x+1}"
 
         # Call the Catalog API to get image dates
         CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=nestedBB, FieldId=FieldId)
 
         if not CatalogData:
-            logging.warning(f"No image dates found for region {FieldId}, skipping...")
+            logging.warning(f"No image dates found for regionBB {FieldId}, skipping...")
             continue
 
         logging.info(f"Catalog API found {len(CatalogData)} dates for Region {x + 1}")
@@ -97,9 +97,9 @@ def main():
         for date in CatalogData:
             try:
                 Process_ApiHandler.processDateIntoImages(date, nestedBB, FieldId)
-                time.sleep(2)  # Ensures API is not overwhelmed
             except Exception as e:
-                logging.error(f"Error processing date {date} for region {FieldId}: {e}")
+                logging.error(f"Error processing date {date} for regionBB {FieldId}: {e}")
+
 
     #if fields:
         #first_field_id, first_polygon_wkt = next(iter(fields.items()))
