@@ -44,33 +44,13 @@ class SQLHandler:
         """Create the necessary tables if they do not exist."""
         try:
             create_table_query = """
-            CREATE TABLE IF NOT EXISTS Field (
-                FieldId INT AUTO_INCREMENT PRIMARY KEY,
-                CropType VARCHAR(255) NOT NULL,
-                MarkNr VARCHAR(255) NOT NULL,
-                CVR VARCHAR(255),
-                Journalnr VARCHAR(255) NOT NULL,
-                Markblok VARCHAR(255),
-                Polygon POLYGON NOT NULL,
-                AverageRed VARCHAR(255),
-                AverageNIR VARCHAR(255),
-                AverageNDVI VARCHAR(255),
-                UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            );
-            """
-            self.cursor.execute(create_table_query)
-            self.connection.commit()
-
-            create_table_query = """
-            CREATE TABLE IF NOT EXISTS Tile (
-                TileID INT AUTO_INCREMENT PRIMARY KEY,
-                NirRed VARCHAR(255) NOT NULL,
-                Red VARCHAR(255) NOT NULL,
-                NDVI VARCHAR(255) NOT NULL,
-                UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            CREATE TABLE IF NOT EXISTS ndvi_data (
+                id INT AUTO_INCREMENT PRIMARY KEY,
                 FieldId INT NOT NULL,
+                collection_date DATE,
+                AverageRed FLOAT,
+                AverageNir FLOAT,
+                AverageNdvi FLOAT,
                 FOREIGN KEY (FieldId) REFERENCES Field(FieldId)
             );
             """
@@ -81,40 +61,41 @@ class SQLHandler:
         except mysql.connector.Error as err:
             logging.error(f"Error creating schema: {err}")
 
-    def InsertField(self, CropType, MarkNr, Journalnr, Markblok, CVR, Polygon):
-        """Insert a new fiel record into the database."""
+
+    def insertAvarageNdviforAfield(self, ListOfData):
         try:
-            
-            
             insert_query = """
-            INSERT INTO Field (CropType, MarkNr, Journalnr, Markblok, CVR, Polygon) 
-            VALUES (%s, %s, %s, %s, %s, ST_GeomFromText(%s))
+            INSERT INTO ndvi_data (FieldId,collection_date, AverageRed, AverageNir,AverageNdvi )
+            VALUES (%s,%s,%s, %s, %s)
             """
-            self.cursor.execute(insert_query, (CropType, MarkNr, Journalnr, Markblok, CVR, Polygon))
+            self.cursor.execute(insert_query,ListOfData)
             self.connection.commit()
-            logging.info(f"Inserted new field into the database with MarkNr '{MarkNr}' and Markblok '{Markblok}'.")
         except mysql.connector.Error as err:
             logging.error(f"Error inserting data: {err}")
             raise
 
-    def field_exists(self, marknr, markblok):
-        """Check if a field already exists based on MarkNr or Journalnr"""
-        # If MarkNr & Markblok is not already in the database, special operator that allows comparison for null values.
-        query = "SELECT EXISTS(SELECT 1 FROM Field WHERE MarkNr = %s AND (Markblok <=> %s))"
-        self.cursor.execute(query, (marknr, markblok))
+    def insertAllNdviForAField(self, ListOfData):
+        try:
+            insert_query = """
+            INSERT INTO ndvi_data (FieldId,collection_date,longitude, latitude, red, nir, ndvi)
+            VALUES (%s,%s,%s, %s, %s, %s, %s)
+            """
+            batch_size = 10000
+            total_inserted = 0
+            for i in range(0, len(ListOfData), batch_size):
+                batch = ListOfData[i:i + batch_size]
+                try:
+                    self.cursor.executemany(insert_query, batch)
+                    self.connection.commit()
+                    total_inserted += self.cursor.rowcount  # Track inserted rows
+                except mysql.connector.Error as err:
+                    logging.error(f"Error inserting batch {i//batch_size}: {err}")
+            
+            logging.info(f"Total inserted: {total_inserted}/{len(ListOfData)}")
+        except mysql.connector.Error as err:
+            logging.error(f"Error inserting data: {err}")
+            raise
         
-        return self.cursor.fetchone()[0]
-
-    def getAllFieldPolygons(self):
-        "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary."
-        query = "SELECT FieldID, ST_AsText(Polygon) FROM Field;"
-        self.cursor.execute(query)
-        results = self.cursor.fetchall()
-
-        fieldDict = {field_id: polygon_wkt for field_id, polygon_wkt in results}
-        logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
-        return fieldDict
-
 
 if __name__ == "__main__":
     
