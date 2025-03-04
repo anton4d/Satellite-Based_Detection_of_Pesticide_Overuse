@@ -7,9 +7,7 @@ import sys
 
 
 class CatalogApiHandler:
-    def __init__(self,FromDate,ToDate,ApiToken,TokenApiHandler):
-        self.FromDate = FromDate
-        self.ToDate = ToDate
+    def __init__(self,ApiToken,TokenApiHandler):
         self.TokenApiHandler = TokenApiHandler
 
         if ApiToken is None:
@@ -18,10 +16,10 @@ class CatalogApiHandler:
             self.ApiToken = ApiToken
 
     
-    def GetPictureDates(self,Polygon, FieldId, next = 0):
+    def GetPictureDates(self,Polygon, FieldId,FromDate,ToDate, next = 0):
         """Gets a list of dates between the from and To date Where the Satalite took a picture based on a polygon"""
 
-        logging.info(f"Calling the Catalog api for catalog data on Feild with id: {FieldId}...")
+        logging.info(f"Calling the Catalog api for catalog data on Feild with id: {FieldId} ...")
         
         
 
@@ -35,7 +33,7 @@ class CatalogApiHandler:
             "collections": [
                 "sentinel-2-l1c"
             ],
-            "datetime": f"{self.FromDate}/{self.ToDate}",
+            "datetime": f"{FromDate}/{ToDate}",
             "intersects": {
                 "type": "Polygon",
                 "coordinates": Polygon
@@ -55,9 +53,9 @@ class CatalogApiHandler:
                     datetime = properties.get("datetime", "No datetime provided")
                     logging.debug(f"Found Feature with datetime: {datetime}")
                     dateOnly = datetime.split("T")[0]
-                if dateOnly not in uniqueDates:
-                    uniqueDates.add(dateOnly)
-                    logging.debug(f"Added new date: {dateOnly}")
+                    if dateOnly not in uniqueDates:
+                        uniqueDates.add(dateOnly)
+                        logging.debug(f"Added new date: {dateOnly}")
                 with open("ResponseCatalog.txt", "w") as f:
                     json.dump(responseJson, f, indent=4)
                     context = responseJson.get("context", [])
@@ -66,13 +64,13 @@ class CatalogApiHandler:
                     logging.debug(next)
                     if next != "No next":
                         logging.debug(f"list has:{len(uniqueDates)} dates in it before next")
-                        uniqueDates.update(self.GetPictureDates(Polygon, FieldId, next)) 
+                        uniqueDates.update(self.GetPictureDates(Polygon, FieldId,FromDate,ToDate ,next)) 
                         logging.debug(f"list has:{len(uniqueDates)} dates in it after next")
                     return uniqueDates
             elif response.status_code == 401:
                 logging.error("Access code has expired or is incorrect.")
                 self.ApiToken = self.TokenApiHandler.GetToken()
-                Data = self.GetPictureDates(Polygon=Polygon, FieldId=FieldId)
+                Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
                 return Data
             else:
                 description = responseJson.get("description", "No description provided")

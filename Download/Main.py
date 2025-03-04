@@ -1,8 +1,6 @@
 import pandas as pd
-import logging
-import dotenv
-import os
-import time
+import logging, dotenv, os, time , sys, pika
+
 from shapely.geometry import box
 from shapely.wkt import dumps
 from Gis.geojsonToDB import GeoJsonToDB
@@ -20,49 +18,14 @@ def setup_logging(log_file="Download.log"):
         datefmt="%Y-%m-%d %H:%M:%S"
     )
 
-
-def main():
-    logging.info("Starting the Download application...")
+def DownloadProcess(Catalog_ApiHandler,Process_ApiHandler,FromDate,ToDate):
     dotenvFile = dotenv.find_dotenv()
     dotenv.load_dotenv(dotenvFile)
-
-    db_handler = SQLHandler(
-        host=os.getenv("SQLHOST"),
-        user=os.getenv("DBUSER"),
-        password=os.getenv("DBPASSWORD"),
-        database=os.getenv("DBDB")
-    )
-    geojson_path = '../Shapefiles/Marker_2020.geojson'
-
-    geojsonToDB = GeoJsonToDB(
-        geojson_path, 
-        db_handler)
-    
-    Token_ApiHandler = TokenApiHandler(
-        ClientId=os.getenv("ApiClienId"),
-        ClientSecret=os.getenv("ApiClienSecret"),
-    )
-
-    Catalog_ApiHandler = CatalogApiHandler(
-        FromDate="2024-08-01T00:00:00Z",
-        ToDate="2024-08-10T23:59:59Z",
-        ApiToken=os.getenv("APIToken"),
-        TokenApiHandler=Token_ApiHandler
-    )
-    
-    Process_ApiHandler = ProcessApiHandler(
-        ApiToken=os.getenv("APIToken"),
-        TokenApiHandler=Token_ApiHandler,
-        SQLHandler=db_handler
-    )
-
-    geojsonToDB.process_geojson()
-    fields = db_handler.getAllFieldPolygons()
-    
+    logging.info(f"Starting the DownloadProcess using the dates {FromDate}, {ToDate}")
     # Load the CSV file
     csv_file = "../Shapefiles/CSV/denmarkBB.csv"
     df_regions = pd.read_csv(csv_file)
-
+    
     # Iterate through each regionBB
     for x, row in df_regions.iterrows():
         logging.info(f"Processing regionBB {x + 1}")
@@ -80,7 +43,7 @@ def main():
         FieldId = f"RegionBB_{x+1}"
 
         # Call the Catalog API to get image dates
-        CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=nestedBB, FieldId=FieldId)
+        CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=nestedBB, FieldId=FieldId,FromDate=FromDate,ToDate=ToDate)
 
         if not CatalogData:
             logging.warning(f"No image dates found for regionBB {FieldId}, skipping...")
@@ -116,7 +79,73 @@ def main():
         #Process_ApiHandler.processDateIntoImages(date,polygon,first_field_id)   
     #logging.info("Stopping the Download application...")
 
+def main():
+    connection = pika.BlockingConnection(
+        pika.ConnectionParameters(host='localhost'))
+    channel = connection.channel()
+
+    channel.queue_declare(queue='task_queue', durable=True)
+    print(' [*] Waiting for messages. To exit press CTRL+C')
+    dotenvFile = dotenv.find_dotenv()
+    dotenv.load_dotenv(dotenvFile)
+
+    db_handler = SQLHandler(
+        host=os.getenv("SQLHOST"),
+        user=os.getenv("DBUSER"),
+        password=os.getenv("DBPASSWORD"),
+        database=os.getenv("DBDB")
+    )
+    geojson_path = '../Shapefiles/Marker_2020.geojson'
+
+    geojsonToDB = GeoJsonToDB(
+        geojson_path, 
+        db_handler)
+    
+    Token_ApiHandler = TokenApiHandler(
+        ClientId=os.getenv("ApiClienId"),
+        ClientSecret=os.getenv("ApiClienSecret"),
+    )
+
+    Catalog_ApiHandler = CatalogApiHandler(
+        ApiToken=os.getenv("APIToken"),
+        TokenApiHandler=Token_ApiHandler
+    )
+    
+    Process_ApiHandler = ProcessApiHandler(
+        ApiToken=os.getenv("APIToken"),
+        TokenApiHandler=Token_ApiHandler,
+        SQLHandler=db_handler
+    )
+    geojsonToDB.process_geojson()
+    def callback(ch, method, properties, body):
+        Message = body.decode()
+        logging.info(f" [x] Received {Message}")
+        try:
+            FromDate , ToDate = Message.split("|")
+            DownloadProcess(Catalog_ApiHandler,Process_ApiHandler,FromDate,ToDate)
+            logging.info(" [x] Done")
+        except:
+            logging.error("Message format is wrong")
+        finally:
+            ch.basic_ack(delivery_tag=method.delivery_tag)
+        
+    
+    channel.basic_qos(prefetch_count=1)
+    channel.basic_consume(queue='task_queue', on_message_callback=callback)
+
+    channel.start_consuming()
+
+
+    
+    
+
 
 if __name__ == "__main__":
-    setup_logging() 
+    if len(sys.argv) >= 2:
+        setup_logging(f"{sys.argv[1]}.log") 
+        logging.info(f"Starting the Download {sys.argv[1]}...")
+    else:
+        setup_logging()
+        logging.info("Starting the Download process...")
+    
     main()
