@@ -48,9 +48,9 @@ class SQLHandler:
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 FieldId INT NOT NULL,
                 collection_date DATE,
-                AverageRed FLOAT,
-                AverageNir FLOAT,
-                AverageNdvi FLOAT,
+                AverageRed FLOAT, MedianRed FLOAT, STDRed FLOAT, MinRed FLOAT, MaxRed FLOAT, 
+                AverageNir FLOAT, MedianNir FLOAT, STDNir FLOAT, MinNir FLOAT, MaxNir FLOAT, 
+                AverageNdvi FLOAT, MedianNdvi FLOAT, STDNdvi FLOAT, MinNdvi FLOAT, MaxNdvi FLOAT, 
                 FOREIGN KEY (FieldId) REFERENCES Field(FieldId)
             );
             """
@@ -62,11 +62,17 @@ class SQLHandler:
             logging.error(f"Error creating schema: {err}")
 
 
-    def insertAvarageNdviforAfield(self, ListOfData):
+    def insertSimpleDataPointsForAfield(self, ListOfData):
         try:
             insert_query = """
-            INSERT INTO ndvi_data (FieldId,collection_date, AverageRed, AverageNir,AverageNdvi )
-            VALUES (%s,%s,%s, %s, %s)
+            INSERT INTO ndvi_data (FieldId,collection_date,
+            AverageRed, MedianRed, STDRed, MinRed, MaxRed,
+            AverageNir,MedianNir, STDNir, MinNir, MaxNir,
+            AverageNdvi,MedianNdvi, STDNdvi, MinNdvi, MaxNdvi)
+            VALUES (%s,%s,
+            %s, %s, %s, %s,%s,
+            %s, %s, %s, %s,%s,
+            %s, %s, %s, %s,%s)
             """
             self.cursor.execute(insert_query,ListOfData)
             self.connection.commit()
@@ -74,7 +80,7 @@ class SQLHandler:
             logging.error(f"Error inserting data: {err}")
             raise
 
-    def insertAllNdviForAField(self, ListOfData):
+    def insertAllDataPointsForAField(self, ListOfData):
         try:
             insert_query = """
             INSERT INTO ndvi_data (FieldId,collection_date,longitude, latitude, red, nir, ndvi)

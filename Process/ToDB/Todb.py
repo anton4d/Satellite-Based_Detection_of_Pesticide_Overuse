@@ -1,5 +1,8 @@
 import numpy as np
 import rasterio, os, logging
+import matplotlib
+matplotlib.use('TkAgg')
+import matplotlib.pyplot as plt
 
 class ToDb:
     def __init__(self, SqlHandler):
@@ -29,19 +32,38 @@ class ToDb:
 
                 ndvi = np.full_like(Red, np.nan, dtype=np.float32)
                 ndvi[valid_pixels] = (NirRed[valid_pixels] - Red[valid_pixels]) / (NirRed[valid_pixels] + Red[valid_pixels] + 1e-10)
-
+                #plt.hist(ndvi)
+                #plt.title(f"Histogram of ndvi of field {FieldID} on the date {Date}")
+                #plt.savefig(f"Histogram of ndvi of field {FieldID} on the date {Date}")
+                #print(ndvi.max())
+                #print(ndvi.min())
+                
                 averageRed = np.nanmean(Red[valid_pixels]).item()
+                MedianRed = np.nanmedian(Red[valid_pixels]).item()
+                StdRed = np.nanstd(Red[valid_pixels]).item()
+                MinRed = np.nanmin(Red[valid_pixels]).item()
+                MaxRed = np.nanmax(Red[valid_pixels]).item()
                 averageNirRed = np.nanmean(NirRed[valid_pixels]).item()
+                MedianNirRed = np.nanmedian(NirRed[valid_pixels]).item()
+                StdNirRed = np.nanstd(NirRed[valid_pixels]).item()
+                MinNirRed = np.nanmin(NirRed[valid_pixels]).item()
+                MaxNirRed = np.nanmax(NirRed[valid_pixels]).item()
                 averageNdvi = np.nanmean(ndvi).item()
+                MedianNdvi = np.nanmedian(ndvi[valid_pixels]).item()
+                StdNdvi = np.nanstd(ndvi[valid_pixels]).item()
+                MinNdvi = np.nanmin(ndvi[valid_pixels]).item()
+                MaxNdvi = np.nanmax(ndvi[valid_pixels]).item()
 
-                data_to_insert = [FieldID, Date, averageRed, averageNirRed, averageNdvi]
+                data_to_insert = [FieldID, Date, averageRed,MedianRed,StdRed,MinRed,MaxRed, 
+                                  averageNirRed,MedianNirRed,StdNirRed,MinNirRed,MaxNirRed, 
+                                  averageNdvi,MedianNdvi,StdNdvi,MinNdvi,MaxNdvi]
                 logging.info(data_to_insert)
-                self.SqlHandler.insertAvarageNdviforAfield(data_to_insert)
+                self.SqlHandler.insertSimpleDataPointsForAfield(data_to_insert)
                 logging.info(f"Inserted NDVI data for Field ID {FieldID} on {Date}.")
 
                 out_meta = src.meta.copy()
                 out_meta.update({
-                    "count": 4,  # 4 bands
+                    "count": 4, 
                     "dtype": "float32"
                 })
 
