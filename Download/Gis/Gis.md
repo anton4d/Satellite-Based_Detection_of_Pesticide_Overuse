@@ -23,9 +23,34 @@
     #    for date in CatalogData:
     #        Process_ApiHandler.processDateIntoImages(date, regionPoly, FieldId)  
 
+    
+    
+    
     #for date in CatalogData:
         #Process_ApiHandler.processDateIntoImages(date,polygon,first_field_id)   
     #logging.info("Stopping the Download application...")
+
+    # Code for testing how long it takes to get bbox' from all relevant fields.
+    #if fields:
+        #first_field_id, first_polygon_wkt = next(iter(fields.items()))
+        #for field_id, polygon_wkt in fields.items():
+            #logging.info(f"Processing Field ID: {field_id}")
+
+            #polygon = ConvertWktToNestedCords(polygon_wkt)
+            #CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=polygon, FieldID=field_id)
+            #logging.info(f"Catalog API found {len(CatalogData)} dates for field ID: {field_id}")
+
+            # Testing bbox
+            #CatalogData = Catalog_ApiHandler.GetPictureBBoxes(Polygon=polygon, FieldID=field_id)
+            #logging.info(f"Catalog API found {len(CatalogData)} bbox' for field ID: {field_id}")
+
+            #dotenv.load_dotenv(dotenvFile)
+            #time.sleep(3) # Sleep timer to ensure that the CatalogApiHandler finishes before ProcessApiHandler starts
+
+            #for date in CatalogData:
+                #Process_ApiHandler.processDateIntoImages(date, polygon, field_id)
+
+        #logging.info("Stopping the Download application...")
 
 # "Region Nordjylland"
 # WKT:
