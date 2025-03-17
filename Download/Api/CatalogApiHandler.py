@@ -1,9 +1,5 @@
-import requests
-import dotenv
+import requests, csv, dotenv,logging,json,sys
 from shapely import wkt
-import logging
-import json
-import sys
 
 
 class CatalogApiHandler:
@@ -48,14 +44,22 @@ class CatalogApiHandler:
                 Features = responseJson.get("features", [])
                 logging.info(f"Found {len(Features)} number of features")
                 uniqueDates = set()
+                DateMetaData = []
                 for Feature in Features:
                     properties = Feature.get("properties", {})
                     datetime = properties.get("datetime", "No datetime provided")
-                    logging.debug(f"Found Feature with datetime: {datetime}")
+                    Platform = properties.get("platform", "No plateform provided")
+                    CloudCover = properties.get("eo:cloud_cover", "No cloud_cover provided")
+                    logging.debug(f"Found Feature with datetime: {datetime}, Platform: {Platform} and CloudCover: {CloudCover}")
                     dateOnly = datetime.split("T")[0]
+                    uniqueId = FieldId + datetime
+                    DateMetaData.append([FieldId,datetime,dateOnly,Platform,CloudCover])
                     if dateOnly not in uniqueDates:
                         uniqueDates.add(dateOnly)
                         logging.debug(f"Added new date: {dateOnly}")
+                with open('DateMetaData.csv', 'a', newline='') as csvfile:
+                    writer = csv.writer(csvfile)
+                    writer.writerows(DateMetaData)
                 with open("ResponseCatalog.txt", "w") as f:
                     json.dump(responseJson, f, indent=4)
                     context = responseJson.get("context", [])
