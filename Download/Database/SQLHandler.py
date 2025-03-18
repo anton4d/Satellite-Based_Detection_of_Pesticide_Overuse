@@ -59,6 +59,18 @@ class SQLHandler:
             self.cursor.execute(create_table_query)
             self.connection.commit()
 
+            create_table_query = """
+            CREATE TABLE IF NOT EXISTS BoundingboxMetaData(
+                MetaDataID INT AUTO_INCREMENT PRIMARY KEY,
+                BoundingBoxId VARCHAR(255) NOT NULL,
+                FullDate VARCHAR(255) NOT NULL,
+                DateOnly VARCHAR(255) NOT NULL,
+                Platform VARCHAR(255) NOT NULL,
+                CloudCover Float NOT NULL
+            );
+            """
+            self.cursor.execute(create_table_query)
+            self.connection.commit()
 
             logging.info("Database schema is set up.")
         except mysql.connector.Error as err:
@@ -97,6 +109,36 @@ class SQLHandler:
         fieldDict = {field_id: polygon_wkt for field_id, polygon_wkt in results}
         logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
         return fieldDict
+
+
+    def insertBoundingboxMetaData(self, metadata):
+        """Method that inserts all metadata from the features"""
+        try:
+            self.cursor.execute("SELECT * FROM BoundingboxMetaData WHERE BoundingBoxId=%s AND FullDate=%s", (metadata[0], metadata[1]))
+            foundMetaData = self.cursor.fetchone()
+
+            if foundMetaData is not None:
+                query = """
+                UPDATE BoundingboxMetaData 
+                SET DateOnly=%s, Platform=%s, CloudCover=%s 
+                WHERE BoundingBoxId=%s AND FullDate=%s
+                """
+                values = (metadata[2], metadata[3], metadata[4], metadata[0], metadata[1])
+                logging.info(f"MetaData for {metadata[0]} on the {metadata[1]} has been updated")
+            else:
+                query = """
+                INSERT INTO BoundingboxMetaData (BoundingBoxId, FullDate, DateOnly, Platform, CloudCover)
+                VALUES (%s, %s, %s, %s, %s)
+                """
+                values = metadata
+                logging.info(f"MetaData for {metadata[0]} on the {metadata[1]} has been inserted")
+
+            self.cursor.execute(query, values)
+            self.connection.commit()
+
+        except mysql.connector.Error as err:
+            logging.error(f"Error inserting data: {err}")
+
 
 
 if __name__ == "__main__":
