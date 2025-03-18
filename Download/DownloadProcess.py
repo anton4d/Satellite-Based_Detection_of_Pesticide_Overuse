@@ -43,7 +43,8 @@ def DownloadProcess(FromDate,ToDate):
 
     Catalog_ApiHandler = CatalogApiHandler(
         ApiToken=os.getenv("APIToken"),
-        TokenApiHandler=Token_ApiHandler
+        TokenApiHandler=Token_ApiHandler,
+        dbHandler=db_handler
     )
     
     Process_ApiHandler = ProcessApiHandler(
@@ -96,11 +97,13 @@ def DownloadProcess(FromDate,ToDate):
         time.sleep(3)
 
         # Process each date
-        #for date in CatalogData:
-        #    try:
-        #        Process_ApiHandler.processDateIntoImages(date, nestedBB, FieldId)
-        #    except Exception as e:
-        #        logging.error(f"Error processing date {date} for regionBB {FieldId}: {e}")
+        for date in CatalogData:
+            try:
+                Process_ApiHandler.processDateIntoImages(date, nestedBB, FieldId)
+            except Exception as e:
+                logging.error(f"Error processing date {date} for regionBB {FieldId}: {e}")
+                
+        logging.info(f"Completed the download proccess on the dates from: {FromDate} To: {ToDate}")
     
     
 def validate_message_data(message_data):
