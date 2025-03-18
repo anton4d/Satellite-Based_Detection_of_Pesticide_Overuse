@@ -62,7 +62,7 @@ while current_date <= end_date:
                 tiff_files.append(file_path)
 
     if not tiff_files:
-        print(f"❌ No valid TIFF files found for {current_date_str}, skipping...")
+        print(f"No valid TIFF files found for {current_date_str}, skipping...")
         current_date += timedelta(days=1)
         continue
 
@@ -89,7 +89,7 @@ while current_date <= end_date:
     for src in src_files_to_mosaic:
         src.close()
 
-    print(f"✅ Saved merged TIFF: {output_file}")
+    print(f"Saved merged TIFF: {output_file}")
 
     # Move to the next date
     current_date += timedelta(days=1)
