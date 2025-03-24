@@ -25,7 +25,9 @@ def main():
     )
 
     Date = "2024-08-01"
-    TIFF_ROOT = "../Download/Pictures"
+    TIFF_ROOT = "../Download/Picturesres2048date20240801"
+    output_folder = "Processed_TIFFs2048"
+    os.makedirs(output_folder, exist_ok=True)
 
     intersector = TiffIntersector(
         db_handler, 
@@ -46,12 +48,12 @@ def main():
         for _, row in polygons.iterrows():
             polygon = row["geometry"]
             FieldID = row["FieldId"]
-
+            output_tiff = os.path.join(output_folder, f"processed_field_{FieldID}.tiff")
             intersections = intersector.find_intersecting_tiffs(polygon, Date)
 
             if intersections:
                 logging.info(f"Processing Field ID {FieldID} for {Date}.")
-                To_Db.InsertAveragePointsIntoDataBase(intersections, FieldID, Date, polygon)
+                To_Db.InsertAveragePointsIntoDataBase(intersections, FieldID, Date, polygon, output_tiff)
             else:
                 logging.info(f"No intersecting TIFFs for Field ID {FieldID} on {Date}.")
         else:

@@ -2,6 +2,7 @@ import os
 import mysql.connector
 import geopandas as gpd
 from rasterio.merge import merge
+from shapely.geometry import box
 from shapely import wkt
 import rasterio
 import logging
@@ -45,15 +46,22 @@ class TiffIntersector:
                     tiff_path = os.path.join(region_path, f"{date}.tiff")
                     if os.path.exists(tiff_path):
                         with rasterio.open(tiff_path) as src:
-                            bbox = gpd.GeoSeries([polygon], crs="EPSG:4326").to_crs(src.crs).total_bounds
-                            tiff_bounds = src.bounds
+                            tiff_geom = box(*src.bounds)
 
-                            if not (bbox[2] < tiff_bounds.left or bbox[0] > tiff_bounds.right or 
-                                    bbox[3] < tiff_bounds.bottom or bbox[1] > tiff_bounds.top):
+                            # Reproject polygon to gpd, which has a CRS.
+                            if isinstance(polygon, gpd.GeoSeries):
+                                poly = polygon.iloc[0]
+                            else:
+                                poly = polygon
+
+                            # Reproject the polygon to raster CRS
+                            poly_proj = gpd.GeoSeries([poly], crs="EPSG:4326").to_crs(src.crs).iloc[0]
+
+                            if poly_proj.intersects(tiff_geom):
                                 intersecting_tiffs.append(tiff_path)
 
             logging.info(f"Polygon intersects {len(intersecting_tiffs)} TIFFs on {date}. Array: {intersecting_tiffs}")
-
+            logging.info(polygon)
             if len(intersecting_tiffs) == 1:
                 intersecting_tiffs = intersecting_tiffs[0]
                 return intersecting_tiffs

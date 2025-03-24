@@ -14,7 +14,7 @@ class ToDb:
     def __init__(self, SqlHandler, intersector):
         self.SqlHandler = SqlHandler
 
-    def InsertAveragePointsIntoDataBase(self, path, FieldID, Date, polygon, output_tiff="processed_field.tiff"):
+    def InsertAveragePointsIntoDataBase(self, path, FieldID, Date, polygon, output_tiff):
         """Process a TIFF image: compute average NDVI & save a new TIFF with out_image_red, NIR, Mask, and NDVI"""
         logging.info("Starting TIFF to database and new image process")
 
@@ -31,75 +31,79 @@ class ToDb:
                 
                 out_images, out_transform = mask(src, [polygon], crop=True, filled=True, nodata=0, indexes=[1, 2, 3])
 
-                out_image_red = out_images[0]
-                out_image_nir = out_images[1]
+                out_image_red = out_images[0].astype(np.float32)
+                out_image_nir = out_images[1].astype(np.float32)
                 out_image_dMask = out_images[2]
-
-                if out_image_red.max() > 1.0 or out_image_nir.max() > 1.0:
-                    out_image_red /= 65535.0
-                    out_image_nir /= 65535.0
-                logging.info(f"Masked Red shape: {out_image_red.shape}, NIR shape: {out_image_nir.shape}, Mask shape: {out_image_dMask.shape}")
-                valid_pixels = out_image_dMask == 1
-
-
-                ndvi = np.full_like(out_image_red, np.nan, dtype=np.float32)
-                ndvi[valid_pixels] = (out_image_nir[valid_pixels] - out_image_red[valid_pixels]) / (out_image_nir[valid_pixels] + out_image_red[valid_pixels] + 1e-10)
-                #plt.hist(ndvi)
-                #plt.title(f"Histogram of ndvi of field {FieldID} on the date {Date}")
-                #plt.savefig(f"Histogram of ndvi of field {FieldID} on the date {Date}")
-                #print(ndvi.max())
-                #print(ndvi.min())
-                
-                averageRed = np.nanmean(out_image_red[valid_pixels]).item()
-                MedianRed = np.nanmedian(out_image_red[valid_pixels]).item()
-                StdRed = np.nanstd(out_image_red[valid_pixels]).item()
-                MinRed = np.nanmin(out_image_red[valid_pixels]).item()
-                MaxRed = np.nanmax(out_image_red[valid_pixels]).item()
-                averageNirRed = np.nanmean(out_image_nir[valid_pixels]).item()
-                MedianNirRed = np.nanmedian(out_image_nir[valid_pixels]).item()
-                StdNirRed = np.nanstd(out_image_nir[valid_pixels]).item()
-                MinNirRed = np.nanmin(out_image_nir[valid_pixels]).item()
-                MaxNirRed = np.nanmax(out_image_nir[valid_pixels]).item()
-                averageNdvi = np.nanmean(ndvi).item()
-                MedianNdvi = np.nanmedian(ndvi[valid_pixels]).item()
-                StdNdvi = np.nanstd(ndvi[valid_pixels]).item()
-                MinNdvi = np.nanmin(ndvi[valid_pixels]).item()
-                MaxNdvi = np.nanmax(ndvi[valid_pixels]).item()
-
-                data_to_insert = [FieldID, Date, averageRed,MedianRed,StdRed,MinRed,MaxRed, 
-                                  averageNirRed,MedianNirRed,StdNirRed,MinNirRed,MaxNirRed, 
-                                  averageNdvi,MedianNdvi,StdNdvi,MinNdvi,MaxNdvi]
-                logging.info(data_to_insert)
-                self.SqlHandler.insertSimpleDataPointsForAfield(data_to_insert)
-                logging.info(f"Inserted NDVI data for Field ID {FieldID} on {Date}.")
-
-                out_meta = src.meta.copy()
-                out_meta.update({
-                "driver": "GTiff",
-                "height": out_image_red.shape[0],
-                "width": out_image_red.shape[1],
-                "transform": out_transform,
-                "count": 4,
-                "dtype": "float32"
-                })
-
-                #stacked_bands = np.stack([
-                #out_image_red, 
-                #out_image_nir, 
-                #DataMask.astype(np.float32), 
-                #ndvi])
-                stacked_bands = np.stack([
-                out_image_red, 
-                out_image_nir, 
-                out_image_dMask.astype(np.float32),
-                ndvi
-                ])
+                try:
+                    while out_images is not None and out_images.size > 0:
+                        if out_image_red.max() > 1.0 or out_image_nir.max() > 1.0:
+                            out_image_red /= 65535.0
+                            out_image_nir /= 65535.0
+                        logging.info(f"Masked Red shape: {out_image_red.shape}, NIR shape: {out_image_nir.shape}, Mask shape: {out_image_dMask.shape}")
+                        valid_pixels = out_image_dMask == 1
 
 
-                with rasterio.open(output_tiff, "w", **out_meta) as dest:
-                    dest.write(stacked_bands)
+                        ndvi = np.full_like(out_image_red, np.nan, dtype=np.float32)
+                        ndvi[valid_pixels] = (out_image_nir[valid_pixels] - out_image_red[valid_pixels]) / (out_image_nir[valid_pixels] + out_image_red[valid_pixels] + 1e-10)
+                        #plt.hist(ndvi)
+                        #plt.title(f"Histogram of ndvi of field {FieldID} on the date {Date}")
+                        #plt.savefig(f"Histogram of ndvi of field {FieldID} on the date {Date}")
+                        #print(ndvi.max())
+                        #print(ndvi.min())
+                        
+                        averageRed = np.nanmean(out_image_red[valid_pixels]).item()
+                        MedianRed = np.nanmedian(out_image_red[valid_pixels]).item()
+                        StdRed = np.nanstd(out_image_red[valid_pixels]).item()
+                        MinRed = np.nanmin(out_image_red[valid_pixels]).item()
+                        MaxRed = np.nanmax(out_image_red[valid_pixels]).item()
+                        averageNirRed = np.nanmean(out_image_nir[valid_pixels]).item()
+                        MedianNirRed = np.nanmedian(out_image_nir[valid_pixels]).item()
+                        StdNirRed = np.nanstd(out_image_nir[valid_pixels]).item()
+                        MinNirRed = np.nanmin(out_image_nir[valid_pixels]).item()
+                        MaxNirRed = np.nanmax(out_image_nir[valid_pixels]).item()
+                        averageNdvi = np.nanmean(ndvi).item()
+                        MedianNdvi = np.nanmedian(ndvi[valid_pixels]).item()
+                        StdNdvi = np.nanstd(ndvi[valid_pixels]).item()
+                        MinNdvi = np.nanmin(ndvi[valid_pixels]).item()
+                        MaxNdvi = np.nanmax(ndvi[valid_pixels]).item()
 
-                logging.info(f"New TIFF saved as {output_tiff} with out_image_red, NIR, DataMask, and NDVI.")
+                        data_to_insert = [FieldID, Date, averageRed,MedianRed,StdRed,MinRed,MaxRed, 
+                                        averageNirRed,MedianNirRed,StdNirRed,MinNirRed,MaxNirRed, 
+                                        averageNdvi,MedianNdvi,StdNdvi,MinNdvi,MaxNdvi]
+                        logging.info(data_to_insert)
+                        self.SqlHandler.insertSimpleDataPointsForAfield(data_to_insert)
+                        logging.info(f"Inserted NDVI data for Field ID {FieldID} on {Date}.")
+
+                        out_meta = src.meta.copy()
+                        out_meta.update({
+                        "driver": "GTiff",
+                        "height": out_image_red.shape[0],
+                        "width": out_image_red.shape[1],
+                        "transform": out_transform,
+                        "count": 4,
+                        "dtype": "float32"
+                        })
+
+                        #stacked_bands = np.stack([
+                        #out_image_red, 
+                        #out_image_nir, 
+                        #DataMask.astype(np.float32), 
+                        #ndvi])
+                        stacked_bands = np.stack([
+                        out_image_red, 
+                        out_image_nir, 
+                        out_image_dMask.astype(np.float32),
+                        ndvi
+                        ])
+
+
+                        with rasterio.open(output_tiff, "w", **out_meta) as dest:
+                            dest.write(stacked_bands)
+
+                        logging.info(f"New TIFF saved as {output_tiff} with out_image_red, NIR, DataMask, and NDVI.")
+                        break
+                except Exception as er:
+                    logging.error(f" out_images is empty: {er}")
 
         except Exception as e:
             logging.error(f" Error processing TIFF: {e}")
