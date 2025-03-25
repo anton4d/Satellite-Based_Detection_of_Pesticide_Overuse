@@ -43,36 +43,40 @@ class CatalogApiHandler:
             responseJson = response.json()
             if response.status_code == 200:
                 Features = responseJson.get("features", [])
-                logging.info(f"Found {len(Features)} number of features")
                 uniqueDates = set()
-                for Feature in Features:
-                    properties = Feature.get("properties", {})
-                    datetime = properties.get("datetime", "No datetime provided")
-                    Platform = properties.get("platform", "No plateform provided")
-                    CloudCover = properties.get("eo:cloud_cover", "No cloud_cover provided")
-                    logging.debug(f"Found Feature with datetime: {datetime}, Platform: {Platform} and CloudCover: {CloudCover}")
-                    dateOnly = datetime.split("T")[0]
-                    uniqueId = FieldId + datetime
-                    DateMetaData = [FieldId,datetime,dateOnly,Platform,CloudCover]
-                    if dateOnly not in uniqueDates:
-                        uniqueDates.add(dateOnly)
-                        logging.debug(f"Added new date: {dateOnly}")
-                    self.dbhandler.insertBoundingboxMetaData(DateMetaData)
-                    with open('DateMetaData.csv', 'a', newline='') as csvfile:
-                        writer = csv.writer(csvfile)
-                        writer.writerow(DateMetaData)
-                    
-                with open("ResponseCatalog.txt", "w") as f:
-                    json.dump(responseJson, f, indent=4)
-                    context = responseJson.get("context", [])
-                    logging.debug(context)
-                    next = context.get("next", "No next")
-                    logging.debug(next)
-                    if next != "No next":
-                        logging.debug(f"list has:{len(uniqueDates)} dates in it before next")
-                        uniqueDates.update(self.GetPictureDates(Polygon, FieldId,FromDate,ToDate ,next)) 
-                        logging.debug(f"list has:{len(uniqueDates)} dates in it after next")
+                if len(Features) >= 1:
+                    logging.info(f"Found {len(Features)} number of features")
+                    for Feature in Features:
+                        properties = Feature.get("properties", {})
+                        datetime = properties.get("datetime", "No datetime provided")
+                        Platform = properties.get("platform", "No plateform provided")
+                        CloudCover = properties.get("eo:cloud_cover", "No cloud_cover provided")
+                        logging.debug(f"Found Feature with datetime: {datetime}, Platform: {Platform} and CloudCover: {CloudCover}")
+                        dateOnly = datetime.split("T")[0]
+                        DateMetaData = [FieldId,datetime,dateOnly,Platform,CloudCover]
+                        if dateOnly not in uniqueDates:
+                            uniqueDates.add(dateOnly)
+                            logging.debug(f"Added new date: {dateOnly}")
+                        self.dbhandler.insertBoundingboxMetaData(DateMetaData)
+                        context = responseJson.get("context", [])
+                        next = context.get("next", "No next")
+                        if next != "No next":
+                            logging.debug(f"list has:{len(uniqueDates)} dates in it before next")
+                            uniqueDates.update(self.GetPictureDates(Polygon, FieldId,FromDate,ToDate ,next)) 
+                            logging.debug(f"list has:{len(uniqueDates)} dates in it after next")
+                        with open('DateMetaData.csv', 'a', newline='') as csvfile:
+                            writer = csv.writer(csvfile)
+                            writer.writerow(DateMetaData)
                     return uniqueDates
+                else:
+                    logging.warning("No features found on the date")
+                    with open("ResponseCatalog.txt", "a") as f:
+                        f.write("Polygon: ")
+                        json.dump(Polygon, f)
+                        f.write("\n")
+                        json.dump(responseJson, f, indent=4)
+
+                    
             elif response.status_code == 401:
                 logging.error("Access code has expired or is incorrect.")
                 self.ApiToken = self.TokenApiHandler.GetToken()
@@ -128,7 +132,6 @@ class CatalogApiHandler:
 
             context = responseJson.get("context", {})
             next = context.get("next")
-
             if next:
                 logging.debug(f"List has {len(uniqueBBoxes)} bboxes before fetching next page")
                 uniqueBBoxes.update(self.GetPictureBBoxes(Polygon, FieldID, next)) 

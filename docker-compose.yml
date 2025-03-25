@@ -2,10 +2,10 @@ services:
   rabbitmq:
     image: rabbitmq:3
     restart: always
-    environment:
-      hostname: = "My-rabbitmq"
     ports:
       - '5672:5672'
+    volumes:
+      - ./conf/myrabbit.conf:/etc/rabbitmq/rabbitmq.conf
   db:
     image: mysql:5.7
     restart: always

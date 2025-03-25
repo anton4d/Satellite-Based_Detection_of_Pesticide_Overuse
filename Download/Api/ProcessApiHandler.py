@@ -29,11 +29,11 @@ class ProcessApiHandler:
         
         return dateBefore, dateAfter
 
-    def processDateIntoImages(self,Date,polygon,FieldId):
+    def processDateIntoImages(self,Date,polygon,FieldId,resolution,WorkerName):
         """
         Takes a date and polygon and inserts the data from the picture of the date and polygon into the database
         """
-        logging.info(f"Get picture from satalite on the date of: {Date}")
+        logging.info(f"Get picture from satalite on the date of: {Date} with resolution: {resolution}")
         dateBefore, dateAfter = self.getSurroundingDates(Date)
         logging.debug(f"converted the date into before date: {dateBefore} and After date: {dateAfter} ")
 
@@ -88,8 +88,8 @@ class ProcessApiHandler:
             ]
         },
         "output": {
-            "width": 1024,
-            "height": 1024,
+            "width": resolution,
+            "height": resolution,
             "responses": [
             {
                 "identifier": "default",
@@ -106,7 +106,7 @@ class ProcessApiHandler:
         with requests.post(url, headers=headers, json=data) as response:
             StatusCode = response.status_code
             if StatusCode == 200:
-                folderName = f"Pictures/FieldId{FieldId}"  
+                folderName = f"Pictures/{WorkerName}/FieldId{FieldId}"  
 
                 os.makedirs(folderName, exist_ok=True)
                 image_path = os.path.join(folderName, f"{Date}.tiff")
@@ -122,7 +122,7 @@ class ProcessApiHandler:
                 logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
                 if StatusCode == 401:
                     self.ApiToken = self.TokenApiHandler.GetToken()
-                    self.processDateIntoImages(Date,polygon, FieldId)
+                    self.processDateIntoImages(Date,polygon, FieldId,resolution,WorkerName)
                 else:
                     raise Exception(f"API request failed with status {response.status_code}")
 
