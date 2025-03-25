@@ -7,7 +7,7 @@ import argparse
 import concurrent.futures
 
 DATEPATTERN = re.compile(
-    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$"
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\w+\|(\w+| )\|\d{3,4}$"
 )
 
 log_filename = "download_process.log"
@@ -51,6 +51,9 @@ def callback(ch, method, properties, body, executor):
             if exit_code == 0:
                 logging.info(f"Download process completed successfully, ACK sent for: {message}")
                 ch.basic_ack(delivery_tag=method.delivery_tag)
+            elif exit_code == 4:
+                logging.error(f"Download process gotten a message with not a supportet mode -> Sending NACK (not requeued)")
+                ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
             else:
                 logging.error(f"Download process failed (exit code {exit_code}), message will be requeued")
                 ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
