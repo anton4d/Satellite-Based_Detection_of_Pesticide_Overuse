@@ -64,9 +64,11 @@ class CatalogApiHandler:
                             logging.debug(f"list has:{len(uniqueDates)} dates in it before next")
                             uniqueDates.update(self.GetPictureDates(Polygon, FieldId,FromDate,ToDate ,next)) 
                             logging.debug(f"list has:{len(uniqueDates)} dates in it after next")
-                        with open('DateMetaData.csv', 'a', newline='') as csvfile:
+                            
+                        """with open('DateMetaData.csv', 'a', newline='') as csvfile:
                             writer = csv.writer(csvfile)
                             writer.writerow(DateMetaData)
+                        """
                     return uniqueDates
                 else:
                     logging.warning("No features found on the date")
