@@ -52,7 +52,7 @@ def callback(ch, method, properties, body, executor):
                 logging.info(f"Download process completed successfully, ACK sent for: {message}")
                 ch.basic_ack(delivery_tag=method.delivery_tag)
             elif exit_code == 4:
-                logging.error(f"Download process gotten a message with not a supportet mode -> Sending NACK (not requeued)")
+                logging.error(f"Download process gotten a message that is not supportet-> Sending NACK (not requeued)")
                 ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
             else:
                 logging.error(f"Download process failed (exit code {exit_code}), message will be requeued")
@@ -76,7 +76,7 @@ def shutdown_handler(channel, connection, executor):
 def consume():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', heartbeat=30))
     channel = connection.channel()
-    channel.queue_declare(queue='task_queue', durable=True)
+    channel.queue_declare(queue='Download_task_queue', durable=True)
     channel.basic_qos(prefetch_count=1)
 
 
@@ -84,7 +84,7 @@ def consume():
 
 
     on_message_callback = lambda ch, method, properties, body: callback(ch, method, properties, body, executor)
-    channel.basic_consume(queue='task_queue', on_message_callback=on_message_callback)
+    channel.basic_consume(queue='Download_task_queue', on_message_callback=on_message_callback)
 
 
     logging.info("Starting RabbitMQ consumer...")

@@ -1,13 +1,18 @@
 services:
   rabbitmq:
-    image: rabbitmq:3
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
     restart: always
     ports:
-      - '5672:5672'
+      - 5672:5672
+      - 15672:15672
     volumes:
       - ./conf/myrabbit.conf:/etc/rabbitmq/rabbitmq.conf
+    networks:
+      - rabbitmq_go_net
   db:
     image: mysql:5.7
+    container_name: Db
     restart: always
     environment:
       MYSQL_DATABASE: 'db'
@@ -23,6 +28,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    container_name: DBstatus
     restart: always
     environment:
       PMA_HOST: db
@@ -34,3 +40,7 @@ services:
 
 volumes:
   my-db:
+
+networks:
+  rabbitmq_go_net:
+    driver: bridge

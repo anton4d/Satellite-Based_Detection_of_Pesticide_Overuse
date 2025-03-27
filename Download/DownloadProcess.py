@@ -133,7 +133,7 @@ def validate_message_data(message_data):
     DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\w+\|(\w+| )\|\d{3,4}$")
     if not DATEPATTERN.match(message_data):
         logging.error(f"Invalid MessagesData format: {message_data}")
-        sys.exit(1)
+        sys.exit(4)
     return message_data.split("|")
 
 def main():
