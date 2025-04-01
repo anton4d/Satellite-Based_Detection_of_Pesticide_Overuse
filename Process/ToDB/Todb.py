@@ -1,6 +1,6 @@
 import numpy as np
 import mysql.connector
-import rasterio, os, logging
+import rasterio, os, logging,json
 import matplotlib
 import geopandas as gpd
 from shapely import wkt
@@ -56,20 +56,29 @@ class ToDb:
                         StdRed = np.nanstd(out_image_red[valid_pixels]).item()
                         MinRed = np.nanmin(out_image_red[valid_pixels]).item()
                         MaxRed = np.nanmax(out_image_red[valid_pixels]).item()
+                        hist, bins = np.histogram(out_image_red[valid_pixels], density=True)
+                        HistJsonRed = json.dumps({"hist": hist.tolist(), "bins": bins.tolist()}) 
+
                         averageNirRed = np.nanmean(out_image_nir[valid_pixels]).item()
                         MedianNirRed = np.nanmedian(out_image_nir[valid_pixels]).item()
                         StdNirRed = np.nanstd(out_image_nir[valid_pixels]).item()
                         MinNirRed = np.nanmin(out_image_nir[valid_pixels]).item()
                         MaxNirRed = np.nanmax(out_image_nir[valid_pixels]).item()
+                        hist, bins = np.histogram(out_image_nir[valid_pixels], density=True)
+                        HistJsonNir = json.dumps({"hist": hist.tolist(), "bins": bins.tolist()}) 
+
                         averageNdvi = np.nanmean(ndvi).item()
                         MedianNdvi = np.nanmedian(ndvi[valid_pixels]).item()
                         StdNdvi = np.nanstd(ndvi[valid_pixels]).item()
                         MinNdvi = np.nanmin(ndvi[valid_pixels]).item()
                         MaxNdvi = np.nanmax(ndvi[valid_pixels]).item()
+                        hist, bins = np.histogram(ndvi[valid_pixels], density=True)
+                        HistJsonNdvi = json.dumps({"hist": hist.tolist(), "bins": bins.tolist()}) 
 
-                        data_to_insert = [FieldID, Date, averageRed,MedianRed,StdRed,MinRed,MaxRed, 
-                                        averageNirRed,MedianNirRed,StdNirRed,MinNirRed,MaxNirRed, 
-                                        averageNdvi,MedianNdvi,StdNdvi,MinNdvi,MaxNdvi]
+                        data_to_insert = [  FieldID, Date, averageRed,MedianRed,StdRed,MinRed,MaxRed, HistJsonRed, 
+                                            averageNirRed,MedianNirRed,StdNirRed,MinNirRed,MaxNirRed, HistJsonNir,
+                                            averageNdvi,MedianNdvi,StdNdvi,MinNdvi,MaxNdvi, HistJsonNdvi
+                                        ]
                         logging.info(data_to_insert)
                         self.SqlHandler.insertSimpleDataPointsForAfield(data_to_insert)
                         logging.info(f"Inserted NDVI data for Field ID {FieldID} on {Date}.")
