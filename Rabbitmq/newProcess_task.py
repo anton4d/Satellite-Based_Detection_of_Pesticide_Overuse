@@ -57,7 +57,7 @@ if __name__ == "__main__":
 
     try:
         start_date = datetime.strptime(args.start_date, "%Y-%m-%d")
-        end_date = datetime.strptime(args.end_date, "%Y-%m-%d") + timedelta(days=1)  # Include last day
+        end_date = datetime.strptime(args.end_date, "%Y-%m-%d")
     except ValueError:
         print("Invalid date format. Use YYYY-MM-DD.")
         sys.exit(1)
