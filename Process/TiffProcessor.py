@@ -1,4 +1,5 @@
 import logging, os, dotenv, sys, re, argparse
+from datetime import datetime, timedelta
 from ToDB.Todb import ToDb 
 from ToDB.TiffIntersector import TiffIntersector
 from Database.SQLHandler import SQLHandler
@@ -15,14 +16,18 @@ def setup_logging(log_file="Process.log"):
     logging.info(f"Logging initialized. Writing to {log_file}")
 
 def validate_message_data(message_data):
-    DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}$")
+    DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}$")
     if not DATEPATTERN.match(message_data):
         logging.error(f"Invalid MessagesData format: {message_data}")
         sys.exit(1)
     return message_data.split("|")
 
-def ProcessTiff(Date, resolution):
-    logging.info(f"Starting the TIFF Processing for date: {Date} and resolution: {resolution}")
+def daterange(start_date, end_date):
+    for n in range((end_date - start_date).days):
+        yield start_date + timedelta(n)
+
+def ProcessTiff(start_date, end_date):
+    logging.info(f"Starting TIFF Processing from {start_date} to {end_date}")
     
     dotenvFile = dotenv.find_dotenv()
     dotenv.load_dotenv(dotenvFile)
@@ -34,34 +39,54 @@ def ProcessTiff(Date, resolution):
         database=os.getenv("DBDB")
     )
 
-    TIFF_ROOT = f"../Download/Picturesres{resolution}date{Date.replace('-', '')}"
-    output_folder = f"Processed_TIFFs{resolution}"
-    os.makedirs(output_folder, exist_ok=True)
+    for date in daterange(start_date, end_date):
+        DateStr = date.strftime("%Y-%m-%d")
+        output_folder = f"Processed_TIFFs"
+        os.makedirs(output_folder, exist_ok=True)
 
-    intersector = TiffIntersector(db_handler, TIFF_ROOT)
-    To_Db = ToDb(db_handler, intersector)
-    polygons = intersector.get_wkt_polygons()
+        # Find all downWorker folders dynamically
+        base_path = "../Download/Pictures"
+        downworker_dirs = [
+            os.path.join(base_path, d) 
+            for d in os.listdir(base_path) 
+            if os.path.isdir(os.path.join(base_path, d)) and d.startswith("downWorker")
+        ]
 
-    if polygons is not None and not polygons.empty:
-        for _, row in polygons.iterrows():
-            polygon = row["geometry"]
-            FieldID = row["FieldId"]
-            output_tiff = os.path.join(output_folder, f"processed_field_{FieldID}.tiff")
-            intersections = intersector.find_intersecting_tiffs(polygon, Date)
+        if not downworker_dirs:
+            logging.warning("No downWorker folders found in ../Pictures/")
+            continue
 
-            if intersections:
-                logging.info(f"Processing Field ID {FieldID} for {Date}.")
-                To_Db.InsertAveragePointsIntoDataBase(intersections, FieldID, Date, polygon, output_tiff)
-            else:
-                logging.info(f"No intersecting TIFFs for Field ID {FieldID} on {Date}.")
-    else:
-        logging.info("No polygons found in the database.")
+        for tiff_root in downworker_dirs:
+            logging.info(f"Searching in: {tiff_root}")
 
-    logging.info("TIFF Processing complete.")
+            try:
+                intersector = TiffIntersector(db_handler, tiff_root)
+                to_db = ToDb(db_handler, intersector)
+                polygons = intersector.get_wkt_polygons()
+
+                if polygons is not None and not polygons.empty:
+                    for _, row in polygons.iterrows():
+                        polygon = row["geometry"]
+                        field_id = row["FieldId"]
+                        output_tiff = os.path.join(output_folder, f"processed_field_{field_id}_{DateStr}.tiff")
+
+                        intersections = intersector.find_intersecting_tiffs(polygon, DateStr)
+
+                        if intersections:
+                            logging.info(f"Processing Field ID {field_id} from {tiff_root} for {DateStr}.")
+                            to_db.InsertAveragePointsIntoDataBase(intersections, field_id, DateStr, polygon, output_tiff)
+                        else:
+                            logging.info(f"No intersecting TIFFs for Field ID {field_id} on {DateStr} in {tiff_root}.")
+                else:
+                    logging.info(f"No polygons found in DB for {tiff_root}")
+            except Exception as e:
+                logging.error(f"Error processing {tiff_root} for {DateStr}: {e}")
+
+        logging.info(f"Completed TIFF processing for {DateStr}")
 
 def main():
     parser = argparse.ArgumentParser(description="Process TIFFs into NDVI data.")
-    parser.add_argument("MessagesData", help="Data in format YYYY-MM-DD|resolution")
+    parser.add_argument("MessagesData", help="Data in format YYYY-MM-DD")
     parser.add_argument("LogFile", nargs="?", default="tiff_process.log", help="Log file name")
 
     args = parser.parse_args()
@@ -73,8 +98,10 @@ def main():
         workername = match.group(1)
 
     logging.info(f"Received MessagesData: {args.MessagesData}")
-    Date, Resolution = validate_message_data(args.MessagesData)
-    ProcessTiff(Date, Resolution)
+    start_str, end_str = validate_message_data(args.MessagesData)
+    start_date = datetime.strptime(start_str, "%Y-%m-%d")
+    end_date = datetime.strptime(end_str, "%Y-%m-%d")
+    ProcessTiff(start_date, end_date)
 
 if __name__ == "__main__":
     main()

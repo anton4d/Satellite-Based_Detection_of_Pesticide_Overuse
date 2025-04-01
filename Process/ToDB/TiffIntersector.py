@@ -35,26 +35,23 @@ class TiffIntersector:
     def find_intersecting_tiffs(self, polygon, date):
         """
         Finds TIFF files that intersect with a given polygon for a given date.
-        If multiple tiff files intersects with a polygon, merge them into a temporary singular tiff file.
+        If multiple TIFF files intersect with a polygon, merge them into one.
         """
         try:
             intersecting_tiffs = []
 
-            for region in os.listdir(self.TIFF_ROOT):
-                region_path = os.path.join(self.TIFF_ROOT, region)
-                if os.path.isdir(region_path):
-                    tiff_path = os.path.join(region_path, f"{date}.tiff")
-                    if os.path.exists(tiff_path):
+            for root, _, files in os.walk(self.TIFF_ROOT):
+                for file in files:
+                    if file.endswith(".tiff") and date in file:
+                        tiff_path = os.path.join(root, file)
                         with rasterio.open(tiff_path) as src:
                             tiff_geom = box(*src.bounds)
 
-                            # Reproject polygon to gpd, which has a CRS.
                             if isinstance(polygon, gpd.GeoSeries):
                                 poly = polygon.iloc[0]
                             else:
                                 poly = polygon
 
-                            # Reproject the polygon to raster CRS
                             poly_proj = gpd.GeoSeries([poly], crs="EPSG:4326").to_crs(src.crs).iloc[0]
 
                             if poly_proj.intersects(tiff_geom):
@@ -62,9 +59,9 @@ class TiffIntersector:
 
             logging.info(f"Polygon intersects {len(intersecting_tiffs)} TIFFs on {date}. Array: {intersecting_tiffs}")
             logging.info(polygon)
+
             if len(intersecting_tiffs) == 1:
-                intersecting_tiffs = intersecting_tiffs[0]
-                return intersecting_tiffs
+                return intersecting_tiffs[0]
 
             if len(intersecting_tiffs) > 1:
                 merged_path = f"../tempMergedTiff/merged_{date}.tiff"
@@ -76,23 +73,23 @@ class TiffIntersector:
 
                 out_meta = src_files_to_merge[0].meta.copy()
                 out_meta.update({
-                "driver": "GTiff",
-                "height": merged_array.shape[1],
-                "width": merged_array.shape[2],
-                "transform": merged_transform
+                    "driver": "GTiff",
+                    "height": merged_array.shape[1],
+                    "width": merged_array.shape[2],
+                    "transform": merged_transform
                 })
 
                 with rasterio.open(merged_path, "w", **out_meta) as dest:
                     dest.write(merged_array)
 
-                logging.info(f"Merged {len(intersecting_tiffs)} TIFFs into {merged_path}")
-
                 for src in src_files_to_merge:
                     src.close()
 
-                intersecting_tiffs = merged_path
-                return intersecting_tiffs
+                logging.info(f"Merged {len(intersecting_tiffs)} TIFFs into {merged_path}")
+                return merged_path
 
             return None
+
         except Exception as e:
-                    logging.error(f"Failed to create intersections correctly maybe? : {e}") 
+            logging.error(f"Failed to create intersections correctly maybe? : {e}")
+            return None

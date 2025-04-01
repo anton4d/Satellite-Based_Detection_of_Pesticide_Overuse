@@ -6,7 +6,7 @@ import logging
 import argparse
 import concurrent.futures
 
-DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}$")
+DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}$")
 log_filename = "tiff_process.log"
 
 def setup_logging(log_filename):
