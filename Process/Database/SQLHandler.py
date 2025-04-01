@@ -48,9 +48,9 @@ class SQLHandler:
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 FieldId INT NOT NULL,
                 collection_date DATE,
-                AverageRed FLOAT, MedianRed FLOAT, STDRed FLOAT, MinRed FLOAT, MaxRed FLOAT, 
-                AverageNir FLOAT, MedianNir FLOAT, STDNir FLOAT, MinNir FLOAT, MaxNir FLOAT, 
-                AverageNdvi FLOAT, MedianNdvi FLOAT, STDNdvi FLOAT, MinNdvi FLOAT, MaxNdvi FLOAT, 
+                AverageRed FLOAT, MedianRed FLOAT, STDRed FLOAT, MinRed FLOAT, MaxRed FLOAT, HistRed JSON,
+                AverageNir FLOAT, MedianNir FLOAT, STDNir FLOAT, MinNir FLOAT, MaxNir FLOAT, HistNir JSON,
+                AverageNdvi FLOAT, MedianNdvi FLOAT, STDNdvi FLOAT, MinNdvi FLOAT, MaxNdvi FLOAT, HistNdvi JSON,
                 FOREIGN KEY (FieldId) REFERENCES Field(FieldId)
             );
             """
@@ -66,13 +66,13 @@ class SQLHandler:
         try:
             insert_query = """
             INSERT INTO ndvi_data (FieldId,collection_date,
-            AverageRed, MedianRed, STDRed, MinRed, MaxRed,
-            AverageNir,MedianNir, STDNir, MinNir, MaxNir,
-            AverageNdvi,MedianNdvi, STDNdvi, MinNdvi, MaxNdvi)
+            AverageRed, MedianRed, STDRed, MinRed, MaxRed, HistRed,
+            AverageNir,MedianNir, STDNir, MinNir, MaxNir, HistNir,
+            AverageNdvi,MedianNdvi, STDNdvi, MinNdvi, MaxNdvi, HistNdvi)
             VALUES (%s,%s,
-            %s, %s, %s, %s,%s,
-            %s, %s, %s, %s,%s,
-            %s, %s, %s, %s,%s)
+            %s, %s, %s, %s,%s,%s,
+            %s, %s, %s, %s,%s,%s,
+            %s, %s, %s, %s,%s,%s)
             """
             self.cursor.execute(insert_query,ListOfData)
             self.connection.commit()
