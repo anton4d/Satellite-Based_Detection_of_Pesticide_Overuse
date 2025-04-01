@@ -13,7 +13,7 @@ def split_date_range(start_date, end_date, workers, max_days=10):
         if i == workers - 1:
             next_date = end_date
         worker_chunks.append((current_date, next_date))
-        current_date = next_date
+        current_date = next_date + timedelta(days=1)
 
     final_chunks = []
     for worker_start, worker_end in worker_chunks:
@@ -21,13 +21,13 @@ def split_date_range(start_date, end_date, workers, max_days=10):
         while current < worker_end:
             next_chunk = min(current + timedelta(days=max_days), worker_end)
             final_chunks.append((current, next_chunk))
-            current = next_chunk
+            current = next_chunk + timedelta(days=1)
 
     return final_chunks
 
-def distribute_tasks(start_date, end_date, workers, resolution):
+def distribute_tasks(start_date, end_date, workers):
     chunks = split_date_range(start_date, end_date, workers)
-    messages = [f"{chunk[0].strftime('%Y-%m-%d')}|{resolution}" for chunk in chunks]
+    messages = [f"{chunk[0].strftime('%Y-%m-%d')}|{chunk[1].strftime('%Y-%m-%d')}" for chunk in chunks]
     return messages
 
 def send_messages(messages):
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     parser.add_argument("start_date", help="Start date (YYYY-MM-DD)")
     parser.add_argument("end_date", help="End date (YYYY-MM-DD)")
     parser.add_argument("workers", type=int, help="Number of workers")
-    parser.add_argument("resolution", type=int, help="Image resolution")
+
 
     args = parser.parse_args()
 
@@ -66,5 +66,5 @@ if __name__ == "__main__":
         print("Error: Workers must be at least 1.")
         sys.exit(1)
 
-    messages = distribute_tasks(start_date, end_date, args.workers, args.resolution)
+    messages = distribute_tasks(start_date, end_date, args.workers)
     send_messages(messages)
