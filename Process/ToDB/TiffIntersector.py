@@ -57,8 +57,8 @@ class TiffIntersector:
                             if poly_proj.intersects(tiff_geom):
                                 intersecting_tiffs.append(tiff_path)
 
-            logging.info(f"Polygon intersects {len(intersecting_tiffs)} TIFFs on {date}. Array: {intersecting_tiffs}")
-            logging.info(polygon)
+            #logging.info(f"Polygon intersects {len(intersecting_tiffs)} TIFFs on {date}. Array: {intersecting_tiffs}")
+            #logging.info(polygon)
 
             if len(intersecting_tiffs) == 1:
                 return intersecting_tiffs[0]
