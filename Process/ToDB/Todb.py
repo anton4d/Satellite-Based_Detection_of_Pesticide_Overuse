@@ -22,7 +22,8 @@ class ToDb:
             with rasterio.open(path) as src:
                 if src.crs != "EPSG:4326":
                     polygon = polygon.to_crs(src.crs)
-  
+                foldername = os.path.basename(os.path.dirname(path))
+                BBid = foldername.replace("FieldId","")
                 #out_image_red = src.read(1).astype(np.float32)
                 #out_image_nir = src.read(2).astype(np.float32) 
                 #DataMask = src.read(3)
@@ -75,10 +76,10 @@ class ToDb:
                         hist, bins = np.histogram(ndvi[valid_pixels], density=True)
                         HistJsonNdvi = json.dumps({"hist": hist.tolist(), "bins": bins.tolist()}) 
 
-                        data_to_insert = [  FieldID, Date, averageRed,MedianRed,StdRed,MinRed,MaxRed, HistJsonRed, 
-                                            averageNirRed,MedianNirRed,StdNirRed,MinNirRed,MaxNirRed, HistJsonNir,
-                                            averageNdvi,MedianNdvi,StdNdvi,MinNdvi,MaxNdvi, HistJsonNdvi
-                                        ]
+
+                        data_to_insert = [FieldID, Date,BBid, averageRed,MedianRed,StdRed,MinRed,MaxRed, 
+                                        averageNirRed,MedianNirRed,StdNirRed,MinNirRed,MaxNirRed, 
+                                        averageNdvi,MedianNdvi,StdNdvi,MinNdvi,MaxNdvi]
                         logging.info(data_to_insert)
                         self.SqlHandler.insertSimpleDataPointsForAfield(data_to_insert)
                         logging.info(f"Inserted NDVI data for Field ID {FieldID} on {Date}.")
