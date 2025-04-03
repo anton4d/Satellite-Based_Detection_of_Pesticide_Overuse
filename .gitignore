@@ -168,3 +168,4 @@ Models/*
 !Models/
 *.tiff
 ResponseCatalog.txt
+Process/plot/*.png

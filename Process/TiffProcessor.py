@@ -63,7 +63,7 @@ def ProcessTiff(start_date, end_date):
                         logging.info(f"Processing Field ID {field_id} from {tiff_root} for {DateStr}.")
                         to_db.InsertAveragePointsIntoDataBase(intersections, field_id, DateStr, polygon, output_tiff)
                     else:
-                        logging.info(f"No intersecting TIFFs for Field ID {field_id} on {DateStr} in {tiff_root}.")
+                        logging.debug(f"No intersecting TIFFs for Field ID {field_id} on {DateStr} in {tiff_root}.")
             else:
                 logging.info(f"No polygons found in DB for {tiff_root}")
         except Exception as e:
