@@ -48,16 +48,10 @@ class SQLHandler:
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 FieldId INT NOT NULL,
                 collection_date DATE,
-<<<<<<< HEAD
-                AverageRed FLOAT, MedianRed FLOAT, STDRed FLOAT, MinRed FLOAT, MaxRed FLOAT, HistRed JSON,
-                AverageNir FLOAT, MedianNir FLOAT, STDNir FLOAT, MinNir FLOAT, MaxNir FLOAT, HistNir JSON,
-                AverageNdvi FLOAT, MedianNdvi FLOAT, STDNdvi FLOAT, MinNdvi FLOAT, MaxNdvi FLOAT, HistNdvi JSON,
-=======
                 BBID Varchar(255) NOT NULL,
                 AverageRed FLOAT, MedianRed FLOAT, STDRed FLOAT, MinRed FLOAT, MaxRed FLOAT, 
                 AverageNir FLOAT, MedianNir FLOAT, STDNir FLOAT, MinNir FLOAT, MaxNir FLOAT, 
                 AverageNdvi FLOAT, MedianNdvi FLOAT, STDNdvi FLOAT, MinNdvi FLOAT, MaxNdvi FLOAT, 
->>>>>>> 2c5bbfa (Made Graph maker that takes the input from database and plots a line plot)
                 FOREIGN KEY (FieldId) REFERENCES Field(FieldId)
             );
             """
@@ -143,7 +137,30 @@ class SQLHandler:
             return Datadict
         
         except mysql.connector.Error as err:
-            logging.error(f"Error inserting data: {err}")
+            logging.error(f"Error Getting data: {err}")
+            raise
+
+    def GetAllNdviBasedOnDate(self,Date):
+        try:
+            get_query = """
+            SELECT collection_date, FieldId, AverageNdvi, MinNdvi, MaxNdvi, BBID
+            FROM ndvi_data
+            WHERE collection_date = %s
+            ORDER BY collection_date ASC
+            """
+            values = (Date,)
+            self.cursor.execute(get_query,values)
+            results = self.cursor.fetchall()
+            Datadict = {id: {"minNdvi": minNdvi,
+                               "MaxNdvi":maxNdvi,
+                               "AverageNdvi": avgNdvi,
+                               "Date": date,
+                               "CloudCover": self.GetCloudCoverBasedOnDateAndBBID(BBID,date)
+                               } 
+                               for date, id, avgNdvi,minNdvi,maxNdvi, BBID in results}
+            return Datadict
+        except mysql.connector.Error as err:
+            logging.error(f"Error Getting data: {err}")
             raise
 
     def GetCloudCoverBasedOnDateAndBBID(self,ID,Date):
@@ -159,7 +176,7 @@ class SQLHandler:
             CloudCoverStringComma = ",".join(str(CloudCover[0]) for CloudCover in results)
             return CloudCoverStringComma
         except mysql.connector.Error as err:
-            logging.error(f"Error inserting data: {err}")
+            logging.error(f"Error Getting data: {err}")
             raise
 
 if __name__ == "__main__":
