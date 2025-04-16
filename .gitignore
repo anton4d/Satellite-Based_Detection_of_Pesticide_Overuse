@@ -169,3 +169,5 @@ Models/*
 *.tiff
 ResponseCatalog.txt
 Process/plot/*.png
+Shapefiles/*.zip
+Shapefiles/Mark*/*
