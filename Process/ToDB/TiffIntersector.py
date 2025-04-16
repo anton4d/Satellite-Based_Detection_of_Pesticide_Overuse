@@ -14,23 +14,6 @@ class TiffIntersector:
         self.SqlHandler = SqlHandler
         self.TIFF_ROOT = tiff_root
 
-    def get_wkt_polygons(self):
-        """
-        Fetch WKT polygons from the database and return as a GeoDataFrame, that allows for spatial data.
-        """
-        conn = self.SqlHandler.connection
-        cur = conn.cursor()
-
-        query = "SELECT FieldId, ST_AsText(Polygon) FROM Field;"
-        cur.execute(query)
-        records = cur.fetchall()
-
-        # Convert to GeoDataFrame
-        polygons = [{"FieldId": row[0], "geometry": wkt.loads(row[1])} for row in records]
-        gdf = gpd.GeoDataFrame(polygons, crs="EPSG:4326")
-        
-        logging.info(f"Retrieved {len(gdf)} polygons from the database.")
-        return gdf
 
     def find_intersecting_tiffs(self, polygon, date):
         """

@@ -16,7 +16,7 @@ def setup_logging(log_file="Process.log"):
     logging.info(f"Logging initialized. Writing to {log_file}")
 
 def validate_message_data(message_data):
-    DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}$")
+    DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}\|\d{1,2}\|\w*$")
     if not DATEPATTERN.match(message_data):
         logging.error(f"Invalid MessagesData format: {message_data}")
         sys.exit(1)
@@ -26,8 +26,8 @@ def daterange(start_date, end_date):
     for n in range((end_date - start_date).days + 1):
         yield start_date + timedelta(n)
 
-def ProcessTiff(start_date, end_date):
-    logging.info(f"Starting TIFF Processing from {start_date} to {end_date}")
+def ProcessTiff(start_date, end_date,CropId,saveTiff):
+    logging.info(f"Starting TIFF Processing from {start_date} to {end_date} with crop id:{CropId}")
     
     dotenvFile = dotenv.find_dotenv()
     dotenv.load_dotenv(dotenvFile)
@@ -43,25 +43,29 @@ def ProcessTiff(start_date, end_date):
 
     for date in daterange(start_date, end_date):
         DateStr = date.strftime("%Y-%m-%d")
+        year = date.strftime("%Y")
         output_folder = f"Processed_TIFFs"
         os.makedirs(output_folder, exist_ok=True)
 
         try:
             intersector = TiffIntersector(db_handler, tiff_root)
             to_db = ToDb(db_handler, intersector)
-            polygons = intersector.get_wkt_polygons()
+            polygons = db_handler.getAllPolygonsBasedOnYearAndCropType(year=year,cropid=CropId)
 
             if polygons is not None and not polygons.empty:
                 for _, row in polygons.iterrows():
                     polygon = row["geometry"]
                     field_id = row["FieldId"]
-                    output_tiff = os.path.join(output_folder, f"processed_field_{field_id}_{DateStr}.tiff")
+                    if saveTiff=="True":
+                        output_tiff = os.path.join(output_folder, f"processed_field_{field_id}_{DateStr}.tiff")
+                    else:
+                        output_tiff = "None"
 
                     intersections = intersector.find_intersecting_tiffs(polygon, DateStr)
 
                     if intersections:
                         logging.info(f"Processing Field ID {field_id} from {tiff_root} for {DateStr}.")
-                        to_db.InsertAveragePointsIntoDataBase(intersections, field_id, DateStr, polygon, output_tiff)
+                        to_db.InsertAveragePointsIntoDataBase(intersections, field_id, CropId ,DateStr, polygon, output_tiff)
                     else:
                         logging.debug(f"No intersecting TIFFs for Field ID {field_id} on {DateStr} in {tiff_root}.")
             else:
@@ -73,7 +77,7 @@ def ProcessTiff(start_date, end_date):
 
 def main():
     parser = argparse.ArgumentParser(description="Process TIFFs into NDVI data.")
-    parser.add_argument("MessagesData", help="Data in format YYYY-MM-DD")
+    parser.add_argument("MessagesData", help="Data in format YYYY-MM-DD|yyyy-MM-DD|CropId")
     parser.add_argument("LogFile", nargs="?", default="tiff_process.log", help="Log file name")
 
     args = parser.parse_args()
@@ -85,10 +89,10 @@ def main():
         workername = match.group(1)
 
     logging.info(f"Received MessagesData: {args.MessagesData}")
-    start_str, end_str = validate_message_data(args.MessagesData)
+    start_str, end_str, CropID, saveTiff = validate_message_data(args.MessagesData)
     start_date = datetime.strptime(start_str, "%Y-%m-%d")
     end_date = datetime.strptime(end_str, "%Y-%m-%d")
-    ProcessTiff(start_date, end_date)
+    ProcessTiff(start_date, end_date,CropID, saveTiff)
 
 if __name__ == "__main__":
     main()
