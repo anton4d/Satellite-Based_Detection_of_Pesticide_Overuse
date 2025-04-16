@@ -3,7 +3,6 @@ import logging, dotenv, os, time , sys,csv,argparse,re
 
 from shapely.geometry import box
 from shapely.wkt import dumps
-from Gis.geojsonToDB import GeoJsonToDB
 from Gis.WktHandler import ConvertWktToNestedCords
 from Database.SQLHandler import SQLHandler
 from Api.CatalogApiHandler import CatalogApiHandler
@@ -32,11 +31,6 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution):
         password=os.getenv("DBPASSWORD"),
         database=os.getenv("DBDB")
     )
-    geojson_path = '../Shapefiles/Marker_2020.geojson'
-
-    geojsonToDB = GeoJsonToDB(
-        geojson_path, 
-        db_handler)
     
     Token_ApiHandler = TokenApiHandler(
         ClientId=os.getenv("ApiClienId"),
@@ -54,7 +48,7 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution):
         TokenApiHandler=Token_ApiHandler,
         SQLHandler=db_handler
     )
-    geojsonToDB.process_geojson()
+    
     polygondict = {}
     if mode == "Field":
         logging.info("DownloadProcess will use Fields")
