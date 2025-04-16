@@ -6,7 +6,7 @@ import logging
 import argparse
 import concurrent.futures
 
-DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}$")
+DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}\|\d{1,2}\|\w*$")
 log_filename = "tiff_process.log"
 
 def setup_logging(log_filename):
@@ -45,6 +45,9 @@ def callback(ch, method, properties, body, executor):
             if exit_code == 0:
                 logging.info(f"TIFF process completed, ACK sent.")
                 ch.basic_ack(delivery_tag=method.delivery_tag)
+            elif exit_code ==1:
+                logging.error(f"TIFF process failed (exit {exit_code}), not requeued.")
+                ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
             else:
                 logging.error(f"TIFF process failed (exit {exit_code}), requeued.")
                 ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)

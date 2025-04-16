@@ -14,7 +14,7 @@ class ToDb:
     def __init__(self, SqlHandler, intersector):
         self.SqlHandler = SqlHandler
 
-    def InsertAveragePointsIntoDataBase(self, path, FieldID, Date, polygon, output_tiff):
+    def InsertAveragePointsIntoDataBase(self, path, FieldID,CropId, Date, polygon, output_tiff):
         """Process a TIFF image: compute average NDVI & save a new TIFF with out_image_red, NIR, Mask, and NDVI"""
         logging.info("Starting TIFF to database and new image process")
 
@@ -77,40 +77,42 @@ class ToDb:
                         HistJsonNdvi = json.dumps({"hist": hist.tolist(), "bins": bins.tolist()}) 
 
 
-                        data_to_insert = [FieldID, Date,BBid, averageRed,MedianRed,StdRed,MinRed,MaxRed, 
+                        data_to_insert = [FieldID, CropId,Date,BBid, 
+                                        averageRed,MedianRed,StdRed,MinRed,MaxRed, 
                                         averageNirRed,MedianNirRed,StdNirRed,MinNirRed,MaxNirRed, 
                                         averageNdvi,MedianNdvi,StdNdvi,MinNdvi,MaxNdvi]
                         logging.info(data_to_insert)
                         self.SqlHandler.insertSimpleDataPointsForAfield(data_to_insert)
                         logging.info(f"Inserted NDVI data for Field ID {FieldID} on {Date}.")
 
-                        out_meta = src.meta.copy()
-                        out_meta.update({
-                        "driver": "GTiff",
-                        "height": out_image_red.shape[0],
-                        "width": out_image_red.shape[1],
-                        "transform": out_transform,
-                        "count": 4,
-                        "dtype": "float32"
-                        })
 
-                        #stacked_bands = np.stack([
-                        #out_image_red, 
-                        #out_image_nir, 
-                        #DataMask.astype(np.float32), 
-                        #ndvi])
-                        stacked_bands = np.stack([
-                        out_image_red, 
-                        out_image_nir, 
-                        out_image_dMask.astype(np.float32),
-                        ndvi
-                        ])
+                        if output_tiff != "None":
 
+                            out_meta = src.meta.copy()
+                            out_meta.update({
+                            "driver": "GTiff",
+                            "height": out_image_red.shape[0],
+                            "width": out_image_red.shape[1],
+                            "transform": out_transform,
+                            "count": 4,
+                            "dtype": "float32"
+                            })
 
-                        with rasterio.open(output_tiff, "w", **out_meta) as dest:
-                            dest.write(stacked_bands)
+                            #stacked_bands = np.stack([
+                            #out_image_red, 
+                            #out_image_nir, 
+                            #DataMask.astype(np.float32), 
+                            #ndvi])
+                            stacked_bands = np.stack([
+                            out_image_red, 
+                            out_image_nir, 
+                            out_image_dMask.astype(np.float32),
+                            ndvi
+                            ])
+                            with rasterio.open(output_tiff, "w", **out_meta) as dest:
+                                dest.write(stacked_bands)
 
-                        logging.info(f"New TIFF saved as {output_tiff} with out_image_red, NIR, DataMask, and NDVI.")
+                            logging.info(f"New TIFF saved as {output_tiff} with out_image_red, NIR, DataMask, and NDVI.")
                         break
                 except Exception as er:
                     logging.error(f" out_images is empty: {er}")

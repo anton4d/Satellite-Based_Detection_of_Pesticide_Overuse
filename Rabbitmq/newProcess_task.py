@@ -25,9 +25,9 @@ def split_date_range(start_date, end_date, workers, max_days=10):
 
     return final_chunks
 
-def distribute_tasks(start_date, end_date, workers):
+def distribute_tasks(start_date, end_date,CropId,SaveTiff, workers):
     chunks = split_date_range(start_date, end_date, workers)
-    messages = [f"{chunk[0].strftime('%Y-%m-%d')}|{chunk[1].strftime('%Y-%m-%d')}" for chunk in chunks]
+    messages = [f"{chunk[0].strftime('%Y-%m-%d')}|{chunk[1].strftime('%Y-%m-%d')}|{CropId}|{SaveTiff}" for chunk in chunks]
     return messages
 
 def send_messages(messages):
@@ -51,13 +51,16 @@ if __name__ == "__main__":
     parser.add_argument("start_date", help="Start date (YYYY-MM-DD)")
     parser.add_argument("end_date", help="End date (YYYY-MM-DD)")
     parser.add_argument("workers", type=int, help="Number of workers")
-
+    parser.add_argument("CropId",type=int, help="The cropid you want to process")
+    parser.add_argument("SaveTiff",choices=["True","False"], help="If you want save the tiff")
 
     args = parser.parse_args()
 
     try:
         start_date = datetime.strptime(args.start_date, "%Y-%m-%d")
         end_date = datetime.strptime(args.end_date, "%Y-%m-%d")
+        cropid = args.CropId
+        saveTiff = args.SaveTiff
     except ValueError:
         print("Invalid date format. Use YYYY-MM-DD.")
         sys.exit(1)
@@ -66,5 +69,5 @@ if __name__ == "__main__":
         print("Error: Workers must be at least 1.")
         sys.exit(1)
 
-    messages = distribute_tasks(start_date, end_date, args.workers)
+    messages = distribute_tasks(start_date, end_date, cropid,saveTiff, args.workers)
     send_messages(messages)

@@ -1,6 +1,8 @@
 import mysql.connector
 from mysql.connector import errorcode
 import logging
+from shapely import wkt
+import geopandas as gpd
 
 class SQLHandler:
     def __init__(self, host, user, password, database):
@@ -47,12 +49,14 @@ class SQLHandler:
             CREATE TABLE IF NOT EXISTS ndvi_data (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 FieldId INT NOT NULL,
+                CropId INT NOT NULL,
                 collection_date DATE,
                 BBID Varchar(255) NOT NULL,
                 AverageRed FLOAT, MedianRed FLOAT, STDRed FLOAT, MinRed FLOAT, MaxRed FLOAT, 
                 AverageNir FLOAT, MedianNir FLOAT, STDNir FLOAT, MinNir FLOAT, MaxNir FLOAT, 
                 AverageNdvi FLOAT, MedianNdvi FLOAT, STDNdvi FLOAT, MinNdvi FLOAT, MaxNdvi FLOAT, 
-                FOREIGN KEY (FieldId) REFERENCES Field(FieldId)
+                FOREIGN KEY (FieldId) REFERENCES Field(FieldId),
+                FOREIGN KEY (CropId) REFERENCES CropType(CropId)
             );
             """
             self.cursor.execute(create_table_query)
@@ -66,11 +70,11 @@ class SQLHandler:
     def insertSimpleDataPointsForAfield(self, ListOfData):
         try:
             insert_query = """
-            INSERT INTO ndvi_data (FieldId,collection_date, BBID,
+            INSERT INTO ndvi_data (FieldId,CropId,collection_date, BBID,
             AverageRed, MedianRed, STDRed, MinRed, MaxRed,
             AverageNir,MedianNir, STDNir, MinNir, MaxNir,
             AverageNdvi,MedianNdvi, STDNdvi, MinNdvi, MaxNdvi)
-            VALUES (%s,%s, %s,
+            VALUES (%s,%s, %s, %s,
             %s, %s, %s, %s,%s,
             %s, %s, %s, %s,%s,
             %s, %s, %s, %s,%s)
@@ -81,6 +85,34 @@ class SQLHandler:
             logging.error(f"Error inserting data: {err}")
             raise
 
+    def getAllPolygonsBasedOnYearAndCropType(self, year: int, cropid: int) -> gpd.GeoDataFrame:
+        try:
+            get_query = """
+            SELECT Field.FieldId, ST_AsText(Field.Polygon)
+            FROM Field 
+            INNER JOIN FieldCropYear ON Field.FieldId = FieldCropYear.FieldId
+            WHERE FieldCropYear.Year = %s AND FieldCropYear.CropId = %s
+            ORDER BY Field.FieldId ASC
+            """
+            values = (year, cropid)
+            self.cursor.execute(get_query, values)
+            records = self.cursor.fetchall()
+
+            if not records:
+                logging.warning("No polygons found for the given year and crop type.")
+                return gpd.GeoDataFrame(columns=["FieldId", "geometry"], crs="EPSG:4326")
+
+            polygons = [{"FieldId": row[0], "geometry": wkt.loads(row[1])} for row in records]
+            gdf = gpd.GeoDataFrame(polygons, crs="EPSG:4326")
+
+            logging.info(f"Retrieved {len(gdf)} polygons from the database.")
+            return gdf
+
+        except mysql.connector.Error as err:
+            logging.error(f"Error retrieving data: {err}")
+            raise
+
+    
     def insertAllDataPointsForAField(self, ListOfData):
         try:
             insert_query = """
