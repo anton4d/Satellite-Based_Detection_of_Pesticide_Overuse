@@ -104,7 +104,8 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution):
         if not CatalogData:
             logging.warning(f"No image dates found for polygon with id {FieldId}, skipping...")
             continue
-
+        if CatalogData == "No Tokens":
+            sys.exit(7)
         logging.info(f"Catalog API found {len(CatalogData)} dates for polygon with id {FieldId}")
 
         dotenv.load_dotenv(dotenvFile)

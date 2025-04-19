@@ -105,6 +105,7 @@ class ProcessApiHandler:
      
         with requests.post(url, headers=headers, json=data) as response:
             StatusCode = response.status_code
+            logging.debug(f"The status code of the api call:{StatusCode}")
             if StatusCode == 200:
                 folderName = f"Pictures/{WorkerName}/FieldId{FieldId}"  
 
@@ -123,6 +124,9 @@ class ProcessApiHandler:
                 if StatusCode == 401:
                     self.ApiToken = self.TokenApiHandler.GetToken()
                     self.processDateIntoImages(Date,polygon, FieldId,resolution,WorkerName)
+                elif StatusCode == 403:
+                    logging.error("No more tokens")
+                    sys.exit(7)
                 else:
                     raise Exception(f"API request failed with status {response.status_code}")
 

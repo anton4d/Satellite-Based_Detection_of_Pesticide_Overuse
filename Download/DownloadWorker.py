@@ -54,6 +54,10 @@ def callback(ch, method, properties, body, executor):
             elif exit_code == 4:
                 logging.error(f"Download process gotten a message that is not supportet-> Sending NACK (not requeued)")
                 ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
+            elif exit_code == 7:
+                logging.error("No more tokens shutdown worker but requeue task to work on it when woker is turned on again the next time tokens are aviable")
+                ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
+                sys.exit(1)
             else:
                 logging.error(f"Download process failed (exit code {exit_code}), message will be requeued")
                 ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
