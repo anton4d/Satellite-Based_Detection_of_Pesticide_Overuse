@@ -16,7 +16,7 @@ class CatalogApiHandler:
     def GetPictureDates(self,Polygon, FieldId,FromDate,ToDate, next = 0):
         """Gets a list of dates between the from and To date Where the Satalite took a picture based on a polygon"""
 
-        logging.info(f"Calling the Catalog api for catalog data on Feild with id: {FieldId} ...")
+        logging.info(f"Calling the Catalog api for catalog data on Feild with id: {FieldId} ....")
         
         
 
@@ -41,7 +41,9 @@ class CatalogApiHandler:
             data["next"] = next
         with requests.post(url, headers=headers, json=data) as response:
             responseJson = response.json()
-            if response.status_code == 200:
+            statuscode = response.status_code
+            logging.debug(f"statuscode:{statuscode}")
+            if statuscode == 200:
                 Features = responseJson.get("features", [])
                 uniqueDates = set()
                 if len(Features) >= 1:
@@ -79,11 +81,14 @@ class CatalogApiHandler:
                         json.dump(responseJson, f, indent=4)
 
                     
-            elif response.status_code == 401:
+            elif statuscode == 401:
                 logging.error("Access code has expired or is incorrect.")
                 self.ApiToken = self.TokenApiHandler.GetToken()
                 Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
                 return Data
+            elif statuscode == 403:
+                logging.error("No more tokens")
+                return "No Tokens"
             else:
                 description = responseJson.get("description", "No description provided")
                 logging.error(f"Request failed (Status: {response.status_code}) - {description}")
@@ -115,8 +120,9 @@ class CatalogApiHandler:
 
         response = requests.post(url, headers=headers, json=data)
         responseJson = response.json()
-
-        if response.status_code == 200:
+        statuscode = response.status_code
+        logging.debug(f"statuscode:{statuscode}")
+        if statuscode == 200:
             Features = responseJson.get("features", [])
             logging.info(f"Found {len(Features)} number of features")
 
@@ -141,13 +147,15 @@ class CatalogApiHandler:
 
             return uniqueBBoxes
 
-        elif response.status_code == 401:
+        elif statuscode == 401:
             logging.error("Access code has expired or is incorrect.")
             self.ApiToken = self.TokenApiHandler.GetToken()
             return self.GetPictureBBoxes(Polygon=Polygon, FieldID=FieldID)
-
+        elif statuscode == 403:
+            logging.error("No more tokens")
+            return "No Tokens"
         else:
             description = responseJson.get("description", "No description provided")
-            logging.error(f"Request failed (Status: {response.status_code}) - {description}")
-            raise Exception(f"API request failed with status {response.status_code}: {description}")
+            logging.error(f"Request failed (Status: {statuscode}) - {description}")
+            raise Exception(f"API request failed with status {statuscode}: {description}")
 
