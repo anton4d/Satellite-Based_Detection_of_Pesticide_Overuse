@@ -52,7 +52,8 @@ class SQLHandler:
                 Markblok VARCHAR(255),
                 Polygon POLYGON NOT NULL,
                 UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                INDEX idx_marknr_markblok (MarkNr, Markblok)
             );
             """
             self.cursor.execute(create_table_query)
@@ -61,7 +62,9 @@ class SQLHandler:
             create_table_query = """
             CREATE TABLE IF NOT EXISTS CropType (
                 CropId INT AUTO_INCREMENT PRIMARY KEY,
-                CropType VARCHAR(255) UNIQUE NOT NULL
+                CropType VARCHAR(255) UNIQUE NOT NULL,
+                UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );
             """
             self.cursor.execute(create_table_query)
@@ -74,7 +77,9 @@ class SQLHandler:
                 CropId INT NOT NULL,
                 Year VARCHAR(255) NOT NULL,
                 FOREIGN KEY (FieldId) REFERENCES Field(FieldId),
-                FOREIGN KEY (CropId) REFERENCES CropType(CropId)
+                FOREIGN KEY (CropId) REFERENCES CropType(CropId),
+                UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );
             """
             self.cursor.execute(create_table_query)
@@ -91,7 +96,9 @@ class SQLHandler:
                 FullDate VARCHAR(255) NOT NULL,
                 DateOnly VARCHAR(255) NOT NULL,
                 Platform VARCHAR(255) NOT NULL,
-                CloudCover Float NOT NULL
+                CloudCover Float NOT NULL,
+                UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );
             """
             self.cursor.execute(create_table_query)
@@ -116,28 +123,41 @@ class SQLHandler:
             logging.error(f"Error inserting data: {err}")
             raise
 
-    def InsertField(self, MarkNr, Journalnr, Markblok, CVR, Polygon):
-        """Insert a new fiel record into the database."""
+    def InsertOrUpdateField(self, MarkNr, Journalnr, Markblok, CVR, Polygon):
+        """Insert a new field or update it if it already exists."""
         try:
-            
-            insert_query = """
-            INSERT INTO Field (MarkNr, Journalnr, Markblok, CVR, Polygon) 
-            VALUES (%s, %s, %s, %s, ST_GeomFromText(%s))
-            """
-            self.cursor.execute(insert_query, (MarkNr, Journalnr, Markblok, CVR, Polygon))
+            # Check if the field exists
+            query = "SELECT FieldId FROM Field WHERE MarkNr = %s AND (Markblok <=> %s)"
+            self.cursor.execute(query, (MarkNr, Markblok))
+            result = self.cursor.fetchone()
+
+            if result:
+                # Field exists, perform an update
+                update_query = """
+                UPDATE Field 
+                SET Journalnr = %s,
+                    CVR = %s,
+                    Polygon = ST_GeomFromText(%s)
+                WHERE MarkNr = %s AND (Markblok <=> %s)
+                """
+                self.cursor.execute(update_query, (Journalnr, CVR, Polygon, MarkNr, Markblok))
+                logging.debug(f"Updated field with MarkNr '{MarkNr}' and Markblok '{Markblok}'.")
+            else:
+                # Field doesn't exist, perform an insert
+                insert_query = """
+                INSERT INTO Field (MarkNr, Journalnr, Markblok, CVR, Polygon)
+                VALUES (%s, %s, %s, %s, ST_GeomFromText(%s))
+                """
+                self.cursor.execute(insert_query, (MarkNr, Journalnr, Markblok, CVR, Polygon))
+                logging.debug(f"Inserted new field with MarkNr '{MarkNr}' and Markblok '{Markblok}'.")
+
             self.connection.commit()
-            logging.debug(f"Inserted new field into the database with MarkNr '{MarkNr}' and Markblok '{Markblok}'.")
+
         except mysql.connector.Error as err:
-            logging.error(f"Error inserting data: {err}")
+            logging.error(f"Error inserting/updating field: {err}")
             raise
 
-    def field_exists(self, marknr, markblok):
-        """Check if a field already exists based on MarkNr or Journalnr"""
-        # If MarkNr & Markblok is not already in the database, special operator that allows comparison for null values.
-        query = "SELECT EXISTS(SELECT 1 FROM Field WHERE MarkNr = %s AND (Markblok <=> %s))"
-        self.cursor.execute(query, (marknr, markblok))
         
-        return self.cursor.fetchone()[0]
     
     def GetAllCropTypes(self):
         try:

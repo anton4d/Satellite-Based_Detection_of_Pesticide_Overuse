@@ -1,4 +1,5 @@
 import os, json,logging,dotenv,sys
+import time
 
 from SQLHandler import SQLHandler
 from geojsonToDB import GeoJsonToDB
@@ -108,8 +109,11 @@ def main():
     save_to_db = input("Do you want to save the GeoJSON to the database? (y/n): ").strip().lower()
 
     if save_to_db == "y":
+        startTime = time.time()
         geojson_to_db.process_geojson()
-        logging.info("GeoJSON successfully saved to the database.")
+        endtime = time.time()
+        fullTime = endtime - startTime
+        logging.info(f"GeoJSON successfully saved to the database. it took {fullTime} seconds")
     else:
         logging.info("Skipped saving GeoJSON to the database.")
 

@@ -1,3 +1,4 @@
+import time
 import geopandas as gpd
 import logging
 
@@ -28,7 +29,7 @@ def shapefile_to_geojson(shapefile_path, geojson_output_path, filter_values=None
         sorted_list = sorted(unique_values, key=lambda x: (x is None, x))
         logging.info(f"lenth of not sorted list:{len(unique_values)} lenth of sorted list:{len(sorted_list)}")
         logging.info(f"Unique values in 'Afgroede' column: {sorted_list}")
-        
+        starttime = time.time()
         # Apply filter if provided
         if filter_values:
             filter_values = [val.strip().lower() for val in filter_values]
@@ -37,8 +38,9 @@ def shapefile_to_geojson(shapefile_path, geojson_output_path, filter_values=None
             filtered_gdf.to_file(geojson_output_path, driver="GeoJSON")
         else:
             gdf.to_file(geojson_output_path, driver="GeoJSON")
-        
-        logging.info(f"GeoJSON successfully written to: {geojson_output_path}")
+        endtime = time.time()
+        fulltime = endtime - starttime
+        logging.info(f"GeoJSON successfully written to: {geojson_output_path}. it took {fulltime} secounds")
     
     except Exception as e:
         logging.error(f"Failed to convert shapefile: {e}", exc_info=True)
