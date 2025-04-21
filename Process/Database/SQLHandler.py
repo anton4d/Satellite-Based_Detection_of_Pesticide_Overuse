@@ -47,16 +47,17 @@ class SQLHandler:
         try:
             create_table_query = """
             CREATE TABLE IF NOT EXISTS ndvi_data (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                FieldId INT NOT NULL,
-                CropId INT NOT NULL,
-                collection_date DATE,
-                BBID Varchar(255) NOT NULL,
+                Id INT AUTO_INCREMENT PRIMARY KEY,
+                FieldCropYearId INT NOT NULL,
+                collection_date DATE NOT NULL,
+                BBID VARCHAR(255) NOT NULL,
                 AverageRed FLOAT, MedianRed FLOAT, STDRed FLOAT, MinRed FLOAT, MaxRed FLOAT, 
                 AverageNir FLOAT, MedianNir FLOAT, STDNir FLOAT, MinNir FLOAT, MaxNir FLOAT, 
-                AverageNdvi FLOAT, MedianNdvi FLOAT, STDNdvi FLOAT, MinNdvi FLOAT, MaxNdvi FLOAT, 
-                FOREIGN KEY (FieldId) REFERENCES Field(FieldId),
-                FOREIGN KEY (CropId) REFERENCES CropType(CropId)
+                AverageNdvi FLOAT, MedianNdvi FLOAT, STDNdvi FLOAT, MinNdvi FLOAT, MaxNdvi FLOAT,
+                UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                INDEX idx_FieldCropYear_BBID_CollectionDate (FieldCropYearId, BBID, collection_date),
+                FOREIGN KEY (FieldCropYearId) REFERENCES FieldCropYear(Id)
             );
             """
             self.cursor.execute(create_table_query)
@@ -69,23 +70,59 @@ class SQLHandler:
 
     def insertSimpleDataPointsForAfield(self, ListOfData):
         try:
-            insert_query = """
-            INSERT INTO ndvi_data (FieldId,CropId,collection_date, BBID,
-            AverageRed, MedianRed, STDRed, MinRed, MaxRed,
-            AverageNir,MedianNir, STDNir, MinNir, MaxNir,
-            AverageNdvi,MedianNdvi, STDNdvi, MinNdvi, MaxNdvi)
-            VALUES (%s,%s, %s, %s,
-            %s, %s, %s, %s,%s,
-            %s, %s, %s, %s,%s,
-            %s, %s, %s, %s,%s)
-            """
-            self.cursor.execute(insert_query,ListOfData)
+            # Unpack values for clarity (adjust if your ListOfData is different)
+            (
+                FieldCropYearId, collection_date, BBID,
+                AverageRed, MedianRed, STDRed, MinRed, MaxRed,
+                AverageNir, MedianNir, STDNir, MinNir, MaxNir,
+                AverageNdvi, MedianNdvi, STDNdvi, MinNdvi, MaxNdvi
+            ) = ListOfData
+
+            # Check if record already exists
+            select_query = "SELECT Id FROM ndvi_data WHERE FieldCropYearId = %s AND collection_date = %s AND BBID = %s"
+            self.cursor.execute(select_query, (FieldCropYearId, collection_date, BBID))
+            result = self.cursor.fetchone()
+
+            if result:
+                update_query = """
+                    UPDATE ndvi_data
+                    SET 
+                        AverageRed = %s, MedianRed = %s, STDRed = %s, MinRed = %s, MaxRed = %s,
+                        AverageNir = %s, MedianNir = %s, STDNir = %s, MinNir = %s, MaxNir = %s,
+                        AverageNdvi = %s, MedianNdvi = %s, STDNdvi = %s, MinNdvi = %s, MaxNdvi = %s
+                    WHERE FieldCropYearId = %s AND collection_date = %s AND BBID = %s
+                """
+                update_values = (
+                    AverageRed, MedianRed, STDRed, MinRed, MaxRed,
+                    AverageNir, MedianNir, STDNir, MinNir, MaxNir,
+                    AverageNdvi, MedianNdvi, STDNdvi, MinNdvi, MaxNdvi,
+                    FieldCropYearId, collection_date, BBID
+                )
+                self.cursor.execute(update_query, update_values)
+            else:
+                insert_query = """
+                    INSERT INTO ndvi_data (
+                        FieldCropYearId, collection_date, BBID,
+                        AverageRed, MedianRed, STDRed, MinRed, MaxRed,
+                        AverageNir, MedianNir, STDNir, MinNir, MaxNir,
+                        AverageNdvi, MedianNdvi, STDNdvi, MinNdvi, MaxNdvi
+                    )
+                    VALUES (%s, %s, %s,
+                            %s, %s, %s, %s, %s,
+                            %s, %s, %s, %s, %s,
+                            %s, %s, %s, %s, %s)
+                """
+                self.cursor.execute(insert_query, ListOfData)
+
             self.connection.commit()
+
         except mysql.connector.Error as err:
-            logging.error(f"Error inserting data: {err}")
+            logging.error(f"Error inserting or updating data: {err}")
             raise
 
-    def getAllPolygonsBasedOnYearAndCropType(self, year: int, cropid: int) -> gpd.GeoDataFrame:
+
+
+    def getAllPolygonsBasedOnYearAndCropId(self, year: int, cropid: int) -> gpd.GeoDataFrame:
         try:
             get_query = """
             SELECT Field.FieldId, ST_AsText(Field.Polygon)
@@ -112,7 +149,21 @@ class SQLHandler:
             logging.error(f"Error retrieving data: {err}")
             raise
 
-    
+    def GetFieldCropYearIdBasedOnYearCropIdAndFieldId(self,Year: int, cropid:int,fieldid: int):
+        try:
+            get_query = """
+            SELECT Id FROM FieldCropYear
+            WHERE Year =%s AND FieldId =%s AND CropId =%s
+            """
+            values = (Year,fieldid,cropid)
+            self.cursor.execute(get_query,values)
+            id = self.cursor.fetchone()
+            logging.info(f"Found FieldCropYearId:{id} with values year: {Year}, cropid:{cropid} and Fieldid:{fieldid}")
+            return id[0]
+        except mysql.connector.Error as err:
+            logging.error(f"Error Getting the FieldCropYearId: {err}")
+            raise
+
     def insertAllDataPointsForAField(self, ListOfData):
         try:
             insert_query = """

@@ -1,4 +1,5 @@
 import logging, os, dotenv, sys, re, argparse
+import time
 from datetime import datetime, timedelta
 from ToDB.Todb import ToDb 
 from ToDB.TiffIntersector import TiffIntersector
@@ -38,20 +39,24 @@ def ProcessTiff(start_date, end_date,CropId,saveTiff):
         password=os.getenv("DBPASSWORD"),
         database=os.getenv("DBDB")
     )
-
+    startTimeFull = time.time()
     tiff_root = "../Download/Pictures"
-
+    idList = []
     for date in daterange(start_date, end_date):
+        startTimeSmall = time.time()
         DateStr = date.strftime("%Y-%m-%d")
         year = date.strftime("%Y")
         output_folder = f"Processed_TIFFs"
         os.makedirs(output_folder, exist_ok=True)
+        logging.info(f"processing the date:{DateStr}")
 
         try:
             intersector = TiffIntersector(db_handler, tiff_root)
             to_db = ToDb(db_handler, intersector)
-            polygons = db_handler.getAllPolygonsBasedOnYearAndCropType(year=year,cropid=CropId)
-
+            logging.info(f"Getting the polygons based on year:{year} and CropId:{CropId}")
+            polygons = db_handler.getAllPolygonsBasedOnYearAndCropId(year=year,cropid=CropId)
+            foundDataOnDate=False
+            
             if polygons is not None and not polygons.empty:
                 for _, row in polygons.iterrows():
                     polygon = row["geometry"]
@@ -64,16 +69,28 @@ def ProcessTiff(start_date, end_date,CropId,saveTiff):
                     intersections = intersector.find_intersecting_tiffs(polygon, DateStr)
 
                     if intersections:
-                        logging.info(f"Processing Field ID {field_id} from {tiff_root} for {DateStr}.")
-                        to_db.InsertAveragePointsIntoDataBase(intersections, field_id, CropId ,DateStr, polygon, output_tiff)
+                        logging.debug(f"Processing Field ID {field_id} from {tiff_root} for {DateStr}.")
+                        idList.append(field_id)
+                        to_db.InsertAveragePointsIntoDataBase(intersections, field_id, CropId ,DateStr ,year, polygon, output_tiff)
+                        if foundDataOnDate == False:
+                            foundDataOnDate = True
                     else:
                         logging.debug(f"No intersecting TIFFs for Field ID {field_id} on {DateStr} in {tiff_root}.")
+                if foundDataOnDate == False:
+                    logging.info(f"Found No data on date:{DateStr}")
+                else:
+                    logging.info(f"")
             else:
                 logging.info(f"No polygons found in DB for {tiff_root}")
         except Exception as e:
             logging.error(f"Error processing {tiff_root} for {DateStr}: {e}")
-
-    logging.info(f"Completed TIFF processing for {DateStr}")
+        endTimeSmall = time.time()
+        fullTimeSmall = endTimeSmall - startTimeSmall
+        logging.info(f"Completed TIFF processing for {DateStr} it took {fullTimeSmall} secounds")
+    endTimeFull = time.time()
+    fullTimeFull = endTimeFull - startTimeFull
+    logging.info(f"Completed TIFF Processing from {start_date} to {end_date} with crop id:{CropId}")
+    logging.info(f"it took {fullTimeFull} secounds over {len(idList)} Fields")
 
 def main():
     parser = argparse.ArgumentParser(description="Process TIFFs into NDVI data.")

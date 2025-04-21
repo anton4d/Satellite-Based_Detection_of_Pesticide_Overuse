@@ -1,3 +1,4 @@
+import time
 import pika
 import subprocess
 import re
@@ -42,14 +43,16 @@ def callback(ch, method, properties, body, executor):
         logging.error(f"Invalid message format: {message} -> Sending NACK (not requeued)")
         ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
         return
-
+    startTime = time.time()
     future = executor.submit(process_download, message, log_filename)
 
     def on_done(f):
         try:
+            endtime = time.time()
+            fullTime = endtime - startTime
             exit_code = f.result()
             if exit_code == 0:
-                logging.info(f"Download process completed successfully, ACK sent for: {message}")
+                logging.info(f"Download process completed successfully, ACK sent for: {message}, it took {fullTime} seconds")
                 ch.basic_ack(delivery_tag=method.delivery_tag)
             elif exit_code == 4:
                 logging.error(f"Download process gotten a message that is not supportet-> Sending NACK (not requeued)")

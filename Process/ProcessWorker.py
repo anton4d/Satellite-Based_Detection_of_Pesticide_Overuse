@@ -1,3 +1,4 @@
+import time
 import pika
 import subprocess
 import re
@@ -36,14 +37,16 @@ def callback(ch, method, properties, body, executor):
         logging.error(f"Invalid message format: {message}")
         ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
         return
-
+    startTime = time.time()
     future = executor.submit(process_tiff, message, log_filename)
 
     def on_done(f):
         try:
+            endtime = time.time()
+            fullTime = endtime - startTime
             exit_code = f.result()
             if exit_code == 0:
-                logging.info(f"TIFF process completed, ACK sent.")
+                logging.info(f"TIFF process completed, ACK sent. it took {fullTime} seconds")
                 ch.basic_ack(delivery_tag=method.delivery_tag)
             elif exit_code ==1:
                 logging.error(f"TIFF process failed (exit {exit_code}), not requeued.")

@@ -53,10 +53,9 @@ class GeoJsonToDB:
             polygon_wkt = polygon_wkt.strip()
             polygon_wkt = polygon_wkt.replace("  ", " ")
             
-            if not self.sql_handler.field_exists(marknr, markblok):
-                self.sql_handler.InsertField(MarkNr=marknr, Journalnr=journalnr, Markblok=markblok, CVR=cvr, Polygon=polygon_wkt)
-            else:
-                logging.debug(f"Skipping existing field with MarkNr {marknr} and Markblok {markblok}")
+          
+            self.sql_handler.InsertOrUpdateField(MarkNr=marknr, Journalnr=journalnr, Markblok=markblok, CVR=cvr, Polygon=polygon_wkt)
+
                 
             self.sql_handler.InsertCropYear(cropType,year,marknr,markblok)
     def process_geojson(self):

@@ -7,6 +7,7 @@ from shapely import wkt
 from rasterio.mask import mask
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 
 
@@ -14,7 +15,7 @@ class ToDb:
     def __init__(self, SqlHandler, intersector):
         self.SqlHandler = SqlHandler
 
-    def InsertAveragePointsIntoDataBase(self, path, FieldID,CropId, Date, polygon, output_tiff):
+    def InsertAveragePointsIntoDataBase(self, path, FieldID,CropId, Date,year, polygon, output_tiff):
         """Process a TIFF image: compute average NDVI & save a new TIFF with out_image_red, NIR, Mask, and NDVI"""
         logging.info("Starting TIFF to database and new image process")
 
@@ -40,7 +41,7 @@ class ToDb:
                         if out_image_red.max() > 1.0 or out_image_nir.max() > 1.0:
                             out_image_red /= 65535.0
                             out_image_nir /= 65535.0
-                        logging.info(f"Masked Red shape: {out_image_red.shape}, NIR shape: {out_image_nir.shape}, Mask shape: {out_image_dMask.shape}")
+                        logging.debug(f"Masked Red shape: {out_image_red.shape}, NIR shape: {out_image_nir.shape}, Mask shape: {out_image_dMask.shape}")
                         valid_pixels = out_image_dMask == 1
 
 
@@ -75,13 +76,12 @@ class ToDb:
                         MaxNdvi = np.nanmax(ndvi[valid_pixels]).item()
                         hist, bins = np.histogram(ndvi[valid_pixels], density=True)
                         HistJsonNdvi = json.dumps({"hist": hist.tolist(), "bins": bins.tolist()}) 
-
-
-                        data_to_insert = [FieldID, CropId,Date,BBid, 
+                        FieldCropYearId =  self.SqlHandler.GetFieldCropYearIdBasedOnYearCropIdAndFieldId(year,CropId,FieldID)
+                        data_to_insert = [FieldCropYearId,Date,BBid, 
                                         averageRed,MedianRed,StdRed,MinRed,MaxRed, 
                                         averageNirRed,MedianNirRed,StdNirRed,MinNirRed,MaxNirRed, 
                                         averageNdvi,MedianNdvi,StdNdvi,MinNdvi,MaxNdvi]
-                        logging.info(data_to_insert)
+                        logging.debug(data_to_insert)
                         self.SqlHandler.insertSimpleDataPointsForAfield(data_to_insert)
                         logging.info(f"Inserted NDVI data for Field ID {FieldID} on {Date}.")
 
