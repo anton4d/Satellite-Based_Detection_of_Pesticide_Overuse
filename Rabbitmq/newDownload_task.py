@@ -26,10 +26,10 @@ def split_date_range(start_date, end_date, workers, max_days=10):
     
     return final_chunks
 
-def distribute_tasks(start_date, end_date, workers, mode, region, resolution):
+def distribute_tasks(start_date, end_date, workers, mode, region, resolution,cropid,fieldid):
     """Distributes the tasks among workers while ensuring max 10-day chunks."""
     date_chunks = split_date_range(start_date, end_date, workers)
-    messages = [f"{chunk[0].isoformat()}Z|{chunk[1].isoformat()}Z|{mode}|{region}|{resolution}" for chunk in date_chunks]
+    messages = [f"{chunk[0].isoformat()}Z|{chunk[1].isoformat()}Z|{mode}|{region}|{resolution}|{cropid}|{fieldid}" for chunk in date_chunks]
     
     return messages
 
@@ -55,15 +55,17 @@ if __name__ == "__main__":
     parser.add_argument("start_date", type=str, help="Start date in YYYY-MM-DD format")
     parser.add_argument("end_date", type=str, help="End date in YYYY-MM-DD format")
     parser.add_argument("workers", type=int, help="Number of workers")
-    parser.add_argument("mode", type=str, help="Processing mode")
-    parser.add_argument("region", type=str, help="Region name")
+    parser.add_argument("mode", type=str,choices=["BB","Field"], help="Processing mode")
+    parser.add_argument("region", type=str,choices=[" ", "Fyn"], help="Region name")
     parser.add_argument("resolution", type=int, help="Resolution value")
+    parser.add_argument("Croptypeid", help="either give a cropid or all")
+    parser.add_argument("Fieldid", help="either give a Fieldid or all")
     
     args = parser.parse_args()
     
     try:
         start_date = datetime.strptime(args.start_date, "%Y-%m-%d")
-        end_date = datetime.strptime(args.end_date, "%Y-%m-%d") + timedelta(days=1)  # Include last day
+        end_date = datetime.strptime(args.end_date, "%Y-%m-%d") + timedelta(days=1)
     except ValueError:
         print("Error: Invalid date format. Use YYYY-MM-DD.")
         sys.exit(1)
@@ -72,5 +74,5 @@ if __name__ == "__main__":
         print("Error: Number of workers must be at least 1.")
         sys.exit(1)
     
-    messages = distribute_tasks(start_date, end_date, args.workers, args.mode, args.region, args.resolution)
+    messages = distribute_tasks(start_date, end_date, args.workers, args.mode, args.region, args.resolution,args.Croptypeid,args.Fieldid)
     send_messages(messages)

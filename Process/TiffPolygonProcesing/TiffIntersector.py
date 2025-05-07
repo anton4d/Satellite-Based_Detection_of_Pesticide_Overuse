@@ -44,13 +44,24 @@ class TiffIntersector:
             #logging.info(polygon)
 
             if len(intersecting_tiffs) == 1:
-                return intersecting_tiffs[0]
+                path = intersecting_tiffs[0]
+                foldername = os.path.basename(os.path.dirname(path))
+                BBid = foldername.replace("FieldId","")
+                data = [path,BBid]
+                logging.debug(data)
+                return data
+            
 
             if len(intersecting_tiffs) > 1:
                 merged_path = f"../tempMergedTiff/merged_{date}.tiff"
                 os.makedirs(os.path.dirname(merged_path), exist_ok=True)
-
-                src_files_to_merge = [rasterio.open(tiff) for tiff in intersecting_tiffs]
+                BBIDLIst = []
+                src_files_to_merge = []
+                for path in intersecting_tiffs:
+                    foldername = os.path.basename(os.path.dirname(path))
+                    BBid = foldername.replace("FieldId","")
+                    BBIDLIst.append(BBid)
+                    src_files_to_merge.append(rasterio.open(path))
 
                 merged_array, merged_transform = merge(src_files_to_merge)
 
@@ -69,7 +80,10 @@ class TiffIntersector:
                     src.close()
 
                 logging.info(f"Merged {len(intersecting_tiffs)} TIFFs into {merged_path}")
-                return merged_path
+                data = [merged_path]
+                data.extend(BBIDLIst)
+                logging.debug(data)
+                return data
 
             return None
 

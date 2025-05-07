@@ -6,10 +6,11 @@ import sys
 import logging
 import argparse
 import concurrent.futures
+import os
 
-DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}\|\d{1,2}\|\w*$")
+DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}\|(True|False)\|(Plot|ToDb)\|(NDVI|EVI|GNDVI|CVI|NDRE|ALL)\|(Kdeplot|Histogram|HeatMap|None)\|\d{1,2}\|(\d{1,}|All)\|(BB|Field)$")
 log_filename = "tiff_process.log"
-
+folderName = "log/"
 def setup_logging(log_filename):
     logging.basicConfig(
         filename=log_filename,
@@ -25,7 +26,7 @@ def validate_message(message):
 def process_tiff(message, log_filename):
     logging.info(f"Starting TIFF process with message: {message}")
     process = subprocess.Popen(
-        ["python3", "TiffProcessor.py", message, f"ProcessFor{log_filename}"]
+        ["python3", "TiffProcessor.py", message, f"ProcessFor{log_filename}", folderName]
     )
     return process.wait()
 
@@ -83,10 +84,15 @@ def consume():
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("LogFile", nargs="?", default="tiff_process.log", help="Log file name")
+    parser.add_argument("LogFolder", nargs="?",default="Logs",help="The folder the log files should be saved to (default: Logs")
     args = parser.parse_args()
     global log_filename
+    global folderName
     log_filename = f"{args.LogFile}.log"
-    setup_logging(log_filename)
+    folderName = f"{args.LogFolder}/"
+    logfile = folderName+log_filename
+    os.makedirs(folderName, exist_ok=True)
+    setup_logging(logfile)
     consume()
 
 if __name__ == "__main__":

@@ -1,11 +1,12 @@
 import requests, csv, dotenv,logging,json,sys
 from shapely import wkt
-
+from Api.TokenApiHandler import TokenApiHandler
 
 class CatalogApiHandler:
-    def __init__(self,ApiToken,TokenApiHandler,dbHandler):
+    def __init__(self,ApiToken,TokenApiHandler:TokenApiHandler,dbHandler,ClientID):
         self.TokenApiHandler = TokenApiHandler
         self.dbhandler = dbHandler
+        self.ClientId = ClientID
 
         if ApiToken is None:
             self.ApiToken = self.TokenApiHandler.GetToken()
@@ -18,8 +19,6 @@ class CatalogApiHandler:
 
         logging.info(f"Calling the Catalog api for catalog data on Feild with id: {FieldId} ....")
         
-        
-
         url = "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search"
         headers = {
             "Content-Type": "application/json",
@@ -42,7 +41,7 @@ class CatalogApiHandler:
         with requests.post(url, headers=headers, json=data) as response:
             responseJson = response.json()
             statuscode = response.status_code
-            logging.debug(f"statuscode:{statuscode}")
+        
             if statuscode == 200:
                 Features = responseJson.get("features", [])
                 uniqueDates = set()
@@ -87,12 +86,19 @@ class CatalogApiHandler:
                 Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
                 return Data
             elif statuscode == 403:
+                logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
                 logging.error("No more tokens")
-                return "No Tokens"
+                self.ApiToken, self.ClientId = self.TokenApiHandler.SetANewUserIfAny(self.ClientId)
+                Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
+                return Data
             else:
                 description = responseJson.get("description", "No description provided")
                 logging.error(f"Request failed (Status: {response.status_code}) - {description}")
                 raise Exception(f"API request failed with status {response.status_code}: {description}")
+
+
+
+
 
     def GetPictureBBoxes(self, Polygon, FieldID, next=0):
         """Gets a list of unique bounding boxes where the satellite took a picture based on a polygon."""
@@ -153,7 +159,8 @@ class CatalogApiHandler:
             return self.GetPictureBBoxes(Polygon=Polygon, FieldID=FieldID)
         elif statuscode == 403:
             logging.error("No more tokens")
-            return "No Tokens"
+            self.ApiToken = self.SetANewUserIfAny()
+            return self.GetPictureBBoxes(Polygon=Polygon, FieldID=FieldID)
         else:
             description = responseJson.get("description", "No description provided")
             logging.error(f"Request failed (Status: {statuscode}) - {description}")
