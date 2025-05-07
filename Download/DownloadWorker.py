@@ -1,17 +1,12 @@
-import time
-import pika
-import subprocess
-import re
-import sys
-import logging
-import argparse
-import concurrent.futures
+import time,os,pika,subprocess,re,sys,logging,argparse,concurrent.futures
+
 
 DATEPATTERN = re.compile(
-    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\w+\|(\w+| )\|\d{3,4}$"
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|(BB|Field)\|(Fyn| )\|\d{3,4}\|(\d{1,}|all)\|(\d{1,}|all)$"
 )
 
 log_filename = "download_process.log"
+folderName= "Logs/"
 
 def setup_logging(log_filename):
     logging.basicConfig(
@@ -25,11 +20,11 @@ def setup_logging(log_filename):
 def validate_message(message):
     return bool(DATEPATTERN.match(message))
 
-def process_download(message, log_filename):
+def process_download(message, log_filename,LogFolder):
     """Runs the long-running download process."""
     logging.info(f"Starting download process with message: {message}")
     process = subprocess.Popen(
-        ["python3", "DownloadProcess.py", message, f"ProcessFor{log_filename}"]
+        ["python3", "DownloadProcess.py", message, f"ProcessFor{log_filename}", LogFolder]
     )
     exit_code = process.wait()
     return exit_code
@@ -44,7 +39,7 @@ def callback(ch, method, properties, body, executor):
         ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
         return
     startTime = time.time()
-    future = executor.submit(process_download, message, log_filename)
+    future = executor.submit(process_download, message, log_filename, folderName)
 
     def on_done(f):
         try:
@@ -58,7 +53,10 @@ def callback(ch, method, properties, body, executor):
                 logging.error(f"Download process gotten a message that is not supportet-> Sending NACK (not requeued)")
                 ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
             elif exit_code == 7:
-                logging.error("No more tokens shutdown worker but requeue task to work on it when woker is turned on again the next time tokens are aviable")
+                logging.error(
+                        "No more users with available tokens. Worker is shutting down.\n"
+                        "The task will be requeued and resumed when the worker restarts and tokens are available again."
+                        )                
                 ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
                 sys.exit(1)
             else:
@@ -106,10 +104,15 @@ def consume():
 def main():
     parser = argparse.ArgumentParser(description="RabbitMQ worker for processing downloads.")
     parser.add_argument("LogFile", nargs="?", default="download_process.log", help="Log file name (default: download_process.log)")
+    parser.add_argument("LogFolder", nargs="?",default="Logs",help="The folder the log files should be saved to (default: Logs")
     args = parser.parse_args()
     global log_filename
+    global folderName
     log_filename = f"{args.LogFile}.log"
-    setup_logging(log_filename)
+    folderName = f"{args.LogFolder}/"
+    logfile = folderName+log_filename
+    os.makedirs(folderName, exist_ok=True)
+    setup_logging(logfile)
     consume()
 
 if __name__ == "__main__":

@@ -72,9 +72,53 @@ class SQLHandler:
             self.cursor.execute(create_table_query)
             self.connection.commit()
 
+            create_table_query = """
+            CREATE TABLE IF NOT EXISTS ApiUsers(
+                ApiID INT AUTO_INCREMENT PRIMARY KEY,
+                ClientID VARCHAR(255) NOT NULL,
+                ClientSecret VARCHAR(255) NOT NULL,
+                Tokens VARCHAR(255) NOT NULL
+            );
+            """
+            self.cursor.execute(create_table_query)
+            self.connection.commit()
+
             logging.info("Database schema is set up.")
         except mysql.connector.Error as err:
             logging.error(f"Error creating schema: {err}")
+
+    def ApiUser(self, OldClientId):
+        """Deactivate old API user and return a new valid one"""
+        try:
+
+            update_query = """
+                UPDATE ApiUsers 
+                SET Tokens = "FALSE"
+                WHERE ClientID = %s
+            """
+            self.cursor.execute(update_query, (OldClientId,))
+            self.connection.commit()
+
+
+            select_query = """
+                SELECT ClientID, ClientSecret FROM ApiUsers
+                WHERE Tokens = "TRUE"
+                LIMIT 1
+            """
+            self.cursor.execute(select_query)
+            result = self.cursor.fetchone()
+
+            if result:
+                logging.info(f"ClientId {result[0]}")
+                return result[0], result[1]
+            else:
+                logging.error("No valid API user with Tokens = TRUE")
+                raise RuntimeError("No valid API user available.")
+
+        except mysql.connector.Error as err:
+            logging.error(f"MySQL Error: {err}")
+            raise
+
 
     def InsertField(self, CropType, MarkNr, Journalnr, Markblok, CVR, Polygon):
         """Insert a new fiel record into the database."""
@@ -94,7 +138,6 @@ class SQLHandler:
 
     def field_exists(self, marknr, markblok):
         """Check if a field already exists based on MarkNr or Journalnr"""
-        # If MarkNr & Markblok is not already in the database, special operator that allows comparison for null values.
         query = "SELECT EXISTS(SELECT 1 FROM Field WHERE MarkNr = %s AND (Markblok <=> %s))"
         self.cursor.execute(query, (marknr, markblok))
         
@@ -110,7 +153,54 @@ class SQLHandler:
         logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
         return fieldDict
 
+    def getAllFieldPolygonsBasedOnRegion(self,Region):
+        "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary."
+        query = "SELECT FieldID, ST_AsText(Polygon) FROM Field WHERE Region = %s;"
+        values = (Region,)
+        self.cursor.execute(query,values)
+        results = self.cursor.fetchall()
 
+        fieldDict = {field_id: polygon_wkt for field_id, polygon_wkt in results}
+        logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
+        return fieldDict
+
+    def getAllFieldPolygonsBasedOnId(self,FieldId):
+        "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary."
+        query = "SELECT FieldID, ST_AsText(Polygon) FROM Field WHERE FieldID = %s;"
+        values = (FieldId,)
+        self.cursor.execute(query,values)
+        results = self.cursor.fetchall()
+
+        fieldDict = {field_id: polygon_wkt for field_id, polygon_wkt in results}
+        logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
+        return fieldDict
+    
+    def GetAllFieldIdAndPolygonsBasedOnYearAndCropId(self,cropid,year):
+        "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary. based on cropid and year"
+        Getquery = """SELECT FieldCropYear.FieldId, ST_AsText(Field.Polygon) FROM `FieldCropYear` 
+            INNER JOIN Field ON Field.FieldId = FieldCropYear.FieldId 
+            WHERE CropId = %s AND Year = %s;"""
+        values=(cropid,year)
+        self.cursor.execute(Getquery,values)
+        results = self.cursor.fetchall()
+
+        fieldDict = {field_id: polygon_wkt for field_id, polygon_wkt in results}
+        logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
+        return fieldDict
+
+    def GetAllFieldIdAndPolygonsBasedOnYearAndCropIdAndRegion(self,cropid,year,region):
+        "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary. based on cropid and year"
+        Getquery = """SELECT FieldCropYear.FieldId, ST_AsText(Field.Polygon) FROM `FieldCropYear` 
+            INNER JOIN Field ON Field.FieldId = FieldCropYear.FieldId 
+            WHERE CropId = %s AND Year = %s AND Field.Region = %s;"""
+        values=(cropid,year,region)
+        self.cursor.execute(Getquery,values)
+        results = self.cursor.fetchall()
+
+        fieldDict = {field_id: polygon_wkt for field_id, polygon_wkt in results}
+        logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
+        return fieldDict
+    
     def insertBoundingboxMetaData(self, metadata):
         """Method that inserts all metadata from the features"""
         try:

@@ -4,12 +4,15 @@ import logging
 import json
 import sys
 import os
+import time
 from datetime import datetime, timedelta
+from Api.TokenApiHandler import TokenApiHandler
 
 class ProcessApiHandler:
-    def __init__(self, ApiToken,TokenApiHandler, SQLHandler):
+    def __init__(self, ApiToken,TokenApiHandler: TokenApiHandler, SQLHandler,ClientID):
         self.TokenApiHandler = TokenApiHandler
         self.SQLHandler = SQLHandler
+        self.ClientID = ClientID
 
         if ApiToken is None:
             self.ApiToken = self.TokenApiHandler.GetToken()
@@ -29,7 +32,7 @@ class ProcessApiHandler:
         
         return dateBefore, dateAfter
 
-    def processDateIntoImages(self,Date,polygon,FieldId,resolution,WorkerName):
+    def processDateIntoImages(self,Date,polygon,FieldId,resolution,folderName,MaxAttempts=12, count=1):
         """
         Takes a date and polygon and inserts the data from the picture of the date and polygon into the database
         """
@@ -47,21 +50,23 @@ class ProcessApiHandler:
                 return {
                     input: [
                     {
-                        bands: ["B04", "B08","dataMask"],
-                        units: "DN",
+                        bands: ["B02","B03","B04","B05","B08","dataMask"],
                     },
                     ],
                     output: {
                     id: "default",
-                    bands: 3,
-                    sampleType: SampleType.UINT16,
+                    bands: 6,
+                    sampleType: SampleType.FLOAT32,
                     },
                 }
                 }
 
                 function evaluatePixel(sample) {
                 return [
+                    sample.B02,
+                    sample.B03,
                     sample.B04,
+                    sample.B05,
                     sample.B08,
                     sample.dataMask,
                 ]
@@ -107,26 +112,30 @@ class ProcessApiHandler:
             StatusCode = response.status_code
             logging.debug(f"The status code of the api call:{StatusCode}")
             if StatusCode == 200:
-                folderName = f"Pictures/{WorkerName}/FieldId{FieldId}"  
+                  
 
                 os.makedirs(folderName, exist_ok=True)
                 image_path = os.path.join(folderName, f"{Date}.tiff")
                 try:
                     with open(image_path, "wb") as f: 
                         f.write(response.content)
-                    logging.info(f"Image successfully saved as {image_path}")
+                    logging.info(f"Image successfully saved as {image_path} after {count} tries")
                 except Exception as e:
                     logging.error(f"Failed to save image: {e}")
-            
-
             else:
                 logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
                 if StatusCode == 401:
                     self.ApiToken = self.TokenApiHandler.GetToken()
-                    self.processDateIntoImages(Date,polygon, FieldId,resolution,WorkerName)
+                    self.processDateIntoImages(Date,polygon, FieldId,resolution,folderName,MaxAttempts,count)
                 elif StatusCode == 403:
                     logging.error("No more tokens")
-                    sys.exit(7)
+                    self.ApiToken, self.ClientID = self.TokenApiHandler.SetANewUserIfAny(self.ClientID)
+                    self.processDateIntoImages(Date,polygon, FieldId,resolution,folderName,MaxAttempts,count)
                 else:
-                    raise Exception(f"API request failed with status {response.status_code}")
-
+                    if count <= MaxAttempts:
+                        timer = count*10
+                        time.sleep(timer)
+                        newcount = count + 1
+                        self.processDateIntoImages(Date,polygon,FieldId,resolution,folderName,MaxAttempts,newcount)
+                    else:
+                        logging.error(f"After {MaxAttempts} attempts the image was still not able to be downloaded")

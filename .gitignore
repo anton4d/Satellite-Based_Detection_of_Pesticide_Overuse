@@ -168,6 +168,8 @@ Models/*
 !Models/
 *.tiff
 ResponseCatalog.txt
-Process/plot/*.png
+Process/plot/*
 Shapefiles/*.zip
 Shapefiles/Mark*/*
+Users.csv
+Process/dumb.csv
