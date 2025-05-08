@@ -56,13 +56,27 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution,cropid,FieldID):
     if mode == "Field":
         logging.info("DownloadProcess will use Fields")
         if FieldID == "all":
+            logging.info("DownloadProcess will use all Fields")
             if cropid == "all":
-                polygondict = db_handler.getAllFieldPolygons()
+                logging.info("DownloadProcess will use all Cropids")
+                if region == "all":
+                    logging.info("DownloadProcess will use all regions")
+                    polygondict = db_handler.getAllFieldPolygons()
+                else:
+                    logging.info(f"DownloadProcess will use a specefic region:{region}")
+                    polygondict = db_handler.getAllFieldPolygonsBasedOnRegion(region)
             else:
+                logging.info(f"DownloadProcess will use a specefic Cropid:{cropid}")
                 FromDate_parsed = datetime.strptime(FromDate, "%Y-%m-%dT%H:%M:%SZ")
                 year = FromDate_parsed.strftime("%Y")
-                polygondict = db_handler.GetAllFieldIdAndPolygonsBasedOnYearAndCropId(cropid,year)
+                if region == "all":
+                    logging.info("DownloadProcess will use all regions")
+                    polygondict = db_handler.GetAllFieldIdAndPolygonsBasedOnYearAndCropId(cropid,year)
+                else:
+                    logging.info(f"DownloadProcess will use a specefic region:{region}")
+                    polygondict = db_handler.GetAllFieldIdAndPolygonsBasedOnYearAndCropIdAndRegion(cropid,year,region)
         else:
+            logging.info(f"DownloadProcess will use a specefic Field: {FieldID}")
             polygondict = db_handler.getAllFieldPolygonsBasedOnId(FieldID)
     elif mode == "BB":
         logging.info("DownloadProcess will use boundingboxes")
@@ -100,12 +114,14 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution,cropid,FieldID):
         csvwriter.writerow(fields)
     """
 
-    
+    number = 1
     for id,wkt in polygondict.items():
+        
         FieldId = str(id)
         folderName = f"Pictures{mode}/FieldId{FieldId}"
         sleeptimer=1
         nestedBB = ConvertWktToNestedCords(wkt)
+        logging.info(f"Starting the download proccess for fieldid: {FieldId} number: {number} out of {len(polygondict)}")
         CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=nestedBB, FieldId=FieldId,FromDate=FromDate,ToDate=ToDate)
         if not CatalogData:
             logging.warning(f"No image dates found for polygon with id {FieldId}, skipping...")
@@ -120,8 +136,11 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution,cropid,FieldID):
                 Process_ApiHandler.processDateIntoImages(date, nestedBB, FieldId,resolution,folderName)
             except Exception as e:
                 logging.error(f"Error processing date {date} for polygon with id {FieldId}: {e}")
+        logging.info(f"Ended the download proccess for fieldid: {FieldId} number: {number} out of {len(polygondict)}\n")
+        number = number+1
+        
 
-    logging.info(f"Completed the download proccess on the dates from: {FromDate} To: {ToDate}")
+    logging.info(f"Completed the download proccess on the dates from: {FromDate} To: {ToDate} \n")
     
     
 def validate_message_data(message_data):
