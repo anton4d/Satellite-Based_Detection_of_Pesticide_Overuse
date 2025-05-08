@@ -7,9 +7,10 @@ import os
 import time
 from datetime import datetime, timedelta
 from Api.TokenApiHandler import TokenApiHandler
+from Database.SQLHandler import SQLHandler
 
 class ProcessApiHandler:
-    def __init__(self, ApiToken,TokenApiHandler: TokenApiHandler, SQLHandler,ClientID):
+    def __init__(self, ApiToken,TokenApiHandler: TokenApiHandler, SQLHandler:SQLHandler,ClientID):
         self.TokenApiHandler = TokenApiHandler
         self.SQLHandler = SQLHandler
         self.ClientID = ClientID
@@ -31,6 +32,15 @@ class ProcessApiHandler:
         dateAfter = (dateObj + timedelta(days=1)).strftime("%Y-%m-%dT23:59:59Z")
         
         return dateBefore, dateAfter
+
+    def tryagain(self,Date,polygon,FieldId,resolution,folderName,count,MaxAttempts=12):
+        if count <= MaxAttempts:
+            timer = count*10
+            time.sleep(timer)
+            newcount = count + 1
+            self.processDateIntoImages(Date,polygon,FieldId,resolution,folderName,MaxAttempts,newcount)
+        else:
+            logging.error(f"After {MaxAttempts} attempts the image was still not able to be downloaded")
 
     def processDateIntoImages(self,Date,polygon,FieldId,resolution,folderName,MaxAttempts=12, count=1):
         """
@@ -106,36 +116,36 @@ class ProcessApiHandler:
         },
         "evalscript": evalscript
         }
-
-     
-        with requests.post(url, headers=headers, json=data) as response:
-            StatusCode = response.status_code
-            logging.debug(f"The status code of the api call:{StatusCode}")
-            if StatusCode == 200:
-                  
-
-                os.makedirs(folderName, exist_ok=True)
-                image_path = os.path.join(folderName, f"{Date}.tiff")
-                try:
-                    with open(image_path, "wb") as f: 
-                        f.write(response.content)
-                    logging.info(f"Image successfully saved as {image_path} after {count} tries")
-                except Exception as e:
-                    logging.error(f"Failed to save image: {e}")
+        try:
+            response = requests.post(url, headers=headers, json=data, timeout=3)
+            response.raise_for_status()
+        except requests.exceptions.Timeout as errt:
+            logging.error("Timeout Error:", errt)
+            self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
+        except requests.exceptions.ConnectionError as errc:
+            logging.error("Connection Error:", errc)
+            self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
+        except requests.exceptions.HTTPError as errh:
+            status = errh.response.status_code
+            logging.error(f"HTTP Error {status}: {errh}")
+            if status == 401:
+                self.ApiToken = self.TokenApiHandler.GetToken()
+                self.processDateIntoImages(Date, polygon, FieldId, resolution, folderName, MaxAttempts, count)
+            elif status == 403:
+                logging.error("No more tokens – swapping user")
+                self.ApiToken, self.ClientID = self.TokenApiHandler.SetANewUserIfAny(self.ClientID)
+                self.processDateIntoImages(Date, polygon, FieldId, resolution, folderName, MaxAttempts, count)
             else:
-                logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
-                if StatusCode == 401:
-                    self.ApiToken = self.TokenApiHandler.GetToken()
-                    self.processDateIntoImages(Date,polygon, FieldId,resolution,folderName,MaxAttempts,count)
-                elif StatusCode == 403:
-                    logging.error("No more tokens")
-                    self.ApiToken, self.ClientID = self.TokenApiHandler.SetANewUserIfAny(self.ClientID)
-                    self.processDateIntoImages(Date,polygon, FieldId,resolution,folderName,MaxAttempts,count)
-                else:
-                    if count <= MaxAttempts:
-                        timer = count*10
-                        time.sleep(timer)
-                        newcount = count + 1
-                        self.processDateIntoImages(Date,polygon,FieldId,resolution,folderName,MaxAttempts,newcount)
-                    else:
-                        logging.error(f"After {MaxAttempts} attempts the image was still not able to be downloaded")
+                self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
+        except requests.exceptions.RequestException as err:
+            logging.error("Unexpected request error:", err)
+        else:
+            os.makedirs(folderName, exist_ok=True)
+            image_path = os.path.join(folderName, f"{Date}.tiff")
+            try:
+                with open(image_path, "wb") as f:
+                    f.write(response.content)
+                logging.info(f"Image saved to {image_path} after {count} tries")
+            except Exception:
+                logging.exception(f"Failed to save image to {image_path}")
+

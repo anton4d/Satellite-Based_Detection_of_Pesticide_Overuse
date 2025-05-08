@@ -1,9 +1,11 @@
 import requests, csv, dotenv,logging,json,sys
 from shapely import wkt
 from Api.TokenApiHandler import TokenApiHandler
+from Database.SQLHandler import SQLHandler
+import time
 
 class CatalogApiHandler:
-    def __init__(self,ApiToken,TokenApiHandler:TokenApiHandler,dbHandler,ClientID):
+    def __init__(self,ApiToken,TokenApiHandler:TokenApiHandler,dbHandler:SQLHandler,ClientID):
         self.TokenApiHandler = TokenApiHandler
         self.dbhandler = dbHandler
         self.ClientId = ClientID
@@ -13,8 +15,16 @@ class CatalogApiHandler:
         else:
             self.ApiToken = ApiToken
 
-    
-    def GetPictureDates(self,Polygon, FieldId,FromDate,ToDate, next = 0):
+    def tryagain(self,Polygon, FieldId,FromDate,ToDate,next,count,MaxAttempts):
+        if count <= MaxAttempts:
+            timer = count*10
+            time.sleep(timer)
+            newcount = count + 1
+            self.GetPictureDates(Polygon, FieldId,FromDate,ToDate,next, newcount,MaxAttempts)
+        else:
+            logging.error(f"After {MaxAttempts} attempts the dates was still not able to be downloaded")
+
+    def GetPictureDates(self,Polygon, FieldId,FromDate,ToDate, next = 0,count =1, MaxAttempts = 12):
         """Gets a list of dates between the from and To date Where the Satalite took a picture based on a polygon"""
 
         logging.info(f"Calling the Catalog api for catalog data on Feild with id: {FieldId} ....")
@@ -38,49 +48,18 @@ class CatalogApiHandler:
         }
         if next != 0:
             data["next"] = next
-        with requests.post(url, headers=headers, json=data) as response:
-            responseJson = response.json()
-            statuscode = response.status_code
-        
-            if statuscode == 200:
-                Features = responseJson.get("features", [])
-                uniqueDates = set()
-                if len(Features) >= 1:
-                    logging.info(f"Found {len(Features)} number of features")
-                    for Feature in Features:
-                        properties = Feature.get("properties", {})
-                        datetime = properties.get("datetime", "No datetime provided")
-                        Platform = properties.get("platform", "No plateform provided")
-                        CloudCover = properties.get("eo:cloud_cover", "No cloud_cover provided")
-                        logging.debug(f"Found Feature with datetime: {datetime}, Platform: {Platform} and CloudCover: {CloudCover}")
-                        dateOnly = datetime.split("T")[0]
-                        DateMetaData = [FieldId,datetime,dateOnly,Platform,CloudCover]
-                        if dateOnly not in uniqueDates:
-                            uniqueDates.add(dateOnly)
-                            logging.debug(f"Added new date: {dateOnly}")
-                        self.dbhandler.insertBoundingboxMetaData(DateMetaData)
-                        context = responseJson.get("context", [])
-                        next = context.get("next", "No next")
-                        if next != "No next":
-                            logging.debug(f"list has:{len(uniqueDates)} dates in it before next")
-                            uniqueDates.update(self.GetPictureDates(Polygon, FieldId,FromDate,ToDate ,next)) 
-                            logging.debug(f"list has:{len(uniqueDates)} dates in it after next")
-                            
-                        """with open('DateMetaData.csv', 'a', newline='') as csvfile:
-                            writer = csv.writer(csvfile)
-                            writer.writerow(DateMetaData)
-                        """
-                    return uniqueDates
-                else:
-                    logging.warning("No features found on the date")
-                    with open("ResponseCatalog.txt", "a") as f:
-                        f.write("Polygon: ")
-                        json.dump(Polygon, f)
-                        f.write("\n")
-                        json.dump(responseJson, f, indent=4)
-
-                    
-            elif statuscode == 401:
+        try:
+            response = requests.post(url, headers=headers, json=data,timeout=3)
+            response.raise_for_status()
+        except requests.exceptions.Timeout as errt:
+            logging.error("Timeout Error:", errt)
+            self.tryagain(Polygon,FieldId,FromDate,ToDate,next,count,MaxAttempts)
+        except requests.exceptions.ConnectionError as errc:
+            logging.error("Connection Error:", errc)
+            self.tryagain(Polygon,FieldId,FromDate,ToDate,next,count,MaxAttempts)
+        except requests.exceptions.HTTPError as errh:
+            statuscode = errh.response.status_code
+            if statuscode == 401:
                 logging.error("Access code has expired or is incorrect.")
                 self.ApiToken = self.TokenApiHandler.GetToken()
                 Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
@@ -92,9 +71,61 @@ class CatalogApiHandler:
                 Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
                 return Data
             else:
-                description = responseJson.get("description", "No description provided")
-                logging.error(f"Request failed (Status: {response.status_code}) - {description}")
-                raise Exception(f"API request failed with status {response.status_code}: {description}")
+                description = response.json().get("description", "")
+                logging.error(f"HTTP {statuscode}: {description}", exc_info=True)
+                raise
+        except requests.exceptions.RequestException as err:
+            logging.error("Unexpected request error:", err)
+        else:
+            data = response.json()
+            Features = data.get("features", [])
+            if not Features:
+                logging.warning("No features found; dumping response to ResponseCatalog.txt")
+                with open("ResponseCatalog.txt", "a") as f:
+                    f.write(f"Polygon: {json.dumps(Polygon)}\n")
+                    json.dump(data, f, indent=2)
+                    f.write("\n\n")
+                return set()
+            
+            logging.info(f"Received {len(Features)} features from {FromDate} to {ToDate}")
+            uniqueDates = set()
+            for feature in Features:
+                props = feature.get("properties", {})
+                timestamp = props.get("datetime", "")
+                platform = props.get("platform", "")
+                cloud_cover = props.get("eo:cloud_cover", 0.0)
+
+                if not timestamp:
+                    logging.warning("Feature missing datetime, skipping")
+                    continue
+
+                date_only = timestamp.split("T", 1)[0]
+                if date_only not in uniqueDates:
+                    uniqueDates.add(date_only)
+                    logging.debug(f"Adding new date: {date_only}")
+
+                metadata = [FieldId, timestamp, date_only, platform, cloud_cover]
+                try:
+                    self.dbhandler.insertBoundingboxMetaData(metadata)
+                except Exception:
+                    logging.exception(f"Failed to insert metadata for {timestamp}")
+
+
+                next_tok = data.get("context", {}).get("next")
+                if next_tok:
+                    logging.info(f"Fetching next page with token {next_tok}")
+                    uniqueDates.update(
+                        self.GetPictureDates(Polygon, FieldId,FromDate,ToDate ,next_tok)
+                    )
+
+                if not uniqueDates:
+                    logging.warning("No features found; dumping response to ResponseCatalog.txt")
+                    with open("ResponseCatalog.txt", "a") as f:
+                        f.write(f"Polygon: {json.dumps(Polygon)}\n")
+                        json.dump(data, f, indent=2)
+                        f.write("\n\n")
+
+            return uniqueDates
 
 
 
