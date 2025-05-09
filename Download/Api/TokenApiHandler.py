@@ -9,9 +9,11 @@ from tempfile import NamedTemporaryFile
 from Database.SQLHandler import SQLHandler
 
 class TokenApiHandler:
+
     def __init__(self,SQLHandler:SQLHandler):
         self.SQLHandler = SQLHandler
         self.ClientId ="None"
+
 
     def SetANewUserIfAny(self,OldClientID):
         if OldClientID == self.ClientId:
@@ -26,7 +28,9 @@ class TokenApiHandler:
                 Token = self.GetToken()
                 return Token, ClientID
             else:
+
                 logging.fatal("No valid user found.")
+
                 sys.exit(7)
         else:
             Token = self.GetToken()

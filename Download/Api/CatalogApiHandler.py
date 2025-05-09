@@ -52,6 +52,7 @@ class CatalogApiHandler:
             response = requests.post(url, headers=headers, json=data,timeout=3)
             response.raise_for_status()
         except requests.exceptions.Timeout as errt:
+
             message = f"Timeout Error: {errt}"
             if logging.getLogger().isEnabledFor(logging.DEBUG):
                 logging.exception(message)
@@ -77,6 +78,7 @@ class CatalogApiHandler:
                 Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
                 return Data
             elif statuscode == 403:
+
                 logging.error("No more tokens – swapping user")
                 self.ApiToken, self.ClientId = self.TokenApiHandler.SetANewUserIfAny(self.ClientId)
                 Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
@@ -91,6 +93,7 @@ class CatalogApiHandler:
                 logging.exception(message)
             else:
                 logging.error(message)
+
         else:
             data = response.json()
             Features = data.get("features", [])

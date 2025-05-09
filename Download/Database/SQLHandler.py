@@ -113,7 +113,9 @@ class SQLHandler:
                 return result[0], result[1]
             else:
                 logging.error("No valid API user with Tokens = TRUE")
+
                 return None,None
+
 
         except mysql.connector.Error as err:
             logging.error(f"MySQL Error: {err}")

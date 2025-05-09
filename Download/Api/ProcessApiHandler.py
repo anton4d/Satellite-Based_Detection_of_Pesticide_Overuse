@@ -41,7 +41,9 @@ class ProcessApiHandler:
             self.processDateIntoImages(Date,polygon,FieldId,resolution,folderName,MaxAttempts,newcount)
         else:
             logging.error(f"After {MaxAttempts} attempts the image was still not able to be downloaded")
+
     
+
     def processDateIntoImages(self,Date,polygon,FieldId,resolution,folderName,MaxAttempts=12, count=1):
         """
         Takes a date and polygon and inserts the data from the picture of the date and polygon into the database
@@ -120,6 +122,7 @@ class ProcessApiHandler:
             response = requests.post(url, headers=headers, json=data, timeout=3)
             response.raise_for_status()
         except requests.exceptions.Timeout as errt:
+
             messesage = f"Timeout Error: {errt}"
             if logging.getLogger().isEnabledFor(logging.DEBUG):
                 logging.exception(messesage)
@@ -155,6 +158,7 @@ class ProcessApiHandler:
                 logging.exception(message)
             else:
                 logging.error(message)
+
 
         else:
             os.makedirs(folderName, exist_ok=True)
