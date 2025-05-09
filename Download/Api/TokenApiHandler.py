@@ -9,10 +9,11 @@ from tempfile import NamedTemporaryFile
 from Database.SQLHandler import SQLHandler
 
 class TokenApiHandler:
-    def __init__(self, ClientId, ClientSecret,SQLHandler:SQLHandler):
-        self.ClientId = ClientId
-        self.ClientSecret = ClientSecret
+
+    def __init__(self,SQLHandler:SQLHandler):
         self.SQLHandler = SQLHandler
+        self.ClientId ="None"
+
 
     def SetANewUserIfAny(self,OldClientID):
         if OldClientID == self.ClientId:
@@ -27,7 +28,9 @@ class TokenApiHandler:
                 Token = self.GetToken()
                 return Token, ClientID
             else:
-                logging.error("No valid user found.")
+
+                logging.fatal("No valid user found.")
+
                 sys.exit(7)
         else:
             Token = self.GetToken()
@@ -41,20 +44,41 @@ class TokenApiHandler:
             dotenvFile = dotenv.find_dotenv()
             AuthServerUrl = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
             TokenRequestPayload = {"grant_type": "client_credentials"}
-            with requests.post(
-                AuthServerUrl,
-                data=TokenRequestPayload,
-                verify=False,
-                allow_redirects=False,
-                auth=(self.ClientId, self.ClientSecret)
-            ) as tokenResponse :
-                
-                if tokenResponse.status_code != 200:
-                    logging.error(f"Failed to obtain token. Status code: {tokenResponse.status_code}")
-                    logging.error(f"Response: {tokenResponse.text}")
-                    raise Exception("Authentication failed. Check your credentials.")
-
-                tokenjson = tokenResponse.json()
+            try: 
+                response = requests.post(AuthServerUrl,
+                                         data=TokenRequestPayload,
+                                         verify=False,
+                                         allow_redirects=False,
+                                         auth=(self.ClientId, self.ClientSecret),
+                                         timeout=3
+                                         )
+            except requests.exceptions.Timeout as errt:
+                messesage = f"Timeout Error: {errt}"
+                if logging.getLogger().isEnabledFor(logging.DEBUG):
+                    logging.exception(messesage)
+                else:
+                    logging.error(messesage)
+                return self.GetToken()
+            except requests.exceptions.ConnectionError as errc:
+                messesage = f"Connection Error: {errc}"
+                if logging.getLogger().isEnabledFor(logging.DEBUG):
+                    logging.exception(messesage)
+                else:
+                    logging.error(messesage)
+                return self.GetToken()
+            except requests.exceptions.HTTPError as errh:
+                status = errh.response.status_code
+                if status == 401:
+                    logging.error(f"The Found Client Id:{self.ClientId} \n is Invalid or has Invalid client credentials")
+                    self.SetANewUserIfAny(self.ClientId)
+            except requests.exceptions.RequestException as err:
+                messesage =f"Unexpected request error: {err}"
+                if logging.getLogger().isEnabledFor(logging.DEBUG):
+                    logging.exception(messesage)
+                else:
+                    logging.error(messesage)
+            else:
+                tokenjson = response.json()
                 token = tokenjson["access_token"]
                 dotenv.set_key(dotenvFile, "APIToken", token)
                 logging.info("Successfully obtained a new token.")

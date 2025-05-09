@@ -31,25 +31,26 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution,cropid,FieldID):
         password=os.getenv("DBPASSWORD"),
         database=os.getenv("DBDB")
     )
-    clienID,ClientSecret = db_handler.ApiUser("None")
+
     Token_ApiHandler = TokenApiHandler(
-        ClientId=clienID,
-        ClientSecret=ClientSecret,
+
         SQLHandler=db_handler
     )
+    
+    Token, CLientID = Token_ApiHandler.SetANewUserIfAny("None")
 
     Catalog_ApiHandler = CatalogApiHandler(
-        ApiToken=os.getenv("APIToken"),
+        ApiToken=Token,
         TokenApiHandler=Token_ApiHandler,
         dbHandler=db_handler,
-        ClientID =clienID
+        ClientID =CLientID
     )
     
     Process_ApiHandler = ProcessApiHandler(
-        ApiToken=os.getenv("APIToken"),
+        ApiToken=Token,
         TokenApiHandler=Token_ApiHandler,
         SQLHandler=db_handler,
-        ClientID =clienID
+        ClientID =CLientID
     )
     
     polygondict = {}
@@ -119,7 +120,8 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution,cropid,FieldID):
         
         FieldId = str(id)
         folderName = f"Pictures{mode}/FieldId{FieldId}"
-        sleeptimer=1
+        sleeptimer=1.5
+
         nestedBB = ConvertWktToNestedCords(wkt)
         logging.info(f"Starting the download proccess for fieldid: {FieldId} number: {number} out of {len(polygondict)}")
         CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=nestedBB, FieldId=FieldId,FromDate=FromDate,ToDate=ToDate)
@@ -134,6 +136,8 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution,cropid,FieldID):
         for date in CatalogData:
             try:
                 Process_ApiHandler.processDateIntoImages(date, nestedBB, FieldId,resolution,folderName)
+                time.sleep(sleeptimer)
+                
             except Exception as e:
                 logging.error(f"Error processing date {date} for polygon with id {FieldId}: {e}")
         logging.info(f"Ended the download proccess for fieldid: {FieldId} number: {number} out of {len(polygondict)}\n")

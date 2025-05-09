@@ -52,21 +52,34 @@ class CatalogApiHandler:
             response = requests.post(url, headers=headers, json=data,timeout=3)
             response.raise_for_status()
         except requests.exceptions.Timeout as errt:
-            logging.error("Timeout Error:", errt)
+
+            message = f"Timeout Error: {errt}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(message)
+            else:
+                logging.error(message)
             self.tryagain(Polygon,FieldId,FromDate,ToDate,next,count,MaxAttempts)
         except requests.exceptions.ConnectionError as errc:
-            logging.error("Connection Error:", errc)
+            message =f"Connection Error: {errc}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(message)
+            else:
+                logging.error(message)
             self.tryagain(Polygon,FieldId,FromDate,ToDate,next,count,MaxAttempts)
         except requests.exceptions.HTTPError as errh:
             statuscode = errh.response.status_code
+            message = f"HTTP Error: {errh}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(message)
+            else:
+                logging.error(message)
             if statuscode == 401:
-                logging.error("Access code has expired or is incorrect.")
                 self.ApiToken = self.TokenApiHandler.GetToken()
                 Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
                 return Data
             elif statuscode == 403:
-                logging.error(f"Request failed (Status: {response.status_code}) - (Respone:{response.text})")
-                logging.error("No more tokens")
+
+                logging.error("No more tokens – swapping user")
                 self.ApiToken, self.ClientId = self.TokenApiHandler.SetANewUserIfAny(self.ClientId)
                 Data = self.GetPictureDates(Polygon, FieldId,FromDate,ToDate)
                 return Data
@@ -75,7 +88,12 @@ class CatalogApiHandler:
                 logging.error(f"HTTP {statuscode}: {description}", exc_info=True)
                 raise
         except requests.exceptions.RequestException as err:
-            logging.error("Unexpected request error:", err)
+            message =f"Unexpected request error: {err}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(message)
+            else:
+                logging.error(message)
+
         else:
             data = response.json()
             Features = data.get("features", [])

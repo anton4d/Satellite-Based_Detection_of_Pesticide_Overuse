@@ -42,6 +42,8 @@ class ProcessApiHandler:
         else:
             logging.error(f"After {MaxAttempts} attempts the image was still not able to be downloaded")
 
+    
+
     def processDateIntoImages(self,Date,polygon,FieldId,resolution,folderName,MaxAttempts=12, count=1):
         """
         Takes a date and polygon and inserts the data from the picture of the date and polygon into the database
@@ -120,14 +122,27 @@ class ProcessApiHandler:
             response = requests.post(url, headers=headers, json=data, timeout=3)
             response.raise_for_status()
         except requests.exceptions.Timeout as errt:
-            logging.error("Timeout Error:", errt)
+
+            messesage = f"Timeout Error: {errt}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(messesage)
+            else:
+                logging.error(messesage)
             self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
         except requests.exceptions.ConnectionError as errc:
-            logging.error("Connection Error:", errc)
+            messesage = f"Connection Error: {errc}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(messesage)
+            else:
+                logging.error(messesage)
             self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
         except requests.exceptions.HTTPError as errh:
             status = errh.response.status_code
-            logging.error(f"HTTP Error {status}: {errh}")
+            messesage = f"HTTP Error: {errh}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(messesage)
+            else:
+                logging.error(messesage)
             if status == 401:
                 self.ApiToken = self.TokenApiHandler.GetToken()
                 self.processDateIntoImages(Date, polygon, FieldId, resolution, folderName, MaxAttempts, count)
@@ -138,7 +153,13 @@ class ProcessApiHandler:
             else:
                 self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
         except requests.exceptions.RequestException as err:
-            logging.error("Unexpected request error:", err)
+            message =f"Unexpected request error: {err}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(message)
+            else:
+                logging.error(message)
+
+
         else:
             os.makedirs(folderName, exist_ok=True)
             image_path = os.path.join(folderName, f"{Date}.tiff")
