@@ -86,7 +86,11 @@ class CatalogApiHandler:
                 logging.error(f"HTTP {statuscode}: {description}", exc_info=True)
                 raise
         except requests.exceptions.RequestException as err:
-            logging.error("Unexpected request error: %s", err)
+            message =f"Unexpected request error: {err}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(message)
+            else:
+                logging.error(message)
         else:
             data = response.json()
             Features = data.get("features", [])

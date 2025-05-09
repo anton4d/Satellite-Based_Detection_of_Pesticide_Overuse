@@ -149,6 +149,12 @@ class ProcessApiHandler:
                 self.processDateIntoImages(Date, polygon, FieldId, resolution, folderName, MaxAttempts, count)
             else:
                 self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
+        except requests.exceptions.RequestException as err:
+            message =f"Unexpected request error: {err}"
+            if logging.getLogger().isEnabledFor(logging.DEBUG):
+                logging.exception(message)
+            else:
+                logging.error(message)
 
         else:
             os.makedirs(folderName, exist_ok=True)
