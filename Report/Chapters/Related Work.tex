@@ -1,0 +1,69 @@
+\chapter{Related Work} \label{Related Work}
+\textcolor{red}{a small text about the related work}
+\textcolor{blue}{ - I will write this once this section is finished.}
+
+\section{Existing solutions}
+Understanding the state of existing research is crucial for situating the state of remote sensing and agricultural monitoring. To achieve this, a systematic literature review is conducted on the research question
+\textit{RQ 1: Are there any existing or similar solutions/studies regarding the use case from the \acrshort{DEPA}?}
+This will include finding relevant literature regarding remote sensing and using vegetation indices to monitor pre-harvest crop desiccant usage, to evaluate whether there are existing techniques that support the goal of implementing a solution that solves the use case from the \acrshort{DEPA}.
+
+To identify relevant literature, a targeted search string was constructed to reflect the specific intersections of pre-harvest crop desiccation, remote sensing, vegetation indices and potatoes.
+The search string is as follows:
+
+\begin{table}[h]
+    \centering
+        ("pre-harvest desiccation" OR "crop desiccation" OR "stressed vegetation") 
+        \\AND ("NDVI" OR "vegetation index" OR "vegetation indices" OR 
+        \\"remote sensing") AND (Potato)
+    \label{tab:my_label}
+\end{table}
+
+This query was designed to be highly specific and catered to the use case, with the intention of filtering out unrelated studies and focus on works that could directly or concuptually support the research hypothesis. A broader search string was experimented with, but yielded an exorbitant amount of irrelevant works to justify looking through.
+
+Sorting the results from the search string was done by plotting the amount of results from each database, coarse filtering and the inclusion \& exclusion process.
+\textcolor{red}{:}
+% Requires: \usepackage{booktabs}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|c|}
+    \hline
+    \textbf{Forum} & \textbf{Number of Articles} & \textbf{Coarse Filtering} & \textbf{Inc. \& Excl.} \\ \hline
+    IEEE & 6 & 3 & 2 \\ \hline
+    ACM Digital Library & 2 & 0 & 0 \\ \hline
+    Elsevier & 18 & 7 & 2 \\ \hline
+    \end{tabular}
+    \caption{Summary of Search String Results}
+    \label{tab:forum_summary}
+\end{table}
+
+Despite the specific nature of the search string, a number of search hits were determined, through the title and reading the abstract, irrelevant in relation to the research question. These were discarded as a form of "coarse filtering" to avoid redundant work in the inclusion \& exclusion process. The inclusion \& exclusion process had five criteria and whether the studies focused on:
+\begin{itemize}
+    \item Remote sensing
+    \item Vegetation indices
+    \item Pre-harvest crop desiccation
+    \item Potatoes
+    \item Other relevancy
+\end{itemize}
+In total three studies had prevalent relevancy in relation to the use case, by including four of the five criteria and were included in the literature review. Despite none of them being focused on pre-harvest crop desiccation, the related studies explored remote sensing capabilities for crop monitoring regarding yield prediction and stress detection, using vegetation indices. These works provide evidence of feasibility for remote sensing and vegetation indices, to monitor and detect agronomic events.
+
+\subsection{Analysis of Included studies}
+1. Bilal Javed et al. (2025)
+
+\textit{In-season nitrogen status and pre-harvest potato yield assessment using air-spaceborne imagery with AI techniques}
+
+This recent study used a combination of remote sensing data from a UAV and the sentinel-2 satellites, to calculate the Canopy Chlorophyll Content Index to estimate chlorophyll levels in potato plants, which correlates with nitrogen status, in order to predict potato tuber yields\cite{javed2025inseason}. While this study is not focused on pre-harvest crop desiccation, it supports the feasibility of using remotely sensed vegetation data for assessing health and yield of the potato plant.
+
+2. A. S. B. A. Rahman et al. (2022)
+
+\textit{Potato Crop Health Assessment Using Multispectral Image Analysis}
+
+In this study they used remote sensing data from both a UAV and a satellite, combined with machine learning and found that NDVI and NDRE had the best spectral characteristics in a classification model, to categorize healthy and stressed potato crops\cite{rahman2022potato}. While not related to pre-harvest crop desiccation, it provides evidence for being able to detect stress levels in potatoes.
+
+3. S. Chang et al. (2023)
+
+\textit{Development of a Multiscale XGBoost-Based Model for Enhanced Detection of Potato Late Blight Using Sentinel-2, UAV, and Ground Data}
+
+This study used both ground, UAV and satellite remote sensing data to detect potato blight. They found that the ground data was the most accurate, followed by the UAV and lastly the satellite (sentinel-2)\cite{yang2023nitrogen}. Although potato blight and pre-harvest crop desiccation are different phenomena, they both produce physiological signatures that are detectable using vegetation indices. Additionally, the study showed a larger margin of error in remote sensing data from satellites, compared to other alternatives.
+
+\subsubsection{Summary}
+Together, these studies confirm the viability of using remote sensing data from the Sentinel-2 satellites for monitoring of the potato plant. While no none study pre-harvest crop desiccation events, they demonstrate monitoring the changes in vegetation indices to monitor crop health, crop stress and yield prediction.

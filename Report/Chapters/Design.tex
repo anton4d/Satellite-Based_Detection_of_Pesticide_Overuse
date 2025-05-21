@@ -1,0 +1,132 @@
+\chapter{Design} \label{Design}
+This section will go over the design sprints of the project. There where three Design sprints. The first one happened before doing any code just based on the knowledge gotten trough both analyses phases, this sprint will be explained in Section \ref{Sec:FirstPhase}. The second based on the knowledgeable gotten by implementing the different API in the chosen design from first sprint, explained in Section \ref{Sec:SecoundPhase}. The last sprint comes from when the authors lost the connecting person to the DEPA, and had to rethink the choices based on everting that had been learned and \textcolor{red}{sometin seometing about now being able to choice thei own design } explained in Section \ref{Sec:ThirdPhase}.
+
+\textcolor{red}{all the sections need good fucking names i am not good at naming stuff
+}
+
+
+\section{First sprint}\label{Sec:FirstPhase}
+Most choices in this sprint was based on teori and so the authors knew that these choices where lucky to either change or at least become more detailed in next sprint. 
+The first sprint work order was chosen to focus manly on FR2 and FR3, there will also be a very little focus on FR1.
+
+\subsection{language}
+The stakeholder's case included a suggestion that the system could be written in Python inside Databricks Notebook, a notebook Python environment set up for machine learning using \acrfull{AWS}. So Python was the first option, Java and .NET were the others.
+Before choosing, why they are an option needs to be explained. 
+\textit{(i) python:} Firstly, it was suggested by a stakeholder, Copernicus, and it is a language often used in data science; the community is large in that sphere of influence. 
+\textit{(ii) Java:} mostly for a better multi-threading capability, and it is a language both authors have good experience in. \textit{(iii) .NET:} Just as Java it has good multi-threading capability compared to Python, but not like Java, the authors do not have much experience in .NET. The reason it has been chosen as a choice is that a lot of companies in the north use .Net, so it was looked at as an experience booster.
+
+Python was chosen based on both Copernicus and the stakeholder suggested it
+
+\subsection{API Choice}
+After looking into both Sentinel and OpenEO, Sentinel was chosen since it was the least restrictive of the two, this was a important consideration since the project would not be locked into using python. 
+This was so if DEPA or the authors wanted a specific code pattern, such as \acrfull{OOP}, or the design changed, such as the language Python did not satisfy certain parameters, the product could easily be rewritten in another language. 
+
+Inside the Sentinel hub API, multiple API endpoints were interesting for this project. In the first implementation sprint, the chosen endpoints are: \textit{(i) process} since it is the main way to download EO. \textit{(ii) Async process} To possibly get a more streamlined way to download large EO files. \textit{(iii) catalog} to get a better understanding of the EO data that is downloaded and possibly get a form of metadata. \textit{(iv) statistical} To see if only limited data could be a viable route.
+
+
+\subsection{Process image}
+After looking into the different output formats. GeoTIFF and JSON were the two data formats that the process part of the product was chosen to be able to digest. 
+JSON, since it was the only form of the statistical endpoint, and GeoTIFF, since it was a standard in the EO community.
+To process the JSON output would be simple math and the JSON library to manipulate the JSON file. To manipulate the GeoTIFF would require more knowledge of the data format since it is a new data format that the authors have no experience in. The tool QGIS was found to be a free and powerful tool to both manipulate GeoTIFF, GIS and explore the data. 
+
+To read the GeoTIFF, there were found two libarys, Rastario and geotiff.py. The main difference between these libraries is the use of GDAL. GDAL is a translator for raster and vector geospatial data written in C and C++, mostly \cite{rouault_2025_15375292}.
+This introduces some pitfalls that people who have not coded in C will not know about in Python. Such as pointer exceptions are possible to occur, but will not raise an exception in Python, but will crash the code.
+To avoid this, the library Rastario has been developed with Python's main philosophy. So the Programmer gets cleaner and transparent code. There are still some limitations to Rastario, such as it did not work on Windows without conda, and even in Unix systems, the setup was a complicated affair. But now a simple pip install works on most systems, but this simple installation omits many of GDAL's optional format drives \cite{rastario}. 
+To combat the dependence on GDAL, geotiff.py was developed to be pure Python. The main limitation is that the geotiff.py has not been updated in two years and has limited capability compared to the GDAL library \cite{geotiff.py}. 
+
+Both libraries are going to be explored in the first implementation sprint
+
+\subsection{Managing tiffs}
+Since there was a possibility for a lot of images of a considerable size, a managing tool was thought of. The solutions were to look at how many and what size the images were before looking into solutions such as \acrfull{hdfs} or other such file management systems. 
+But it was decided that if the files downloaded were less than five \acrfull{GB} and the download of the data would not be more than 40 minutes, each author would just download their data, so as not to unnecessarily share or fill up the Google Drive. If it were more than a USB drive would be populated with data by one author and then deliver the data to the other. 
+
+
+\subsection{Downloading fields}
+The tool QGIS was utilised to get a better grasp of the \acrfull{GIS} data from DEPA in the analysis phase. But would also be utilised to convert this GIS data into easily readable GeoJSON that has already been filtered by QGIS. This will be a very manual process, but the fields only need to be inserted once.
+Another important conversion needed to happen for the polygons to be inserted into the database. This was to convert the polygons to \acrfull{wkt}, to save them easily into the database. 
+
+\subsection{Database}
+A database was needed to store all the metadata and the actual data.
+The stakeholders suggested a time series database, and the author thought a relational database would be smarter. The reason for this is manifold: \textit{(i) relations} Firstly, there would be a clear relation between the metadata and data, the main relation would be a potato field linked to a data point in time. \textit{(ii) updating} Updating data will probably not be important for the finished product, but for this exploration of data, it is an essential part of discovery. A time series has fast write speed, but this comes at the cost of read speed, and commands such as delete and update suffer great performance reduction. In time-serious philosophy to update is even seen as not a necessity. \textit{(iii) a schema} With the introduction of a schema, there is an agreement on the structure. This will be easier for multiple people to work with the data, but it also has a disadvantage that is if there is a new form for data, the schema needs to be updated, and this could have consequences for the database's neat structure. 
+
+There are multiple relational database libraries, such as PostgreSQL, SQLite, and MySQL. The authors chose to work with MySQL based on the experience they had with them all. 
+
+\subsection{Non-functional requirements}
+The design should follow the quality attribute maintainability. The overall design philosophy of keep each part of the code's responsibility as small as possible. So that if the API needs maintenance, only a single file should be changed as long as the return value of the file remains the same. 
+
+The scalable quality attribute is not a must in the first sprint, but some design choices have been influenced a bit, such as the code being split between process and download to make them independently executable, therefore easier to scale independently depending on what the current demand is.
+
+
+\subsection{Class Diagram}
+A class diagram was developed on the biases of the design choices and the general knowledge the authors have.
+This diagram showcases the main design choice that is to split the downloading functionality and processing. This is so the calculation of the ndvi is not waiting on the download of data. 
+Another showcase is that an objective-like structure is going to be implemented. This will help with using the database connection in multiple classes with the least amount of code.
+In the download process class diagram, there is only a single downloadAPI class. This is because either the process API or the statistical api is going to be utilized for downloading the data. The catalog api is not implemented on the class diagram since it was not clear if it was needed.
+Even if the two class diagrams are not directly connected by an arrow to the same database, the ID should symbolise that each part connects to the same database. To keep the functionalities separated as much as possible, each functionality implements its database connector.
+The class diagrams can be found in Appendix \ref{class diagram}
+
+
+\section{Second Sprint}\label{Sec:SecoundPhase}
+The second sprint will be explained with firstly going over the knowledge found during the implementation of the first sprint.
+Then based on this knowledgeable will explain the new design choices or the ones that have changed. After it will go over the new functionality that will be the focus of the second sprint of implementation. 
+
+\subsection{Found knowledge}
+The knowledge will not come in any particular order, but will be separated into download and process.
+
+\textbf{Download:}
+The first thing learned was the statistical API endpoint would not be able to be used since the calculations of heat maps can not be implemented on the data that the API endpoint gives. 
+
+The Catalogue API endpoint is also deemed necessary for reducing the number of API calls. This is because in the first implementation, each field would ask for data on every date between the start and end dates. But with the catalogue API endpoint, a single endpoint will giv/e every date there is data for the specific field. There will also be metadata collected, such as cloud coverage. This value is a percentage of clouds that occupy the original image the satellite took. This metadata will be collected in the database to be utilized in the process to filter out cloudy dates to get cleaner data.
+
+In the first implementation, the polygon that was used to download data from the process API endpoint was the fields polygon. But during the implementation of a way to utilise a section of Denmark, a \acrfull{BBox}. This was successful, and instead of downloading a TIFF image for all 40k fields of Denmark instead it would download 278 TIFF images. This would speed up the download time significantly. This would be proved by a simple test in Section \ref{evolution}.
+The BBox is not the one the stakeholder suggested since they were too large for the API endpoints, so \textcolor{red}{oskar skrive hvordan vi kom frem til bbox}
+
+While doing this test, another apparent feature that was much more worth than first thought was logging, So while developing a robust logging mentality was implemented throughout the code.
+This speeds up debugging. It also made it much easier to monitor the code while it was running. So that small change could be tested easily with a clear log of what the impact of each change was.
+
+\textbf{Process:}
+With the new use of BBox, the process would have to be rewritten so it could handle the new format. 
+While exploring the use of BBox, it was made clear that the geotiff.py library was limited in capabilities for the use of the project. This made it clear that the Rastario is going to be the way to manipulate tiff images 
+
+
+\subsection{Delegating work}
+Since two time-consuming processes were made, it was time to create a way to split this work op into multiple workers to handle the I/O problem.
+Since Python has some known problems with multi-threading, this problem is that Python has the \acrfull{GIL}, which locks the Python interpreter to a single thread. 
+To combat this, the solution is to execute multiple Python files at the same time. So each executed file has its own interpreter.
+To control these Workers, as it is called, will be done through a work queue. To create this work queue, the tool RabbitMQ was chosen.
+This choice is based on the analysis and that it is a new tool. This makes it a new experience for the authors. 
+So two new main files are going to be added, one that creates a work order for the download process and one that does it for process process.
+
+To control these workers, a system such as Docker Compose, where each worker would be its own container, and therefore easily changeable in how many workers are executed from a single file instead of multiple terminal calls.
+Another way would be a bash script that runs multiple Python files, and lastly, would be Python's subprocess. popen method since this starts a new process for each call. As long as Python does not wait for a response, this would work; the only concern is to stop the process, but this could be handled by Rabbit. 
+
+\subsection{API}
+talk about the use of process api and a quick look into why the process async was not utilised
+
+\subsection{Logging}
+talk about the logging mentality the group 
+
+\subsection{Class Diagram}
+Talk about the new structure
+
+\section{last Sprint}\label{Sec:ThirdPhase}
+
+\subsection{Found knowledge}
+
+\subsection{language change}
+
+\subsection{More data gathering}
+
+\subsection{Class Diagram}
+
+talk about the chaleges with rappit and mulritread python
+
+talk about possible change of langue but to late
+
+Talk about mutiple more bands since ndvi was not showing enough
+
+talk about going more data then the case getting more plant then just potato - Hvad mener du????
+
+testing on ables and sugarbeets to find the ndvi graphs from them to comapre to potato plant
+Otherwise I like this
+

@@ -1,0 +1,149 @@
+\chapter{Requirements Analysis}
+
+This section will elaborate on the elaboration phase described in Section \ref{SE_Engineering_process}. The sub-requirements will be analyzed in relation to their corresponding main requirements, with each requirement such as FR1.1 grouped under its parent requirement, e.g., FR1.
+
+
+\section{DEPA Gis library}
+\label{Sec:DEPAGIsLib}
+At the end of every year the \acrshort{DEPA} issues GIS shapefiles for a variety of environmental and agricultural areas. The shapefile that this thesis concerns itself with is the "\textit{marker\_2020.zip}" that contains spatial and geometrical data of each field in Denmark\cite{Jordbrugsanalyser}. 
+\subsection{Shapefile structure}
+The shapefile consists of a \textit{.shp} file, that stores the geometrical data of each field in the form of coordinates, that form a polygon. A \textit{.dpf} file that contains an attribute table. This table contains the field ID's, the area of the field, the journal number, CVR number, crop type code, crop type name, field block and the polygon coordinates. A \textit{.shx} index file that links the \textit{.shp} and \textit{.dpf} files. This is useful if you open the shapefile set in a GIS tool, as it links the table attributes from the \textit{.dpf} file to the geometrical \textit{.shp} file that the GIS tool utilises. Additionally it contains a \textit{.prj} file that specifies the coordinate reference system (CRS) the shapefile uses. The shapefile uses the ETRS89 (European Terrestrial Reference System 1989), also known as EPSG:25832. Lastly, it contains a \textit{.cpg} file that contains specifies the text encoding, ensuring readability\cite{sam2023shapefile}\cite{Jordbrugsanalyser}.
+
+\subsection{Intended use}
+The proof of concept described in the use case revolves around analysing remote sensing data from the first of August till the first of October in 2020, find seed potato fields where pre-harvest crop desiccants have been used and in what week, by using the CVR numbers linked to field ID's  where pre-harvest crop desiccant use has been registered\cite{OplægPP}.
+
+The \textit{.dpf} file from the shapefile contains the geometrical data required to query remote sensing data from the Sentinel-2 satellites. Additionally it contains the field ID and CVR numbers and what crop is grown on the corresponding field. Whether the use of pre-harvest crop desiccant has been approved via a registration is not public information, but the \acrshort{DEPA} has access to that information. With this it is possible to monitor vegetation indices for a given field contained in the shapefile. It is assumed based off of previous analysis of related work, the potato plant, vegetation indices and pre-harvest crop desiccants, that if a desiccant is used, a significant drop in "greenness" should be observable using the remote sensing data from the Sentinel-2 satellites. Paired with ground truth from the \acrshort{DEPA} about pre-harvest crop desiccant registrations and potentially registered overuse of such agents, a model can be trained to find trends in vegetation indices, crop desiccant use and overuse thereof, using the shapefile. 
+
+\subsection{Concerns}
+The data contained in the shapefile is inputted by the farmers themselves. This raises the concern that the data might not be up to date or incorrect. This could result in additional noise if a field is incorrectly listed as growing seed potatoes, showing vegetation indices values that are inconsistent. Additionally they are responsible to plotting the field geometrically. This raises the concern that the polygons of the fields are inconsistent with reality and could potentially contain other types of land area, such as wild flora, trees, roads, etc. which would affect the readings.
+
+\section{Copernicus API's}
+\label{Sec:Copernicus API}
+This section will go over the analysis of FR2 which is to download remote sensing data.
+There are multiple ways to obtain accurate color spectrum readings of fields such as drones, UAV and satellites. The stakeholder has suggested using data from the Copernicus Mission 2, whose primary objectives are described in Section \ref{Analysis}. To utilize this data effectively, it is necessary to understand the structure and usage of the API endpoints that Copernicus provides.
+There are 2 main API groups in Copernicus openEO and Sentinel hub.
+To be able to better compare these in the design phase, both APIs will go over the same points:
+\textit{(i) Authentication} How does a user get authenticated?
+\textit{(ii) Limitations} What limitations are imposed on the user, such as the number of requests per minute?
+\textit{(iii) Format of Output} What format does the API return (e.g., JSON, XML,image)?
+\textit{(iv) General Use} What is the typical way the API is used?
+\textit{(v) Other Limitations} Are there additional limitations, such as limited language support or regional restrictions?
+
+\subsection{openEO}
+OpenEO is an community standard that utilises cloud computing and a unified and interoperable platform. This gives the community the ability to share code since it is unified. To use the openEO API the user needs to utilise the library in selected languages \cite{copernicusOpenEOx2013}. 
+
+\textbf{Authentication}
+The user needs a Copernicus account. The user will then use the included authentication command, which will display a link in the command line. When clicked, this link will take the user to a login page. After logging in, an authentication token will be saved by the library. This token will be stored locally to make authentication faster next time.
+
+Once the token has been saved on the machine, it can be reused for machine-to-machine authentication, eliminating the need for further human interaction.
+
+\textbf{Limitations}
+The free tier limitations are that only two synchronous request can be made at a time and batch jobs a limited to two concurrent jobs. other than that there is a credit maximum of 10k credits for a free user, these credits are used for every API call the cost is calculated based on the load of the cloud pc that is used to process the API call.
+
+\textbf{Format of Output}
+The data the API is producing can be exported in eight different data formats from a picture to a simple CSV file
+
+\textbf{General Use}
+The API is called through the downloaded library, using one of the sixty-nine data collections. These collections are either specific satellite missions or already processed datasets, such as a global NDVI collection. The data is first presented as a \textit{DataCube}, an openEO-specific datatype.
+
+This \textit{DataCube} is designed to have four dimensions:  
+\textit{(i)} Time – the timespan specified by the user.  
+\textit{(ii)} and \textit{(iii)} X and Y – the spatial coordinates selected by the user.  
+\textit{(iv)} Bands – such as the red and blue spectral bands.
+
+This \textit{DataCube} is not the final exported product but the internal structure used by the cloud computing backend to perform operations before returning results to the user. For example, the user may choose to calculate NDVI over a specified area and time range, and only retrieve the temporal maximum value to identify hotspots.
+
+Alternatively, the user may choose to export the raw data directly, without performing any processing.
+
+
+\textbf{Other Limitations}
+The main limitation of openEO is that the client library only supports Python, JavaScript, or R.
+
+\subsection{Sentinel Hub}
+Sentinel Hub differs from openEO in its approach to accessing Earth observation data. Instead of using a downloadable client library, Sentinel Hub provides a collection of RESTful API endpoints that can be accessed directly via standard HTTP requests \cite{copernicusSentinelx2013}.
+
+Similar to openEO, Sentinel Hub allows users to perform pre-processing operations on satellite data using the cloud infrastructure of Copernicus. These operations include tasks such as atmospheric correction, mosaicking, or spectral index computation, all of which can be performed before downloading the data.
+
+\textbf{Authentication}
+To access the Sentinel Hub API's, the user must have a valid Copernicus account and create an OAuth client via the Copernicus website. Upon creation, the user will receive a \textit{client ID} and \textit{client secret}.
+
+These credentials are used to request a \acrfull{JWT} from the authentication token endpoint. The JWT is valid for a limited period and must be included in all subsequent API requests via the Authorization header.
+
+Once the token expires, a new one must be retrieved using the same OAuth credentials.
+
+\textbf{Limitations}
+As with openEO, Sentinel Hub access is governed by a monthly token quota allocated to each user. Every API request consumes a certain number of tokens, with the minimum cost per request being two tokens.
+
+In addition to the monthly quota, there are rate limits in place: \textit{(i)}A maximum of \textbf{300 requests per minute}.
+\textit{(ii)}A maximum of \textbf{300 tokens consumed per minute}.
+
+Since each API request consumes at least two tokens, the practical limit is approximately \textbf{150 requests per minute}, assuming minimum-cost operations. More complex operations will consume more tokens per request, further reducing the number of allowable requests per minute.
+
+\textbf{Format of Output}
+The output format depends on the specific API endpoint being used. However, for most EO data, Sentinel Hub returns results in the \textbf{GeoTIFF} format by default. GeoTIFF is ideal because it embeds essential metadata such as:
+\textit{(i)} Spatial coordinates (georeferencing).
+\textit{(ii)} Coordinate Reference System (CRS).
+\textit{(iii)} Unlike simpler formats like PNG, which typically contain only three RGB bands, GeoTIFFs can include all available spectral bands provided by the Copernicus satellites.
+
+\textbf{Catalog API}  
+Sentinel Hub also provides a \textbf{Catalog API}, which returns a JSON object containing metadata about available datasets. This includes:
+\textit{(i)} Timestamps of available imagery.
+\textit{(ii)} Spatial and temporal coverage.
+\textit{(ii)} Metadata such as cloud cover percentage, processing level, and sensor type.
+
+
+\textbf{General Use}
+The list of API endpoints are: 
+\textbf{General Use}  
+The list of API endpoints are:  
+\textit{(i) process} – The direct API endpoint to download images. It requires an evalscript that defines how the bands should be processed and included in the GeoTIFF file. This is where band processing occurs before download, such as combining bands or calculating vegetation indices, or simply inputting them raw into the tiff file.
+\textit{(ii) async process} – Similar to \textit{process}, but instead of waiting for a semi-instant response, the API consumes the evalscript and request, processes the task asynchronously, and stores the result in a bucket on the Copernicus server system. The result can then be downloaded later. This allows for the processing of larger datasets.  
+\textit{(iii) catalog} – As previously explained, this is used to find available data dates and metadata for a given region and time frame.  
+\textit{(iv) batch processing} – Not available to free users. Similar to \textit{process}, but designed for larger datasets and longer time spans.  
+\textit{(v) statistical} – Instead of returning a TIFF image, this endpoint returns a JSON object with statistical values. Rather than providing all pixel values, it returns summary statistics such as maximum, minimum, and average values for a defined area and time range.  
+\textit{(vi) batch statistical} – Like other batch endpoints, this is not available to free users. It allows the collection of statistical values over large datasets more efficiently.
+
+
+\textbf{Other Limitations}  
+Unlike openEO, there is no language restriction, since most programming languages can handle simple HTTP requests.
+
+
+\section{Process Tiff Images}
+\label{Sec:ProcessTiffImages}
+Both APIs produce \acrfull{GeoTIFF} files as output, making this the primary data format for analysis. A GeoTIFF is a standard TIFF image file augmented with geospatial metadata.
+
+\textbf{Why modify TIFF instead of PNG or other image formats?} \\
+TIFF is a lossless and highly extensible format, making it ideal for scientific and geospatial data \cite{ogcGeoTIFFStandard}. Unlike formats such as PNG or JPEG, TIFF can handle complex data structures, multiple channels, and large file sizes without compression artifacts.
+
+To transform a standard TIFF into a GeoTIFF, a \texttt{GeoKeyDirectoryTag} must be included. This tag contains essential geospatial metadata, such as the CRS and spatial referencing information. These additions allow the GeoTIFF to be correctly positioned on a map, making the spatial data meaningful.
+
+This capability is one of the main reasons the EO science community widely adopts the GeoTIFF format. It enables datasets from different sources to be easily compared, integrated, and visualized without compatibility issues.
+
+GeoTIFFs store raster data in the form of a 3D array: width (\textit{x}), height (\textit{y}), and data values (e.g., spectral bands) for each pixel. TIFF files can store multiple data values per pixel, which is especially important in EO applications where multiple spectral bands are recorded during each scan.
+
+Using raster data from GeoTIFF files is conceptually similar to working with a 3D array in programming. Several libraries across different programming languages support reading and processing GeoTIFFs. Some notable examples include:
+
+\textit{(i)} Rastario for Python – a popular and powerful library built on GDAL, commonly used in geospatial data analysis.
+\textit{(ii)} geotiff.js for JavaScript – a browser-friendly tool that enables reading GeoTIFF files directly in web applications.
+\textit{(iii)} Apache Commons Imaging for Java – a general-purpose imaging library that supports TIFF and can be extended for geospatial metadata.
+\textit{(iv)} LibTiff.Net for .NET – a .NET port of the widely used libtiff C library, which supports manipulation and reading of TIFF/GeoTIFF files.
+
+
+
+\section{Delegate Work}
+\label{Sec:DelegateWork}
+It is assumed that downloading and processing data from each seed potato field for each day that the satellites circle over Denmark between August and October, will be a time consuming task, as a query is needed for each available date. Additionally, the downloaded data for each day needs to be processed and vegetation indices calculated. These tasks are I/O-bound (input/output-bound) with API requests and database inserts and queries, as the system would spend time waiting for external sources and is therefore not limited to computational power (CPU-bound)\cite{baeldung_cpu_io_bound}.
+
+\subsection{Combating I/O-Bound Bottlenecks}
+Because the API can handle up to 150 requests a minute, using a single thread creates an I/O-bound bottleneck waiting for the response. To combat this, a message broker can be used to delegate a work load over multiple workers would ensure more API requests per minute, as workers can wait for API responses simultaneously. Using multiple workers to process the data gathered from the API will also ensure that multiple queries can happen simultaneously, rather than a single thread waiting for a response before the next query. This will significantly lower I/O-bound overhead for the system.
+There are a series of message brokers available, each with their strengths and weaknesses.
+
+\textbf{Amazon SQS} is native to Amazon Web Services(AWS) and offers an extensive amount of features, with a high throughput of 300 messages per second or 3000 messages with batching. FIFO Queues that ensures the order of messages sent and received are preserved. Message locking ensures that once a message is received it cannot be processed by other workers, to avoid duplicates and Dead Letter Queues that allows for inspection should a worker be unable to process the message\cite{aws_sqs_features}.
+
+\textbf{Azure Service Bus} is native to Microsoft Azure and akin to Amazon SQS, offers an abundance of features. FIFO queues, duplication detection, dead-lettering and more\cite{azure_service_bus_overview}.
+Both of these platforms are suitable solutions, but are sold as a PaaS on top of their respective cloud service.
+
+\textbf{Apache Kafka} is a free alternative that can be run locally. As such it requires more time to setup and configure. As a message broker it offers great throughput, replication and fault-tolerance, making it suitable for large scale message processing applications, along with strong durability. Though Apache Kafka is designed to be more than just a message broker and offers additional features, such as event streaming and partitioning\cite{kafka_docs}.
+
+\textbf{RabbitMQ} is another free message and feature rich broker that can be run locally. It does requires more set up than the PaaS alternatives, but is lightweight. RabbitMQ  offers a variety of queue systems, including their classic queue, which uses FIFO with non-replicates, ensuring no duplicated messages. Multiple workers, dead letter queues, priority queues and more. Though some things like retry logic, should a message fail to be processed, needs to be implemented manually using the dead letter queue or requeue patterns. But overall offers control over how messages are delivered, retried and processed with the correct setup\cite{rabbitmq_docs}.
+ 
