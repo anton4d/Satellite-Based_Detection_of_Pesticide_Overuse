@@ -167,9 +167,9 @@ Models/*
 # But don't ignore the models folder itself
 !Models/
 *.tiff
-ResponseCatalog.txt
-Process/plot/*
-Shapefiles/*.zip
-Shapefiles/Mark*/*
-Users.csv
-Process/dumb.csv
+Code/ResponseCatalog.txt
+Code/Process/plot/*
+Code/Shapefiles/*.zip
+Code/Shapefiles/Mark*/*
+Code/Users.csv
+Code/Process/dumb.csv

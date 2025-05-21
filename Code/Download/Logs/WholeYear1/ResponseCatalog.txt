@@ -1,0 +1,901 @@
+Polygon: [[[9.948000000000002, 54.756], [9.948000000000002, 55.012], [9.692000000000002, 55.012], [9.692000000000002, 54.756], [9.948000000000002, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 54.756], [10.204000000000002, 55.012], [9.948000000000002, 55.012], [9.948000000000002, 54.756], [10.204000000000002, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 54.756], [10.460000000000004, 55.012], [10.204000000000002, 55.012], [10.204000000000002, 54.756], [10.460000000000004, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 54.756], [10.716000000000005, 55.012], [10.460000000000004, 55.012], [10.460000000000004, 54.756], [10.716000000000005, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 54.756], [10.972000000000005, 55.012], [10.716000000000005, 55.012], [10.716000000000005, 54.756], [10.972000000000005, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 55.012], [9.948000000000002, 55.268], [9.692000000000002, 55.268], [9.692000000000002, 55.012], [9.948000000000002, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 55.012], [10.204000000000002, 55.268], [9.948000000000002, 55.268], [9.948000000000002, 55.012], [10.204000000000002, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 55.012], [10.460000000000004, 55.268], [10.204000000000002, 55.268], [10.204000000000002, 55.012], [10.460000000000004, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 55.012], [10.716000000000005, 55.268], [10.460000000000004, 55.268], [10.460000000000004, 55.012], [10.716000000000005, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 55.012], [10.972000000000005, 55.268], [10.716000000000005, 55.268], [10.716000000000005, 55.012], [10.972000000000005, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 55.268], [9.948000000000002, 55.524], [9.692000000000002, 55.524], [9.692000000000002, 55.268], [9.948000000000002, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 55.268], [10.204000000000002, 55.524], [9.948000000000002, 55.524], [9.948000000000002, 55.268], [10.204000000000002, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 55.268], [10.460000000000004, 55.524], [10.204000000000002, 55.524], [10.204000000000002, 55.268], [10.460000000000004, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 55.268], [10.716000000000005, 55.524], [10.460000000000004, 55.524], [10.460000000000004, 55.268], [10.716000000000005, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 55.268], [10.972000000000005, 55.524], [10.716000000000005, 55.524], [10.716000000000005, 55.268], [10.972000000000005, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 55.524], [9.948000000000002, 55.78], [9.692000000000002, 55.78], [9.692000000000002, 55.524], [9.948000000000002, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 55.524], [10.204000000000002, 55.78], [9.948000000000002, 55.78], [9.948000000000002, 55.524], [10.204000000000002, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 55.524], [10.460000000000004, 55.78], [10.204000000000002, 55.78], [10.204000000000002, 55.524], [10.460000000000004, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 55.524], [10.716000000000005, 55.78], [10.460000000000004, 55.78], [10.460000000000004, 55.524], [10.716000000000005, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 55.524], [10.972000000000005, 55.78], [10.716000000000005, 55.78], [10.716000000000005, 55.524], [10.972000000000005, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 54.756], [9.948000000000002, 55.012], [9.692000000000002, 55.012], [9.692000000000002, 54.756], [9.948000000000002, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 54.756], [10.204000000000002, 55.012], [9.948000000000002, 55.012], [9.948000000000002, 54.756], [10.204000000000002, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 54.756], [10.460000000000004, 55.012], [10.204000000000002, 55.012], [10.204000000000002, 54.756], [10.460000000000004, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 54.756], [10.716000000000005, 55.012], [10.460000000000004, 55.012], [10.460000000000004, 54.756], [10.716000000000005, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 54.756], [10.972000000000005, 55.012], [10.716000000000005, 55.012], [10.716000000000005, 54.756], [10.972000000000005, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 55.012], [9.948000000000002, 55.268], [9.692000000000002, 55.268], [9.692000000000002, 55.012], [9.948000000000002, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 55.012], [10.204000000000002, 55.268], [9.948000000000002, 55.268], [9.948000000000002, 55.012], [10.204000000000002, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 55.012], [10.460000000000004, 55.268], [10.204000000000002, 55.268], [10.204000000000002, 55.012], [10.460000000000004, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 55.012], [10.716000000000005, 55.268], [10.460000000000004, 55.268], [10.460000000000004, 55.012], [10.716000000000005, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 55.012], [10.972000000000005, 55.268], [10.716000000000005, 55.268], [10.716000000000005, 55.012], [10.972000000000005, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 55.268], [9.948000000000002, 55.524], [9.692000000000002, 55.524], [9.692000000000002, 55.268], [9.948000000000002, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 55.268], [10.204000000000002, 55.524], [9.948000000000002, 55.524], [9.948000000000002, 55.268], [10.204000000000002, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 55.268], [10.460000000000004, 55.524], [10.204000000000002, 55.524], [10.204000000000002, 55.268], [10.460000000000004, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 55.268], [10.716000000000005, 55.524], [10.460000000000004, 55.524], [10.460000000000004, 55.268], [10.716000000000005, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 55.268], [10.972000000000005, 55.524], [10.716000000000005, 55.524], [10.716000000000005, 55.268], [10.972000000000005, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 55.524], [9.948000000000002, 55.78], [9.692000000000002, 55.78], [9.692000000000002, 55.524], [9.948000000000002, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 55.524], [10.204000000000002, 55.78], [9.948000000000002, 55.78], [9.948000000000002, 55.524], [10.204000000000002, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 55.524], [10.460000000000004, 55.78], [10.204000000000002, 55.78], [10.204000000000002, 55.524], [10.460000000000004, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 55.524], [10.716000000000005, 55.78], [10.460000000000004, 55.78], [10.460000000000004, 55.524], [10.716000000000005, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 55.524], [10.972000000000005, 55.78], [10.716000000000005, 55.78], [10.716000000000005, 55.524], [10.972000000000005, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 54.756], [9.948000000000002, 55.012], [9.692000000000002, 55.012], [9.692000000000002, 54.756], [9.948000000000002, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 54.756], [10.204000000000002, 55.012], [9.948000000000002, 55.012], [9.948000000000002, 54.756], [10.204000000000002, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 54.756], [10.460000000000004, 55.012], [10.204000000000002, 55.012], [10.204000000000002, 54.756], [10.460000000000004, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 54.756], [10.716000000000005, 55.012], [10.460000000000004, 55.012], [10.460000000000004, 54.756], [10.716000000000005, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 54.756], [10.972000000000005, 55.012], [10.716000000000005, 55.012], [10.716000000000005, 54.756], [10.972000000000005, 54.756]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 55.012], [9.948000000000002, 55.268], [9.692000000000002, 55.268], [9.692000000000002, 55.012], [9.948000000000002, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 55.012], [10.204000000000002, 55.268], [9.948000000000002, 55.268], [9.948000000000002, 55.012], [10.204000000000002, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 55.012], [10.460000000000004, 55.268], [10.204000000000002, 55.268], [10.204000000000002, 55.012], [10.460000000000004, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 55.012], [10.716000000000005, 55.268], [10.460000000000004, 55.268], [10.460000000000004, 55.012], [10.716000000000005, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 55.012], [10.972000000000005, 55.268], [10.716000000000005, 55.268], [10.716000000000005, 55.012], [10.972000000000005, 55.012]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 55.268], [9.948000000000002, 55.524], [9.692000000000002, 55.524], [9.692000000000002, 55.268], [9.948000000000002, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 55.268], [10.204000000000002, 55.524], [9.948000000000002, 55.524], [9.948000000000002, 55.268], [10.204000000000002, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 55.268], [10.460000000000004, 55.524], [10.204000000000002, 55.524], [10.204000000000002, 55.268], [10.460000000000004, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 55.268], [10.716000000000005, 55.524], [10.460000000000004, 55.524], [10.460000000000004, 55.268], [10.716000000000005, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 55.268], [10.972000000000005, 55.524], [10.716000000000005, 55.524], [10.716000000000005, 55.268], [10.972000000000005, 55.268]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[9.948000000000002, 55.524], [9.948000000000002, 55.78], [9.692000000000002, 55.78], [9.692000000000002, 55.524], [9.948000000000002, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.204000000000002, 55.524], [10.204000000000002, 55.78], [9.948000000000002, 55.78], [9.948000000000002, 55.524], [10.204000000000002, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.460000000000004, 55.524], [10.460000000000004, 55.78], [10.204000000000002, 55.78], [10.204000000000002, 55.524], [10.460000000000004, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.716000000000005, 55.524], [10.716000000000005, 55.78], [10.460000000000004, 55.78], [10.460000000000004, 55.524], [10.716000000000005, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}Polygon: [[[10.972000000000005, 55.524], [10.972000000000005, 55.78], [10.716000000000005, 55.78], [10.716000000000005, 55.524], [10.972000000000005, 55.524]]]
+{
+    "type": "FeatureCollection",
+    "features": [],
+    "links": [
+        {
+            "href": "https://sh.dataspace.copernicus.eu/api/v1/catalog/1.0.0/search",
+            "rel": "self",
+            "type": "application/geo+json"
+        }
+    ],
+    "context": {
+        "limit": 100,
+        "returned": 0
+    }
+}

@@ -3,7 +3,7 @@ GitHub repository for the **SDU Master Project** by **Oskar and Anton**
 
 ## **Setup Instructions**  
 
-Run the following command to set up the virtual environment and install dependencies:  
+Run the following command inside the code folder to set up the virtual environment and install dependencies:  
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
