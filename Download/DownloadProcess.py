@@ -166,7 +166,6 @@ def main():
     if match:
         global workername
         workername = match.group(1)
-        print(workername)
     logging.info(f"Received MessagesData: {args.MessagesData}")
 
     FromDate, ToDate, Mode, Region, Resolution, Cropid, FieldId = validate_message_data(args.MessagesData)

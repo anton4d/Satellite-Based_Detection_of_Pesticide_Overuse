@@ -30,6 +30,19 @@ def process_tiff(message, log_filename):
     )
     return process.wait()
 
+def cracefullstop(channel, connection, executor):
+    channel.stop_consuming()
+    connection.close()
+    executor.shutdown(wait=False)
+    logging.info("Graceful shutdown.")
+
+def commandsCallback(ch, method, properties, body, executor,connection):
+    message = body.decode().strip()
+    logging.info(f"Received message: {message}")
+    if message == "Stop":
+        cracefullstop(ch,connection,executor)
+
+
 def callback(ch, method, properties, body, executor):
     message = body.decode().strip()
     logging.info(f"Received message: {message}")
@@ -64,11 +77,24 @@ def callback(ch, method, properties, body, executor):
 def consume():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', heartbeat=30))
     channel = connection.channel()
+
+    channel.exchange_declare(exchange="Commands", exchange_type="fanout")
+
+    result = channel.queue_declare(queue="", exclusive=True)
+
+    queue_name = result.method.queue
+    
+
+    channel.queue_bind(exchange="Commands", queue=queue_name)
+
     channel.queue_declare(queue='Process_task_queue', durable=True)
     channel.basic_qos(prefetch_count=1)
 
     executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
-    channel.basic_consume(queue='Process_task_queue', on_message_callback=lambda ch, method, properties, body: callback(ch, method, properties, body, executor))
+    channel.basic_consume(queue='Process_task_queue', on_message_callback=lambda ch, method, properties, body: 
+                          callback(ch, method, properties, body, executor))
+    channel.basic_consume(queue=queue_name, on_message_callback=lambda ch, method, properties, body: 
+                          commandsCallback(ch, method, properties, body, executor,connection))
 
     logging.info("TIFF RabbitMQ consumer started.")
     print(" [*] Waiting for messages. To exit press CTRL+C")
@@ -76,10 +102,7 @@ def consume():
     try:
         channel.start_consuming()
     except KeyboardInterrupt:
-        channel.stop_consuming()
-        connection.close()
-        executor.shutdown(wait=False)
-        logging.info("Graceful shutdown.")
+        cracefullstop(channel,connection,executor)
 
 def main():
     parser = argparse.ArgumentParser()

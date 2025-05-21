@@ -462,9 +462,32 @@ def plot_Datapoints_heatmap_matplotlib(id_list, db_handler: SQLHandler, from_dat
     SavePlot(filename, output_dir)
     print(f"Saved heatmap to {filename}")
 
+
+def plot_AllCalcDataTypes(id_list, db_handler: SQLHandler, from_date,data_mode, to_date, max_cloud_cover, output_dir,cropType,tiffFormat):
+    print("start the method plot_AllCalcDataTypes")
+    
+    for CropYearId in id_list:
+        plt.figure(figsize=(10, 5))
+        id = 5
+        while id <= 9:
+            ndvidatadict = db_handler.GetallDataPointsBasedOnIdAndDateRangeAndDatatypeAndTiffFormat(CropYearId, from_date, to_date,id,tiffFormat)
+            filtered_dict = filter_cloudy_dates(ndvidatadict,CropYearId,db_handler, max_cloud_cover)
+            field_id = db_handler.GetFieldIdBasedOnFieldCropYearId(CropYearId)
+            datatype_name = db_handler.GetDatatypeName(id)
+            ndvidates = list(filtered_dict.keys())
+            data = dataModeswitch(filtered_dict, data_mode)
+            plt.plot(ndvidates, data, label=f"{data_mode} {datatype_name}")
+            id = id +1
+
+        plt.legend()
+        title = f"allcalcdatatypes for Field {field_id} with croptype: {cropType} MaxCloud:{max_cloud_cover} tiffFormat:{tiffFormat}"
+        setupPlot(title,f"all calculated datatypes")
+        filename = f"allcalcdatatypes_Field_{field_id}_{cropType}_{from_date}_to_{to_date}_MaxCloud_{max_cloud_cover}_{tiffFormat}_{data_mode}.png"
+        SavePlot(filename, output_dir)
+
 def main():
     parser = argparse.ArgumentParser(description="{datatype_name} Graph Generator")
-    parser.add_argument("Mode", choices=["indMinMaxAvg", "All","AllAvgLine", "Heatmap","Gradient","Deviation","CvivsNdvi","NdrevsNdvi"], help="Graph mode")
+    parser.add_argument("Mode", choices=["indMinMaxAvg", "All","AllAvgLine", "Heatmap","Gradient","Deviation","CvivsNdvi","NdrevsNdvi","allcalc"], help="Graph mode")
     parser.add_argument("MaxCloud", type=float, help="Maximum allowed cloud cover")
     parser.add_argument("CropId",help="The crop to be used in graph making")
     parser.add_argument("FieldId", help="Field ID to graph, or 'all' for all fields")
@@ -520,6 +543,10 @@ def main():
         plot_NdviAndCvi(id_list, db_handler, from_date, to_date, maxCloud, output_dir,cropType,TiffFormat)
     elif plotmode == "NdrevsNdvi":
         plot_NdviAndNdre(id_list, db_handler, from_date, to_date, maxCloud, output_dir,cropType,TiffFormat)
+    elif plotmode == "allcalc":
+        plot_AllCalcDataTypes(id_list, db_handler, from_date,Datamode, to_date, maxCloud, output_dir,cropType,TiffFormat)
+
+
 
 
     endTime = time.time()

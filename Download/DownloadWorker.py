@@ -29,6 +29,13 @@ def process_download(message, log_filename,LogFolder):
     exit_code = process.wait()
     return exit_code
 
+
+def commandsCallback(ch, method, properties, body, executor,connection):
+    message = body.decode().strip()
+    logging.info(f"Received message: {message}")
+    if message == "Stop":
+        shutdown_handler(ch,connection,executor)
+        
 def callback(ch, method, properties, body, executor):
     """Callback that offloads the download task to a thread."""
     message = body.decode().strip()
@@ -81,6 +88,13 @@ def shutdown_handler(channel, connection, executor):
 def consume():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost', heartbeat=30))
     channel = connection.channel()
+
+    channel.exchange_declare(exchange="Commands", exchange_type="fanout")
+    result = channel.queue_declare(queue="", exclusive=True)
+    queue_name = result.method.queue
+    channel.queue_bind(exchange="Commands", queue=queue_name)
+
+
     channel.queue_declare(queue='Download_task_queue', durable=True)
     channel.basic_qos(prefetch_count=1)
 
@@ -89,6 +103,8 @@ def consume():
 
 
     on_message_callback = lambda ch, method, properties, body: callback(ch, method, properties, body, executor)
+    channel.basic_consume(queue=queue_name, on_message_callback=lambda ch, method, properties, body: 
+                          commandsCallback(ch, method, properties, body, executor,connection))
     channel.basic_consume(queue='Download_task_queue', on_message_callback=on_message_callback)
 
 
