@@ -4,6 +4,7 @@ from datetime import datetime
 from shapely.geometry import box
 from shapely.wkt import dumps
 from Gis.WktHandler import ConvertWktToNestedCords
+from Gis.WktHandler import get_pixel_dimensions
 from Database.SQLHandler import SQLHandler
 from Api.CatalogApiHandler import CatalogApiHandler
 from Api.TokenApiHandler import TokenApiHandler
@@ -121,6 +122,11 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution,cropid,FieldID):
         folderName = f"Pictures{mode}/FieldId{FieldId}"
         sleeptimer=1
         nestedBB = ConvertWktToNestedCords(wkt)
+        if resolution == "-1":
+            width, height = get_pixel_dimensions(nestedBB)
+        else:
+            width = resolution
+            height = resolution
         logging.info(f"Starting the download proccess for fieldid: {FieldId} number: {number} out of {len(polygondict)}")
         CatalogData = Catalog_ApiHandler.GetPictureDates(Polygon=nestedBB, FieldId=FieldId,FromDate=FromDate,ToDate=ToDate)
         if not CatalogData:
@@ -133,7 +139,7 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution,cropid,FieldID):
 
         for date in CatalogData:
             try:
-                Process_ApiHandler.processDateIntoImages(date, nestedBB, FieldId,resolution,folderName)
+                Process_ApiHandler.processDateIntoImages(date, nestedBB, FieldId,width,height,folderName)
             except Exception as e:
                 logging.error(f"Error processing date {date} for polygon with id {FieldId}: {e}")
         logging.info(f"Ended the download proccess for fieldid: {FieldId} number: {number} out of {len(polygondict)}\n")
@@ -145,7 +151,7 @@ def DownloadProcess(FromDate,ToDate,mode,region,resolution,cropid,FieldID):
     
 def validate_message_data(message_data):
     """Validates the MessagesData format."""
-    DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|(BB|Field)\|(Fyn| )\|\d{3,4}\|(\d{1,}|all)\|(\d{1,}|all)$")
+    DATEPATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|(BB|Field)\|(Fyn|all|Test)\|(\d{3,4}|-1)\|(\d{1,}|all)\|(\d{1,}|all)$")
     if not DATEPATTERN.match(message_data):
         logging.error(f"Invalid MessagesData format: {message_data}")
         sys.exit(4)

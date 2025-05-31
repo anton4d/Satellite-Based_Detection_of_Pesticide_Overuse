@@ -10,7 +10,7 @@ import time
 import pandas as pd
 import matplotlib.pyplot as plt
 from collections import defaultdict
-
+import sys
 def load_env():
     dotenv_file = dotenv.find_dotenv()
     dotenv.load_dotenv(dotenv_file)
@@ -208,7 +208,7 @@ def plot_field_deviation_boxplots(db_handler: SQLHandler, from_date, to_date, da
     SavePlot(filename, output_dir)
 
 
-def plot_Datapoints_gradient_and_rank_ids(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, output_dir, cropType, datatype, dataMode):
+def plot_Datapoints_gradient_and_rank_ids(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, output_dir, cropType, datatype, dataMode,tifformat):
     print("Start the method plot_Datapoints_gradient_and_rank_ids")
     results = []
     datatype_name = db_handler.GetDatatypeName(datatype)
@@ -220,7 +220,7 @@ def plot_Datapoints_gradient_and_rank_ids(id_list, db_handler: SQLHandler, from_
     timeframto=f"{year}-10-31"
 
     for CropYearId in id_list:
-        datadict = db_handler.GetallDataPointsBasedOnIdAndDateRangeAndDatatype(CropYearId, from_date, to_date, datatype)
+        datadict = db_handler.GetallDataPointsBasedOnIdAndDateRangeAndDatatypeAndTiffFormat(CropYearId, from_date, to_date, datatype,tifformat)
         FilteredDatadict = filter_cloudy_dates(datadict, CropYearId, db_handler, max_cloud_cover)
 
         if len(FilteredDatadict) < 2:
@@ -485,9 +485,94 @@ def plot_AllCalcDataTypes(id_list, db_handler: SQLHandler, from_date,data_mode, 
         filename = f"allcalcdatatypes_Field_{field_id}_{cropType}_{from_date}_to_{to_date}_MaxCloud_{max_cloud_cover}_{tiffFormat}_{data_mode}.png"
         SavePlot(filename, output_dir)
 
+
+def plot_Datapoints_gradient_and_rank_ids_Ndvi_vs_chosenData(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, output_dir, cropType, datatype, dataMode,tifformat):
+    print("Start the method plot_Datapoints_gradient_and_rank_ids")
+    if(datatype ==5):
+        print("Can not combare ndvi with ndvi")
+        sys.exit(1)
+    results = []
+    datatype_name = db_handler.GetDatatypeName(datatype)
+    ndviDatatypename = "NDVI"
+    ndvidatatypeid = 5
+    from_date = pd.to_datetime(from_date)
+    to_date = pd.to_datetime(to_date)
+    year = from_date.year
+    timeframfrom= f"{year}-08-01"
+    timeframto=f"{year}-10-31"
+
+    for CropYearId in id_list:
+        datadict = db_handler.GetallDataPointsBasedOnIdAndDateRangeAndDatatypeAndTiffFormat(CropYearId, from_date, to_date, datatype,tifformat)
+        FilteredDatadict = filter_cloudy_dates(datadict, CropYearId, db_handler, max_cloud_cover)
+
+        Ndvidatadict = db_handler.GetallDataPointsBasedOnIdAndDateRangeAndDatatypeAndTiffFormat(CropYearId, from_date, to_date, ndvidatatypeid,tifformat)
+        NdviFilteredDatadict = filter_cloudy_dates(Ndvidatadict, CropYearId, db_handler, max_cloud_cover)
+
+        if (len(FilteredDatadict) < 2) and (len(NdviFilteredDatadict < 2)):
+            continue  
+
+        DataPoints = dataModeswitch(FilteredDatadict, dataMode)
+        ndviDatapoints = dataModeswitch(NdviFilteredDatadict, dataMode)
+
+        df = pd.DataFrame(DataPoints, index=list(FilteredDatadict.keys()), columns=[dataMode])
+        df.index = pd.to_datetime(df.index)
+        df.sort_index(inplace=True)
+
+        Ndvidf = pd.DataFrame(ndviDatapoints, index=list(NdviFilteredDatadict.keys()), columns=[dataMode])
+        Ndvidf.index = pd.to_datetime(Ndvidf.index)
+        Ndvidf.sort_index(inplace=True)
+        
+        df_window = df[(df.index >= pd.to_datetime(timeframfrom)) & (df.index <= pd.to_datetime(timeframto))]
+        Ndvidf_window = Ndvidf[(Ndvidf.index >= pd.to_datetime(timeframfrom)) & (Ndvidf.index <= pd.to_datetime(timeframto))]
+
+        if (df_window.empty or len(df_window) < 2) and (Ndvidf_window.empty or len(Ndvidf_window) <2):
+            continue
+
+       
+
+        delta_t = df_window.index.to_series().diff().dt.total_seconds() / (60 * 60 * 24)  
+        delta_Datapoints = df_window[dataMode].diff() 
+        df_window.loc[:, f"{datatype_name}_Gradient"] = delta_Datapoints / delta_t  
+        Ndvidelta_t = Ndvidf_window.index.to_series().diff().dt.total_seconds() / (60 * 60 * 24)  
+        Ndvidelta_Datapoints = Ndvidf_window[dataMode].diff() 
+        Ndvidf_window.loc[:, f"{ndviDatatypename}_Gradient"] = Ndvidelta_Datapoints / Ndvidelta_t  
+
+        
+        min_grad_index = df_window[f"{datatype_name}_Gradient"].idxmin()
+        min_grad_value = df_window.loc[min_grad_index, f"{datatype_name}_Gradient"]
+
+        Ndvimin_grad_index = Ndvidf_window[f"{ndviDatatypename}_Gradient"].idxmin()
+        Ndvimin_grad_value = Ndvidf_window.loc[Ndvimin_grad_index, f"{ndviDatatypename}_Gradient"]
+
+        
+        field_id = db_handler.GetFieldIdBasedOnFieldCropYearId(CropYearId)
+        
+
+        
+        results.append({
+            "CropYearId": CropYearId,
+            "FieldId": field_id,
+            f"{datatype_name}_MinGradient": min_grad_value,
+            f"{ndviDatatypename}_Mingradient": Ndvimin_grad_value,
+            "Combined_min_Gradient": Ndvimin_grad_value-min_grad_value,
+            "StartDate": df_window.index[df_window.index.get_loc(min_grad_index) - 1] if df_window.index.get_loc(min_grad_index) > 0 else None,
+            "EndDate": min_grad_index
+        })
+
+    
+    sorted_results = sorted(results, key=lambda x: x["Combined_min_Gradient"])
+
+    
+    must_visit_df = pd.DataFrame(sorted_results)
+    must_visit_csv_path = os.path.join(output_dir, f"{cropType}_{datatype_name}_vs_{ndviDatatypename}_{dataMode}_must_visit_combined_gradiant.csv")
+    os.makedirs(output_dir, exist_ok=True)
+    must_visit_df.to_csv(must_visit_csv_path, index=False)
+
+    print(f"Finished processing. Results saved to {must_visit_csv_path}")
+
 def main():
     parser = argparse.ArgumentParser(description="{datatype_name} Graph Generator")
-    parser.add_argument("Mode", choices=["indMinMaxAvg", "All","AllAvgLine", "Heatmap","Gradient","Deviation","CvivsNdvi","NdrevsNdvi","allcalc"], help="Graph mode")
+    parser.add_argument("Mode", choices=["indMinMaxAvg", "All","AllAvgLine", "Heatmap","Gradient","Deviation","CvivsNdvi","NdrevsNdvi","allcalc","Gradiant_Ndvi_vs_datatype"], help="Graph mode")
     parser.add_argument("MaxCloud", type=float, help="Maximum allowed cloud cover")
     parser.add_argument("CropId",help="The crop to be used in graph making")
     parser.add_argument("FieldId", help="Field ID to graph, or 'all' for all fields")
@@ -536,7 +621,7 @@ def main():
     elif plotmode == "Heatmap":
         plot_Datapoints_heatmap_matplotlib(id_list, db_handler, from_date, to_date, maxCloud, Datamode, output_dir, cropType,datatype)
     elif plotmode =="Gradient":
-        plot_Datapoints_gradient_and_rank_ids(id_list, db_handler, from_date, to_date, maxCloud, output_dir, cropType, datatype, Datamode)
+        plot_Datapoints_gradient_and_rank_ids(id_list, db_handler, from_date, to_date, maxCloud, output_dir, cropType, datatype, Datamode,TiffFormat)
     elif plotmode == "Deviation":
         plot_field_deviation_boxplots(db_handler,from_date,to_date,datatype,maxCloud,output_dir,cropType,Datamode)
     elif plotmode == "CvivsNdvi":
@@ -545,6 +630,9 @@ def main():
         plot_NdviAndNdre(id_list, db_handler, from_date, to_date, maxCloud, output_dir,cropType,TiffFormat)
     elif plotmode == "allcalc":
         plot_AllCalcDataTypes(id_list, db_handler, from_date,Datamode, to_date, maxCloud, output_dir,cropType,TiffFormat)
+    elif plotmode == "Gradiant_Ndvi_vs_datatype":
+        plot_Datapoints_gradient_and_rank_ids_Ndvi_vs_chosenData(id_list, db_handler, from_date, to_date, maxCloud, output_dir, cropType, datatype, Datamode,TiffFormat)
+
 
 
 

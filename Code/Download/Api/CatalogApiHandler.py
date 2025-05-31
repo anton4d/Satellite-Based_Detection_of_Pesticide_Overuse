@@ -52,10 +52,10 @@ class CatalogApiHandler:
             response = requests.post(url, headers=headers, json=data,timeout=3)
             response.raise_for_status()
         except requests.exceptions.Timeout as errt:
-            logging.error("Timeout Error:", errt)
+            logging.error(f"Timeout Error: {errt}")
             self.tryagain(Polygon,FieldId,FromDate,ToDate,next,count,MaxAttempts)
         except requests.exceptions.ConnectionError as errc:
-            logging.error("Connection Error:", errc)
+            logging.error(f"Connection Error: {errc}")
             self.tryagain(Polygon,FieldId,FromDate,ToDate,next,count,MaxAttempts)
         except requests.exceptions.HTTPError as errh:
             statuscode = errh.response.status_code
@@ -75,7 +75,7 @@ class CatalogApiHandler:
                 logging.error(f"HTTP {statuscode}: {description}", exc_info=True)
                 raise
         except requests.exceptions.RequestException as err:
-            logging.error("Unexpected request error:", err)
+            logging.error(f"Unexpected request error: {err}")
         else:
             data = response.json()
             Features = data.get("features", [])

@@ -41,19 +41,27 @@ class TokenApiHandler:
             dotenvFile = dotenv.find_dotenv()
             AuthServerUrl = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
             TokenRequestPayload = {"grant_type": "client_credentials"}
-            with requests.post(
-                AuthServerUrl,
-                data=TokenRequestPayload,
-                verify=False,
-                allow_redirects=False,
-                auth=(self.ClientId, self.ClientSecret)
-            ) as tokenResponse :
+            try:
+                tokenResponse = requests.post(
+                    AuthServerUrl,
+                    data=TokenRequestPayload,
+                    verify=False,
+                    allow_redirects=False,
+                    auth=(self.ClientId, self.ClientSecret))
+                tokenResponse.raise_for_status()
+            except requests.exceptions.Timeout as errt:
+                logging.error(f"Timeout Error: {errt}")
                 
-                if tokenResponse.status_code != 200:
-                    logging.error(f"Failed to obtain token. Status code: {tokenResponse.status_code}")
-                    logging.error(f"Response: {tokenResponse.text}")
-                    raise Exception("Authentication failed. Check your credentials.")
-
+            except requests.exceptions.ConnectionError as errc:
+                logging.error(f"Connection Error: {errc}")
+                
+            except requests.exceptions.HTTPError as errh:
+                logging.error(f"Failed to obtain token. Status code: {tokenResponse.status_code}")
+                logging.error(f"Response: {tokenResponse.text}")
+                raise Exception("Authentication failed. Check your credentials.")
+            except requests.exceptions.RequestException as err:
+                logging.error(f"Unexpected request error: {err}")
+            else:
                 tokenjson = tokenResponse.json()
                 token = tokenjson["access_token"]
                 dotenv.set_key(dotenvFile, "APIToken", token)

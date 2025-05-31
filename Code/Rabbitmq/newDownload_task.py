@@ -56,7 +56,7 @@ if __name__ == "__main__":
     parser.add_argument("end_date", type=str, help="End date in YYYY-MM-DD format")
     parser.add_argument("workers", type=int, help="Number of workers")
     parser.add_argument("mode", type=str,choices=["BB","Field"], help="Processing mode")
-    parser.add_argument("region", type=str,choices=[" ", "Fyn"], help="Region name")
+    parser.add_argument("region", type=str,choices=["all", "Fyn","Test"], help="Region name")
     parser.add_argument("resolution", type=int, help="Resolution value")
     parser.add_argument("Croptypeid", help="either give a cropid or all")
     parser.add_argument("Fieldid", help="either give a Fieldid or all")
@@ -65,7 +65,7 @@ if __name__ == "__main__":
     
     try:
         start_date = datetime.strptime(args.start_date, "%Y-%m-%d")
-        end_date = datetime.strptime(args.end_date, "%Y-%m-%d") + timedelta(days=1)
+        end_date = datetime.strptime(args.end_date, "%Y-%m-%d")
     except ValueError:
         print("Error: Invalid date format. Use YYYY-MM-DD.")
         sys.exit(1)

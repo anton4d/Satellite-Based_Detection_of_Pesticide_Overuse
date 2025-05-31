@@ -50,6 +50,7 @@ class SQLHandler:
                 CVR VARCHAR(255),
                 Journalnr VARCHAR(255) NOT NULL,
                 Markblok VARCHAR(255),
+                Region VARCHAR(255),
                 Polygon POLYGON NOT NULL,
                 UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

@@ -33,20 +33,20 @@ class ProcessApiHandler:
         
         return dateBefore, dateAfter
 
-    def tryagain(self,Date,polygon,FieldId,resolution,folderName,count,MaxAttempts=12):
+    def tryagain(self,Date,polygon,FieldId,width, height,folderName,count,MaxAttempts=12):
         if count <= MaxAttempts:
             timer = count*10
             time.sleep(timer)
             newcount = count + 1
-            self.processDateIntoImages(Date,polygon,FieldId,resolution,folderName,MaxAttempts,newcount)
+            self.processDateIntoImages(Date,polygon,FieldId,width,height,folderName,MaxAttempts,newcount)
         else:
             logging.error(f"After {MaxAttempts} attempts the image was still not able to be downloaded")
 
-    def processDateIntoImages(self,Date,polygon,FieldId,resolution,folderName,MaxAttempts=12, count=1):
+    def processDateIntoImages(self,Date,polygon,FieldId,width,height,folderName,MaxAttempts=12, count=1):
         """
         Takes a date and polygon and inserts the data from the picture of the date and polygon into the database
         """
-        logging.info(f"Get picture from satalite on the date of: {Date} with resolution: {resolution}")
+        logging.info(f"Get picture from satalite on the date of: {Date} with resolution: {width} x {height}")
         dateBefore, dateAfter = self.getSurroundingDates(Date)
         logging.debug(f"converted the date into before date: {dateBefore} and After date: {dateAfter} ")
 
@@ -103,8 +103,8 @@ class ProcessApiHandler:
             ]
         },
         "output": {
-            "width": resolution,
-            "height": resolution,
+            "width": width,
+            "height": height,
             "responses": [
             {
                 "identifier": "default",
@@ -121,22 +121,24 @@ class ProcessApiHandler:
             response.raise_for_status()
         except requests.exceptions.Timeout as errt:
             logging.error("Timeout Error:", errt)
-            self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
+            self.tryagain(Date, polygon, FieldId, width,height, folderName, count, MaxAttempts)
         except requests.exceptions.ConnectionError as errc:
             logging.error("Connection Error:", errc)
-            self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
+            self.tryagain(Date, polygon, FieldId, width,height, folderName, count, MaxAttempts)
         except requests.exceptions.HTTPError as errh:
             status = errh.response.status_code
             logging.error(f"HTTP Error {status}: {errh}")
             if status == 401:
                 self.ApiToken = self.TokenApiHandler.GetToken()
-                self.processDateIntoImages(Date, polygon, FieldId, resolution, folderName, MaxAttempts, count)
+                self.processDateIntoImages(Date, polygon, FieldId, width,height, folderName, MaxAttempts, count)
             elif status == 403:
                 logging.error("No more tokens – swapping user")
                 self.ApiToken, self.ClientID = self.TokenApiHandler.SetANewUserIfAny(self.ClientID)
-                self.processDateIntoImages(Date, polygon, FieldId, resolution, folderName, MaxAttempts, count)
+                self.processDateIntoImages(Date, polygon, FieldId, width, height, folderName, MaxAttempts, count)
+            elif status == 400:
+                return None
             else:
-                self.tryagain(Date, polygon, FieldId, resolution, folderName, count, MaxAttempts)
+                self.tryagain(Date, polygon, FieldId, width, height, folderName, count, MaxAttempts)
         except requests.exceptions.RequestException as err:
             logging.error("Unexpected request error:", err)
         else:
@@ -148,4 +150,3 @@ class ProcessApiHandler:
                 logging.info(f"Image saved to {image_path} after {count} tries")
             except Exception:
                 logging.exception(f"Failed to save image to {image_path}")
-

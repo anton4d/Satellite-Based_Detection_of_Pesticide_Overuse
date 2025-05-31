@@ -2,7 +2,7 @@ import time,os,pika,subprocess,re,sys,logging,argparse,concurrent.futures
 
 
 DATEPATTERN = re.compile(
-    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|(BB|Field)\|(Fyn| )\|\d{3,4}\|(\d{1,}|all)\|(\d{1,}|all)$"
+    r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|(BB|Field)\|(Fyn|all|Test)\|(\d{3,4}|-1)\|(\d{1,}|all)\|(\d{1,}|all)$"
 )
 
 log_filename = "download_process.log"
