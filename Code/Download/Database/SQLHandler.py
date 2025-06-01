@@ -87,7 +87,7 @@ class SQLHandler:
         except mysql.connector.Error as err:
             logging.error(f"Error creating schema: {err}")
 
-    def ApiUser(self, OldClientId):
+    def Api_User(self, OldClientId):
         """Deactivate old API user and return a new valid one"""
         try:
 
@@ -120,7 +120,7 @@ class SQLHandler:
             raise
 
 
-    def InsertField(self, CropType, MarkNr, Journalnr, Markblok, CVR, Polygon):
+    def Insert_Field(self, CropType, MarkNr, Journalnr, Markblok, CVR, Polygon):
         """Insert a new fiel record into the database."""
         try:
             
@@ -143,7 +143,7 @@ class SQLHandler:
         
         return self.cursor.fetchone()[0]
 
-    def getAllFieldPolygons(self):
+    def get_All_Field_Polygons(self):
         "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary."
         query = "SELECT FieldID, ST_AsText(Polygon) FROM Field;"
         self.cursor.execute(query)
@@ -153,7 +153,7 @@ class SQLHandler:
         logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
         return fieldDict
 
-    def getAllFieldPolygonsBasedOnRegion(self,Region):
+    def Get_All_Field_Polygons_Based_On_Region(self,Region):
         "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary."
         query = "SELECT FieldID, ST_AsText(Polygon) FROM Field WHERE Region = %s;"
         values = (Region,)
@@ -164,7 +164,7 @@ class SQLHandler:
         logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
         return fieldDict
 
-    def getAllFieldPolygonsBasedOnId(self,FieldId):
+    def Get_All_Field_Polygons_Based_On_Id(self,FieldId):
         "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary."
         query = "SELECT FieldID, ST_AsText(Polygon) FROM Field WHERE FieldID = %s;"
         values = (FieldId,)
@@ -175,7 +175,7 @@ class SQLHandler:
         logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
         return fieldDict
     
-    def GetAllFieldIdAndPolygonsBasedOnYearAndCropId(self,cropid,year):
+    def Get_All_FieldId_And_Polygons_Based_On_Year_And_CropId(self,cropid,year):
         "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary. based on cropid and year"
         Getquery = """SELECT FieldCropYear.FieldId, ST_AsText(Field.Polygon) FROM `FieldCropYear` 
             INNER JOIN Field ON Field.FieldId = FieldCropYear.FieldId 
@@ -188,7 +188,7 @@ class SQLHandler:
         logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
         return fieldDict
 
-    def GetAllFieldIdAndPolygonsBasedOnYearAndCropIdAndRegion(self,cropid,year,region):
+    def Get_All_FieldId_And_Polygons_Based_On_Year_And_CropId_And_Region(self,cropid,year,region):
         "Method that queries all of the different fields and their corresponding poylgons and adds them to a dictionary. based on cropid and year"
         Getquery = """SELECT FieldCropYear.FieldId, ST_AsText(Field.Polygon) FROM `FieldCropYear` 
             INNER JOIN Field ON Field.FieldId = FieldCropYear.FieldId 
@@ -201,12 +201,12 @@ class SQLHandler:
         logging.info(f"Queryed all Field Polygons found: {len(fieldDict)} Fields")
         return fieldDict
     
-    def insertBoundingboxMetaData(self, metadata):
+    def Insert_Boundingbox_Meta_Data(self, metadata):
         """Method that inserts all metadata from the features"""
         try:
             self.cursor.execute("SELECT * FROM BoundingboxMetaData WHERE BoundingBoxId=%s AND FullDate=%s", (metadata[0], metadata[1]))
             foundMetaData = self.cursor.fetchone()
-
+            logging.info(metadata)
             if foundMetaData is not None:
                 query = """
                 UPDATE BoundingboxMetaData 
@@ -220,14 +220,16 @@ class SQLHandler:
                 INSERT INTO BoundingboxMetaData (BoundingBoxId, FullDate, DateOnly, Platform, CloudCover)
                 VALUES (%s, %s, %s, %s, %s)
                 """
+                logging.info("bith")
                 values = metadata
+                logging.info(values)
                 logging.info(f"MetaData for {metadata[0]} on the {metadata[1]} has been inserted")
 
             self.cursor.execute(query, values)
             self.connection.commit()
 
         except mysql.connector.Error as err:
-            logging.error(f"Error inserting data: {err}")
+            logging.error(f"Error inserting TiFF meta data: {err}")
 
 
 

@@ -1,7 +1,7 @@
 from shapely import wkt
 from pyproj import Geod
 
-def ConvertWktToNestedCords(PolygonWkt):
+def Convert_Wkt_To_NestedCords(PolygonWkt):
         """Converts a Wkt To the the Nested structure that the api takes"""
         polygon = wkt.loads(PolygonWkt)
 
@@ -10,6 +10,7 @@ def ConvertWktToNestedCords(PolygonWkt):
         NestedCoords = [[list(coord) for coord in exteriorCoords]]
         return NestedCoords
 geod = Geod(ellps="WGS84")
+
 def get_pixel_dimensions(nested_coords, meters_per_pixel=10, max_pixels=2500):
     """Calculate pixel dimensions based on fixed meter/pixel ratio, with a max limit"""
     coords = nested_coords[0]

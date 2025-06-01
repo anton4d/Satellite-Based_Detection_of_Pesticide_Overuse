@@ -14,9 +14,9 @@ class TokenApiHandler:
         self.ClientSecret = ClientSecret
         self.SQLHandler = SQLHandler
 
-    def SetANewUserIfAny(self,OldClientID):
+    def Set_A_New_User_If_Any(self,OldClientID):
         if OldClientID == self.ClientId:
-            ClientID,ClientSecret = self.SQLHandler.ApiUser(OldClientID)
+            ClientID,ClientSecret = self.SQLHandler.Api_User(OldClientID)
             if ClientID:
                 dotenvFile = dotenv.find_dotenv()
                 logging.info(f"Using client_id: {ClientID}, client_secret: {ClientSecret}")
@@ -24,16 +24,16 @@ class TokenApiHandler:
                 self.ClientSecret = ClientSecret
                 dotenv.set_key(dotenvFile, "APIToken", ClientID)
                 dotenv.set_key(dotenvFile, "APIToken", ClientSecret)
-                Token = self.GetToken()
+                Token = self.Get_Token()
                 return Token, ClientID
             else:
                 logging.error("No valid user found.")
                 sys.exit(7)
         else:
-            Token = self.GetToken()
+            Token = self.Get_Token()
             return Token, self.ClientId
 
-    def GetToken(self):
+    def Get_Token(self):
             """Gets an Access Token from the API based on the client credentials"""
 
             logging.info("Attempting to get an API Token...")
