@@ -52,10 +52,10 @@ class GeoJsonToDB:
             Polygon_WKT = Polygon_WKT.replace("  ", " ")
             
           
-            self.Sql_Handler.InsertOrUpdateField(MarkNr=marknr, Journalnr=journalnr, Markblok=markblok, CVR=cvr, Polygon=Polygon_WKT)
+            self.Sql_Handler.Insert_Or_Update_Field(MarkNr=marknr, Journalnr=journalnr, Markblok=markblok, CVR=cvr, Polygon=Polygon_WKT)
 
                 
-            self.Sql_Handler.InsertCropYear(cropType,year,marknr,markblok)
+            self.Sql_Handler.Insert_Crop_Year(cropType,year,marknr,markblok)
     def Process_Geojson(self):
         geojson_data = self.Load_Geojson()
         self.Insert_Geojson_To_DB(geojson_data)

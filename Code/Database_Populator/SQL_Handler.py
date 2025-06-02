@@ -60,7 +60,7 @@ class SQL_Handler:
             """
             self.cursor.execute(Create_Table_Query)
             self.connection.commit()
-
+            logging.info("Field Table created")
             Create_Table_Query = """
             CREATE TABLE IF NOT EXISTS CropType (
                 CropId INT AUTO_INCREMENT PRIMARY KEY,
@@ -74,6 +74,7 @@ class SQL_Handler:
             with open ("Crop_Type.json","r") as file:
                 data = json.load(file)
                 self.Insert_Crop_Type(data)
+            logging.info("CropType Table created and populated")
 
             Create_Table_Query = """
             CREATE TABLE IF NOT EXISTS FieldCropYear (
@@ -89,7 +90,7 @@ class SQL_Handler:
             """
             self.cursor.execute(Create_Table_Query)
             self.connection.commit()
-
+            logging.info("FieldCropYear Table created")
 
             Create_Table_Query = """
             CREATE TABLE IF NOT EXISTS BoundingboxMetaData(
@@ -105,6 +106,7 @@ class SQL_Handler:
             """
             self.cursor.execute(Create_Table_Query)
             self.connection.commit()
+            logging.info("BoundingboxMetaData Table created")
 
             Create_Table_Query = """
             CREATE TABLE IF NOT EXISTS FieldMetaDataConnection (
@@ -119,11 +121,12 @@ class SQL_Handler:
             """
             self.cursor.execute(Create_Table_Query)
             self.connection.commit()
+            logging.info("FieldMetaDataConnection Table created")
 
             Create_Table_Query = """
             CREATE TABLE IF NOT EXISTS dataType (
                 Id INT AUTO_INCREMENT PRIMARY KEY,
-                Name VARCHAR(255) UNIQUE NOT NULL
+                Name VARCHAR(255) UNIQUE NOT NULL,
                 UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );
@@ -134,6 +137,7 @@ class SQL_Handler:
             with open ("Data_Type.json","r") as file:
                 data = json.load(file)
                 self.Insert_Data_Type(data)
+            logging.info("dataType Table created and populated")
 
             Create_Table_Query = """
             CREATE TABLE IF NOT EXISTS data (
@@ -152,7 +156,7 @@ class SQL_Handler:
             """
             self.cursor.execute(Create_Table_Query)
             self.connection.commit()
-
+            logging.info("data Table created")
             Create_Table_Query = """
             CREATE TABLE IF NOT EXISTS ApiUsers (
                 ID INT AUTO_INCREMENT PRIMARY KEY,
@@ -164,7 +168,7 @@ class SQL_Handler:
             """
             self.cursor.execute(Create_Table_Query)
             self.connection.commit()
-
+            logging.info("ApiUsers Table created")
 
             
             logging.info("Database schema is set up.")

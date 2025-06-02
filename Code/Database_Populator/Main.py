@@ -1,9 +1,9 @@
 import os, json,logging,dotenv,sys
 import time
 
-from Code.DatabasePopulator.SQL_Handler import SQL_Handler
-from Code.DatabasePopulator.GeoJSON_To_DB import GeoJsonToDB
-from Code.DatabasePopulator.GIS_Dataset_To_GeoJSON import Shapefile_To_Geojson
+from SQL_Handler import SQL_Handler
+from GeoJSON_To_DB import GeoJsonToDB
+from GIS_Dataset_To_GeoJSON import Shapefile_To_Geojson
 
 LOG_FILENAME = "Db_populator_process.log"
 
