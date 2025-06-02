@@ -41,7 +41,8 @@ ApiClienId=""
 ApiClienSecret=""
 APIToken=""
 ```
-
+### 3. Setup Database
+with the databasepopulator and a a given sapefile in the shapefile folde the database can be setup easily
 
 
 ### 4. Running the Code
