@@ -1,0 +1,39 @@
+2025-05-26 19:59:04 - root - INFO - Logging initialized. Writing to Logs/Fyn_vs_Field/ProcessForBB_1250res_2.log
+2025-05-26 19:59:04 - root - INFO - Received MessagesData: 2019-05-08T00:00:00Z|2019-05-15T00:00:00Z|Field|all|512|37|2443
+2025-05-26 19:59:04 - root - INFO - Validated date range: From 2019-05-08T00:00:00Z to 2019-05-15T00:00:00Z
+2025-05-26 19:59:04 - root - INFO - Starting the DownloadProcess using the dates 2019-05-08T00:00:00Z, 2019-05-15T00:00:00Z, the mode: Field, the region: all resolution: 512 and cropid: 37
+2025-05-26 19:59:04 - root - INFO - Connected to the database successfully.
+2025-05-26 19:59:04 - root - INFO - Database schema is set up.
+2025-05-26 19:59:04 - root - INFO - ClientId sh-75cb8c59-8ef0-4f7e-bfa0-7e433503b5b3
+2025-05-26 19:59:04 - root - INFO - DownloadProcess will use Fields
+2025-05-26 19:59:04 - root - INFO - DownloadProcess will use a specefic Field: 2443
+2025-05-26 19:59:04 - root - INFO - Queryed all Field Polygons found: 1 Fields
+2025-05-26 19:59:04 - root - INFO - Starting the download proccess for fieldid: 2443 number: 1 out of 1
+2025-05-26 19:59:04 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 2443 ....
+2025-05-26 19:59:04 - root - ERROR - Access code has expired or is incorrect.
+2025-05-26 19:59:04 - root - INFO - Attempting to get an API Token...
+2025-05-26 19:59:04 - root - INFO - Successfully obtained a new token.
+2025-05-26 19:59:04 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 2443 ....
+2025-05-26 19:59:05 - root - INFO - Received 6 features from 2019-05-08T00:00:00Z to 2019-05-15T00:00:00Z
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-13T10:45:47.433Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-13T10:45:39.513Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-10T10:35:50.913Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-10T10:35:46.912Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-08T10:45:51.865Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-08T10:45:43.883Z has been inserted
+2025-05-26 19:59:05 - root - INFO - Catalog API found 3 dates for polygon with id 2443
+2025-05-26 19:59:06 - root - INFO - Get picture from satalite on the date of: 2019-05-13 with resolution: 512 x 512
+2025-05-26 19:59:06 - root - ERROR - HTTP Error 401: 401 Client Error: Unauthorized for url: https://sh.dataspace.copernicus.eu/api/v1/process
+2025-05-26 19:59:06 - root - INFO - Attempting to get an API Token...
+2025-05-26 19:59:06 - root - INFO - Successfully obtained a new token.
+2025-05-26 19:59:06 - root - INFO - Get picture from satalite on the date of: 2019-05-13 with resolution: 512 x 512
+2025-05-26 19:59:07 - root - INFO - Image saved to PicturesField/FieldId2443/2019-05-13.tiff after 1 tries
+2025-05-26 19:59:07 - root - INFO - Get picture from satalite on the date of: 2019-05-10 with resolution: 512 x 512
+2025-05-26 19:59:08 - root - INFO - Image saved to PicturesField/FieldId2443/2019-05-10.tiff after 1 tries
+2025-05-26 19:59:08 - root - INFO - Get picture from satalite on the date of: 2019-05-08 with resolution: 512 x 512
+2025-05-26 19:59:08 - root - INFO - Image saved to PicturesField/FieldId2443/2019-05-08.tiff after 1 tries
+2025-05-26 19:59:08 - root - INFO - Ended the download proccess for fieldid: 2443 number: 1 out of 1
+
+2025-05-26 19:59:08 - root - INFO - Completed the download proccess on the dates from: 2019-05-08T00:00:00Z To: 2019-05-15T00:00:00Z 
+
+2025-05-26 19:59:08 - root - INFO - The process took 4.1493144035339355 secounds

@@ -1,0 +1,31 @@
+2025-05-25 11:48:40 - root - INFO - Download Worker started. Logging to Logs/Test_4_worker/Worker_3.log
+2025-05-25 11:48:40 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('127.0.0.1', 5672)
+2025-05-25 11:48:40 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 49296), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:48:40 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7f1467ee6f80>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7f1467ee6f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-05-25 11:48:40 - pika.adapters.utils.connection_workflow - INFO - AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7f1467ee6f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-05-25 11:48:40 - pika.adapters.utils.connection_workflow - INFO - AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7f1467ee6f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-05-25 11:48:40 - pika.adapters.blocking_connection - INFO - Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7f1467ee6f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-05-25 11:48:40 - pika.adapters.blocking_connection - INFO - Created channel=1
+2025-05-25 11:48:40 - root - INFO - Starting RabbitMQ consumer...
+2025-05-25 11:48:51 - root - INFO - Received message: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:48:51 - root - INFO - Starting download process with message: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:49:20 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all, it took 28.456470251083374 seconds¨
+
+2025-05-25 11:49:57 - root - INFO - Received message: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:49:57 - root - INFO - Starting download process with message: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:50:26 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all, it took 28.104260206222534 seconds
+
+2025-05-25 11:52:29 - root - INFO - Received message: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:52:29 - root - INFO - Starting download process with message: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:52:57 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all, it took 28.614815950393677 seconds
+
+2025-05-25 11:56:23 - root - INFO - Received message: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:56:23 - root - INFO - Starting download process with message: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:56:52 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-08T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all, it took 29.294926166534424 seconds
+2025-05-25 17:34:06 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 49296), raddr=('127.0.0.1', 5672)>
+2025-05-25 17:34:06 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 49296), raddr=('127.0.0.1', 5672)>
+2025-05-25 17:34:06 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 49296), raddr=('127.0.0.1', 5672)>
+2025-05-25 17:34:06 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByBroker: (320) "CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'"
+2025-05-25 17:34:06 - pika.connection - INFO - Stack terminated due to ConnectionClosedByBroker: (320) "CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'"
+2025-05-25 17:34:06 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 49296), raddr=('127.0.0.1', 5672)>
+2025-05-25 17:34:06 - pika.adapters.blocking_connection - ERROR - Unexpected connection close detected: ConnectionClosedByBroker: (320) "CONNECTION_FORCED - broker forced connection closure with reason 'shutdown'"

@@ -1,0 +1,33 @@
+2025-05-25 11:27:52 - root - INFO - Download Worker started. Logging to Logs/Test_1_worker/test3_0.log
+2025-05-25 11:27:52 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('127.0.0.1', 5672)
+2025-05-25 11:27:52 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55790), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:27:52 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7d4b8140ef80>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7d4b8140ef80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-05-25 11:27:52 - pika.adapters.utils.connection_workflow - INFO - AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7d4b8140ef80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-05-25 11:27:52 - pika.adapters.utils.connection_workflow - INFO - AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7d4b8140ef80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-05-25 11:27:52 - pika.adapters.blocking_connection - INFO - Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7d4b8140ef80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-05-25 11:27:52 - pika.adapters.blocking_connection - INFO - Created channel=1
+2025-05-25 11:27:52 - root - INFO - Starting RabbitMQ consumer...
+2025-05-25 11:27:59 - root - INFO - Received message: 2020-05-01T00:00:00Z|2020-05-11T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:27:59 - root - INFO - Starting download process with message: 2020-05-01T00:00:00Z|2020-05-11T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:28:39 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-01T00:00:00Z|2020-05-11T00:00:00Z|Field|Test|512|37|all, it took 40.085768938064575 seconds
+2025-05-25 11:28:39 - root - INFO - Received message: 2020-05-11T00:00:00Z|2020-05-21T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:28:39 - root - INFO - Starting download process with message: 2020-05-11T00:00:00Z|2020-05-21T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:29:20 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-11T00:00:00Z|2020-05-21T00:00:00Z|Field|Test|512|37|all, it took 40.48286199569702 seconds
+2025-05-25 11:29:20 - root - INFO - Received message: 2020-05-21T00:00:00Z|2020-05-30T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:29:20 - root - INFO - Starting download process with message: 2020-05-21T00:00:00Z|2020-05-30T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:29:56 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-21T00:00:00Z|2020-05-30T00:00:00Z|Field|Test|512|37|all, it took 36.71439290046692 seconds
+2025-05-25 11:30:09 - root - INFO - Received message: Stop
+2025-05-25 11:30:09 - root - INFO - Download worker stopping...
+2025-05-25 11:30:09 - root - INFO - Closing RabbitMQ connection...
+2025-05-25 11:30:09 - pika.adapters.blocking_connection - INFO - Closing connection (200): Normal shutdown
+2025-05-25 11:30:09 - pika.channel - INFO - Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7d4b8140ef80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-05-25 11:30:09 - pika.channel - INFO - Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x7d4b8140ef80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-05-25 11:30:09 - pika.connection - INFO - Closing connection (200): 'Normal shutdown'
+2025-05-25 11:30:09 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55790), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:30:09 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55790), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:30:09 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55790), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:30:09 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-05-25 11:30:09 - pika.connection - INFO - Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-05-25 11:30:09 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55790), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:30:09 - pika.adapters.blocking_connection - INFO - User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2025-05-25 11:30:09 - root - INFO - RabbitMQ connection closed. Exiting gracefully.

@@ -1,0 +1,456 @@
+2025-05-26 12:55:14 - root - INFO - Logging initialized. Writing to Logs/Fyn_vs_Field/ProcessForBB_1250res_1.log
+2025-05-26 12:55:14 - root - INFO - Received MessagesData: 2020-05-03T00:00:00Z|2020-05-05T00:00:00Z|BB|Fyn|1250|all|all
+2025-05-26 12:55:14 - root - INFO - Validated date range: From 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:55:14 - root - INFO - Starting the DownloadProcess using the dates 2020-05-03T00:00:00Z, 2020-05-05T00:00:00Z, the mode: BB, the region: Fyn resolution: 1250 and cropid: all
+2025-05-26 12:55:14 - root - INFO - Connected to the database successfully.
+2025-05-26 12:55:14 - root - INFO - Database schema is set up.
+2025-05-26 12:55:14 - root - INFO - ClientId sh-75cb8c59-8ef0-4f7e-bfa0-7e433503b5b3
+2025-05-26 12:55:14 - root - INFO - DownloadProcess will use boundingboxes
+2025-05-26 12:55:14 - root - INFO - The region of the boundingboxes is fyn
+2025-05-26 12:55:14 - root - INFO - Starting the download proccess for fieldid: RegionBB_32a number: 1 out of 40
+2025-05-26 12:55:14 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_32a ....
+2025-05-26 12:55:15 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:55:15 - root - INFO - MetaData for RegionBB_32a on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:55:15 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_32a
+2025-05-26 12:55:16 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:55:39 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_32a/2020-05-04.tiff after 1 tries
+2025-05-26 12:55:39 - root - INFO - Ended the download proccess for fieldid: RegionBB_32a number: 1 out of 40
+
+2025-05-26 12:55:39 - root - INFO - Starting the download proccess for fieldid: RegionBB_32b number: 2 out of 40
+2025-05-26 12:55:39 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_32b ....
+2025-05-26 12:55:39 - root - ERROR - Access code has expired or is incorrect.
+2025-05-26 12:55:39 - root - INFO - Attempting to get an API Token...
+2025-05-26 12:55:39 - root - INFO - Successfully obtained a new token.
+2025-05-26 12:55:39 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_32b ....
+2025-05-26 12:55:39 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:55:39 - root - INFO - MetaData for RegionBB_32b on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:55:39 - root - INFO - MetaData for RegionBB_32b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 12:55:39 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_32b
+2025-05-26 12:55:40 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:55:41 - root - ERROR - HTTP Error 401: 401 Client Error: Unauthorized for url: https://sh.dataspace.copernicus.eu/api/v1/process
+2025-05-26 12:55:41 - root - INFO - Attempting to get an API Token...
+2025-05-26 12:55:41 - root - INFO - Successfully obtained a new token.
+2025-05-26 12:55:41 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:55:55 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_32b/2020-05-04.tiff after 1 tries
+2025-05-26 12:55:55 - root - INFO - Ended the download proccess for fieldid: RegionBB_32b number: 2 out of 40
+
+2025-05-26 12:55:55 - root - INFO - Starting the download proccess for fieldid: RegionBB_33a number: 3 out of 40
+2025-05-26 12:55:55 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_33a ....
+2025-05-26 12:55:55 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:55:55 - root - INFO - MetaData for RegionBB_33a on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:55:55 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_33a
+2025-05-26 12:55:56 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:56:17 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_33a/2020-05-04.tiff after 1 tries
+2025-05-26 12:56:17 - root - INFO - Ended the download proccess for fieldid: RegionBB_33a number: 3 out of 40
+
+2025-05-26 12:56:17 - root - INFO - Starting the download proccess for fieldid: RegionBB_33b number: 4 out of 40
+2025-05-26 12:56:17 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_33b ....
+2025-05-26 12:56:17 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:56:17 - root - INFO - MetaData for RegionBB_33b on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:56:17 - root - INFO - MetaData for RegionBB_33b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 12:56:17 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_33b
+2025-05-26 12:56:18 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:56:41 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_33b/2020-05-04.tiff after 1 tries
+2025-05-26 12:56:41 - root - INFO - Ended the download proccess for fieldid: RegionBB_33b number: 4 out of 40
+
+2025-05-26 12:56:41 - root - INFO - Starting the download proccess for fieldid: RegionBB_34a number: 5 out of 40
+2025-05-26 12:56:41 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_34a ....
+2025-05-26 12:56:41 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:56:41 - root - INFO - MetaData for RegionBB_34a on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:56:41 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_34a
+2025-05-26 12:56:42 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:57:02 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_34a/2020-05-04.tiff after 1 tries
+2025-05-26 12:57:02 - root - INFO - Ended the download proccess for fieldid: RegionBB_34a number: 5 out of 40
+
+2025-05-26 12:57:02 - root - INFO - Starting the download proccess for fieldid: RegionBB_34b number: 6 out of 40
+2025-05-26 12:57:02 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_34b ....
+2025-05-26 12:57:02 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:57:02 - root - INFO - MetaData for RegionBB_34b on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:57:02 - root - INFO - MetaData for RegionBB_34b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 12:57:02 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_34b
+2025-05-26 12:57:03 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:57:25 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_34b/2020-05-04.tiff after 1 tries
+2025-05-26 12:57:25 - root - INFO - Ended the download proccess for fieldid: RegionBB_34b number: 6 out of 40
+
+2025-05-26 12:57:25 - root - INFO - Starting the download proccess for fieldid: RegionBB_35a number: 7 out of 40
+2025-05-26 12:57:25 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_35a ....
+2025-05-26 12:57:25 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:57:25 - root - INFO - MetaData for RegionBB_35a on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:57:25 - root - INFO - MetaData for RegionBB_35a on the 2020-05-04T10:35:46.626Z has been updated
+2025-05-26 12:57:25 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_35a
+2025-05-26 12:57:26 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:57:49 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_35a/2020-05-04.tiff after 1 tries
+2025-05-26 12:57:49 - root - INFO - Ended the download proccess for fieldid: RegionBB_35a number: 7 out of 40
+
+2025-05-26 12:57:49 - root - INFO - Starting the download proccess for fieldid: RegionBB_35b number: 8 out of 40
+2025-05-26 12:57:49 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_35b ....
+2025-05-26 12:57:50 - root - INFO - Received 4 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:57:50 - root - INFO - MetaData for RegionBB_35b on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:57:50 - root - INFO - MetaData for RegionBB_35b on the 2020-05-04T10:35:46.626Z has been updated
+2025-05-26 12:57:50 - root - INFO - MetaData for RegionBB_35b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 12:57:50 - root - INFO - MetaData for RegionBB_35b on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 12:57:50 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_35b
+2025-05-26 12:57:51 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:58:10 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_35b/2020-05-04.tiff after 1 tries
+2025-05-26 12:58:10 - root - INFO - Ended the download proccess for fieldid: RegionBB_35b number: 8 out of 40
+
+2025-05-26 12:58:10 - root - INFO - Starting the download proccess for fieldid: RegionBB_36a number: 9 out of 40
+2025-05-26 12:58:10 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_36a ....
+2025-05-26 12:58:10 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:58:10 - root - INFO - MetaData for RegionBB_36a on the 2020-05-04T10:35:46.626Z has been updated
+2025-05-26 12:58:10 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_36a
+2025-05-26 12:58:11 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:58:32 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_36a/2020-05-04.tiff after 1 tries
+2025-05-26 12:58:32 - root - INFO - Ended the download proccess for fieldid: RegionBB_36a number: 9 out of 40
+
+2025-05-26 12:58:32 - root - INFO - Starting the download proccess for fieldid: RegionBB_36b number: 10 out of 40
+2025-05-26 12:58:32 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_36b ....
+2025-05-26 12:58:32 - root - INFO - Received 4 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:58:32 - root - INFO - MetaData for RegionBB_36b on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:58:32 - root - INFO - MetaData for RegionBB_36b on the 2020-05-04T10:35:46.626Z has been updated
+2025-05-26 12:58:32 - root - INFO - MetaData for RegionBB_36b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 12:58:32 - root - INFO - MetaData for RegionBB_36b on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 12:58:32 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_36b
+2025-05-26 12:58:33 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:58:50 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_36b/2020-05-04.tiff after 1 tries
+2025-05-26 12:58:50 - root - INFO - Ended the download proccess for fieldid: RegionBB_36b number: 10 out of 40
+
+2025-05-26 12:58:50 - root - INFO - Starting the download proccess for fieldid: RegionBB_61a number: 11 out of 40
+2025-05-26 12:58:50 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_61a ....
+2025-05-26 12:58:50 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:58:50 - root - INFO - MetaData for RegionBB_61a on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:58:50 - root - INFO - MetaData for RegionBB_61a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 12:58:50 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_61a
+2025-05-26 12:58:51 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:59:06 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_61a/2020-05-04.tiff after 1 tries
+2025-05-26 12:59:06 - root - INFO - Ended the download proccess for fieldid: RegionBB_61a number: 11 out of 40
+
+2025-05-26 12:59:06 - root - INFO - Starting the download proccess for fieldid: RegionBB_61b number: 12 out of 40
+2025-05-26 12:59:06 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_61b ....
+2025-05-26 12:59:07 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:59:07 - root - INFO - MetaData for RegionBB_61b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 12:59:07 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_61b
+2025-05-26 12:59:08 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:59:24 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_61b/2020-05-04.tiff after 1 tries
+2025-05-26 12:59:24 - root - INFO - Ended the download proccess for fieldid: RegionBB_61b number: 12 out of 40
+
+2025-05-26 12:59:24 - root - INFO - Starting the download proccess for fieldid: RegionBB_62a number: 13 out of 40
+2025-05-26 12:59:24 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_62a ....
+2025-05-26 12:59:24 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:59:24 - root - INFO - MetaData for RegionBB_62a on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 12:59:24 - root - INFO - MetaData for RegionBB_62a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 12:59:24 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_62a
+2025-05-26 12:59:25 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 12:59:48 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_62a/2020-05-04.tiff after 1 tries
+2025-05-26 12:59:48 - root - INFO - Ended the download proccess for fieldid: RegionBB_62a number: 13 out of 40
+
+2025-05-26 12:59:48 - root - INFO - Starting the download proccess for fieldid: RegionBB_62b number: 14 out of 40
+2025-05-26 12:59:48 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_62b ....
+2025-05-26 12:59:48 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 12:59:48 - root - INFO - MetaData for RegionBB_62b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 12:59:48 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_62b
+2025-05-26 12:59:49 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:00:18 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_62b/2020-05-04.tiff after 1 tries
+2025-05-26 13:00:18 - root - INFO - Ended the download proccess for fieldid: RegionBB_62b number: 14 out of 40
+
+2025-05-26 13:00:18 - root - INFO - Starting the download proccess for fieldid: RegionBB_63a number: 15 out of 40
+2025-05-26 13:00:18 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_63a ....
+2025-05-26 13:00:18 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:00:18 - root - INFO - MetaData for RegionBB_63a on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 13:00:18 - root - INFO - MetaData for RegionBB_63a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:00:19 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_63a
+2025-05-26 13:00:20 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:00:45 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_63a/2020-05-04.tiff after 1 tries
+2025-05-26 13:00:45 - root - INFO - Ended the download proccess for fieldid: RegionBB_63a number: 15 out of 40
+
+2025-05-26 13:00:45 - root - INFO - Starting the download proccess for fieldid: RegionBB_63b number: 16 out of 40
+2025-05-26 13:00:45 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_63b ....
+2025-05-26 13:00:45 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:00:45 - root - INFO - MetaData for RegionBB_63b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:00:45 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_63b
+2025-05-26 13:00:46 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:01:15 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_63b/2020-05-04.tiff after 1 tries
+2025-05-26 13:01:15 - root - INFO - Ended the download proccess for fieldid: RegionBB_63b number: 16 out of 40
+
+2025-05-26 13:01:15 - root - INFO - Starting the download proccess for fieldid: RegionBB_64a number: 17 out of 40
+2025-05-26 13:01:15 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_64a ....
+2025-05-26 13:01:15 - root - INFO - Received 4 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:01:15 - root - INFO - MetaData for RegionBB_64a on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 13:01:15 - root - INFO - MetaData for RegionBB_64a on the 2020-05-04T10:35:46.626Z has been updated
+2025-05-26 13:01:15 - root - INFO - MetaData for RegionBB_64a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:01:15 - root - INFO - MetaData for RegionBB_64a on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:01:15 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_64a
+2025-05-26 13:01:16 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:01:37 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_64a/2020-05-04.tiff after 1 tries
+2025-05-26 13:01:37 - root - INFO - Ended the download proccess for fieldid: RegionBB_64a number: 17 out of 40
+
+2025-05-26 13:01:37 - root - INFO - Starting the download proccess for fieldid: RegionBB_64b number: 18 out of 40
+2025-05-26 13:01:37 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_64b ....
+2025-05-26 13:01:37 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:01:37 - root - INFO - MetaData for RegionBB_64b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:01:37 - root - INFO - MetaData for RegionBB_64b on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:01:37 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_64b
+2025-05-26 13:01:38 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:01:58 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_64b/2020-05-04.tiff after 1 tries
+2025-05-26 13:01:58 - root - INFO - Ended the download proccess for fieldid: RegionBB_64b number: 18 out of 40
+
+2025-05-26 13:01:58 - root - INFO - Starting the download proccess for fieldid: RegionBB_65a number: 19 out of 40
+2025-05-26 13:01:58 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_65a ....
+2025-05-26 13:01:58 - root - INFO - Received 4 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:01:58 - root - INFO - MetaData for RegionBB_65a on the 2020-05-04T10:35:50.633Z has been updated
+2025-05-26 13:01:58 - root - INFO - MetaData for RegionBB_65a on the 2020-05-04T10:35:46.626Z has been updated
+2025-05-26 13:01:58 - root - INFO - MetaData for RegionBB_65a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:01:58 - root - INFO - MetaData for RegionBB_65a on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:01:58 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_65a
+2025-05-26 13:01:59 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:02:22 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_65a/2020-05-04.tiff after 1 tries
+2025-05-26 13:02:22 - root - INFO - Ended the download proccess for fieldid: RegionBB_65a number: 19 out of 40
+
+2025-05-26 13:02:22 - root - INFO - Starting the download proccess for fieldid: RegionBB_65b number: 20 out of 40
+2025-05-26 13:02:22 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_65b ....
+2025-05-26 13:02:22 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:02:22 - root - INFO - MetaData for RegionBB_65b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:02:22 - root - INFO - MetaData for RegionBB_65b on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:02:22 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_65b
+2025-05-26 13:02:23 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:02:48 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_65b/2020-05-04.tiff after 1 tries
+2025-05-26 13:02:48 - root - INFO - Ended the download proccess for fieldid: RegionBB_65b number: 20 out of 40
+
+2025-05-26 13:02:48 - root - INFO - Starting the download proccess for fieldid: RegionBB_90a number: 21 out of 40
+2025-05-26 13:02:48 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_90a ....
+2025-05-26 13:02:48 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:02:48 - root - INFO - MetaData for RegionBB_90a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:02:48 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_90a
+2025-05-26 13:02:49 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:03:11 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_90a/2020-05-04.tiff after 1 tries
+2025-05-26 13:03:11 - root - INFO - Ended the download proccess for fieldid: RegionBB_90a number: 21 out of 40
+
+2025-05-26 13:03:11 - root - INFO - Starting the download proccess for fieldid: RegionBB_90b number: 22 out of 40
+2025-05-26 13:03:11 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_90b ....
+2025-05-26 13:03:11 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:03:11 - root - INFO - MetaData for RegionBB_90b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:03:11 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_90b
+2025-05-26 13:03:12 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:03:39 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_90b/2020-05-04.tiff after 1 tries
+2025-05-26 13:03:39 - root - INFO - Ended the download proccess for fieldid: RegionBB_90b number: 22 out of 40
+
+2025-05-26 13:03:39 - root - INFO - Starting the download proccess for fieldid: RegionBB_91a number: 23 out of 40
+2025-05-26 13:03:39 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_91a ....
+2025-05-26 13:03:39 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:03:39 - root - INFO - MetaData for RegionBB_91a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:03:39 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_91a
+2025-05-26 13:03:40 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:04:10 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_91a/2020-05-04.tiff after 1 tries
+2025-05-26 13:04:10 - root - INFO - Ended the download proccess for fieldid: RegionBB_91a number: 23 out of 40
+
+2025-05-26 13:04:10 - root - INFO - Starting the download proccess for fieldid: RegionBB_91b number: 24 out of 40
+2025-05-26 13:04:10 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_91b ....
+2025-05-26 13:04:10 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:04:10 - root - INFO - MetaData for RegionBB_91b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:04:10 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_91b
+2025-05-26 13:04:11 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:04:41 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_91b/2020-05-04.tiff after 1 tries
+2025-05-26 13:04:41 - root - INFO - Ended the download proccess for fieldid: RegionBB_91b number: 24 out of 40
+
+2025-05-26 13:04:41 - root - INFO - Starting the download proccess for fieldid: RegionBB_92a number: 25 out of 40
+2025-05-26 13:04:41 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_92a ....
+2025-05-26 13:04:42 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:04:42 - root - INFO - MetaData for RegionBB_92a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:04:42 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_92a
+2025-05-26 13:04:43 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:05:14 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_92a/2020-05-04.tiff after 1 tries
+2025-05-26 13:05:14 - root - INFO - Ended the download proccess for fieldid: RegionBB_92a number: 25 out of 40
+
+2025-05-26 13:05:14 - root - INFO - Starting the download proccess for fieldid: RegionBB_92b number: 26 out of 40
+2025-05-26 13:05:14 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_92b ....
+2025-05-26 13:05:14 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:05:14 - root - INFO - MetaData for RegionBB_92b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:05:14 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_92b
+2025-05-26 13:05:15 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:05:46 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_92b/2020-05-04.tiff after 1 tries
+2025-05-26 13:05:46 - root - INFO - Ended the download proccess for fieldid: RegionBB_92b number: 26 out of 40
+
+2025-05-26 13:05:46 - root - INFO - Starting the download proccess for fieldid: RegionBB_93a number: 27 out of 40
+2025-05-26 13:05:46 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_93a ....
+2025-05-26 13:05:47 - root - ERROR - Access code has expired or is incorrect.
+2025-05-26 13:05:47 - root - INFO - Attempting to get an API Token...
+2025-05-26 13:05:47 - root - INFO - Successfully obtained a new token.
+2025-05-26 13:05:47 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_93a ....
+2025-05-26 13:05:47 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:05:47 - root - INFO - MetaData for RegionBB_93a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:05:47 - root - INFO - MetaData for RegionBB_93a on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:05:47 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_93a
+2025-05-26 13:05:48 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:05:48 - root - ERROR - HTTP Error 401: 401 Client Error: Unauthorized for url: https://sh.dataspace.copernicus.eu/api/v1/process
+2025-05-26 13:05:48 - root - INFO - Attempting to get an API Token...
+2025-05-26 13:05:48 - root - INFO - Successfully obtained a new token.
+2025-05-26 13:05:48 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:06:17 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_93a/2020-05-04.tiff after 1 tries
+2025-05-26 13:06:17 - root - INFO - Ended the download proccess for fieldid: RegionBB_93a number: 27 out of 40
+
+2025-05-26 13:06:17 - root - INFO - Starting the download proccess for fieldid: RegionBB_93b number: 28 out of 40
+2025-05-26 13:06:17 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_93b ....
+2025-05-26 13:06:17 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:06:17 - root - INFO - MetaData for RegionBB_93b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:06:17 - root - INFO - MetaData for RegionBB_93b on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:06:17 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_93b
+2025-05-26 13:06:18 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:06:44 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_93b/2020-05-04.tiff after 1 tries
+2025-05-26 13:06:44 - root - INFO - Ended the download proccess for fieldid: RegionBB_93b number: 28 out of 40
+
+2025-05-26 13:06:44 - root - INFO - Starting the download proccess for fieldid: RegionBB_94a number: 29 out of 40
+2025-05-26 13:06:44 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_94a ....
+2025-05-26 13:06:45 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:06:45 - root - INFO - MetaData for RegionBB_94a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:06:45 - root - INFO - MetaData for RegionBB_94a on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:06:45 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_94a
+2025-05-26 13:06:46 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:07:07 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_94a/2020-05-04.tiff after 1 tries
+2025-05-26 13:07:07 - root - INFO - Ended the download proccess for fieldid: RegionBB_94a number: 29 out of 40
+
+2025-05-26 13:07:07 - root - INFO - Starting the download proccess for fieldid: RegionBB_94b number: 30 out of 40
+2025-05-26 13:07:07 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_94b ....
+2025-05-26 13:07:07 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:07:07 - root - INFO - MetaData for RegionBB_94b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:07:07 - root - INFO - MetaData for RegionBB_94b on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:07:07 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_94b
+2025-05-26 13:07:08 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:07:25 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_94b/2020-05-04.tiff after 1 tries
+2025-05-26 13:07:25 - root - INFO - Ended the download proccess for fieldid: RegionBB_94b number: 30 out of 40
+
+2025-05-26 13:07:25 - root - INFO - Starting the download proccess for fieldid: RegionBB_116a number: 31 out of 40
+2025-05-26 13:07:25 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_116a ....
+2025-05-26 13:07:25 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:07:25 - root - INFO - MetaData for RegionBB_116a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:07:25 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_116a
+2025-05-26 13:07:26 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:07:53 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_116a/2020-05-04.tiff after 1 tries
+2025-05-26 13:07:53 - root - INFO - Ended the download proccess for fieldid: RegionBB_116a number: 31 out of 40
+
+2025-05-26 13:07:53 - root - INFO - Starting the download proccess for fieldid: RegionBB_116b number: 32 out of 40
+2025-05-26 13:07:53 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_116b ....
+2025-05-26 13:07:53 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:07:53 - root - INFO - MetaData for RegionBB_116b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:07:53 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_116b
+2025-05-26 13:07:54 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:08:22 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_116b/2020-05-04.tiff after 1 tries
+2025-05-26 13:08:22 - root - INFO - Ended the download proccess for fieldid: RegionBB_116b number: 32 out of 40
+
+2025-05-26 13:08:22 - root - INFO - Starting the download proccess for fieldid: RegionBB_117a number: 33 out of 40
+2025-05-26 13:08:22 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_117a ....
+2025-05-26 13:08:22 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:08:22 - root - INFO - MetaData for RegionBB_117a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:08:22 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_117a
+2025-05-26 13:08:23 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:08:45 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_117a/2020-05-04.tiff after 1 tries
+2025-05-26 13:08:45 - root - INFO - Ended the download proccess for fieldid: RegionBB_117a number: 33 out of 40
+
+2025-05-26 13:08:45 - root - INFO - Starting the download proccess for fieldid: RegionBB_117b number: 34 out of 40
+2025-05-26 13:08:45 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_117b ....
+2025-05-26 13:08:45 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:08:45 - root - INFO - MetaData for RegionBB_117b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:08:45 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_117b
+2025-05-26 13:08:46 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:09:10 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_117b/2020-05-04.tiff after 1 tries
+2025-05-26 13:09:10 - root - INFO - Ended the download proccess for fieldid: RegionBB_117b number: 34 out of 40
+
+2025-05-26 13:09:10 - root - INFO - Starting the download proccess for fieldid: RegionBB_118a number: 35 out of 40
+2025-05-26 13:09:10 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_118a ....
+2025-05-26 13:09:11 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:09:11 - root - INFO - MetaData for RegionBB_118a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:09:11 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_118a
+2025-05-26 13:09:12 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:09:38 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_118a/2020-05-04.tiff after 1 tries
+2025-05-26 13:09:38 - root - INFO - Ended the download proccess for fieldid: RegionBB_118a number: 35 out of 40
+
+2025-05-26 13:09:38 - root - INFO - Starting the download proccess for fieldid: RegionBB_118b number: 36 out of 40
+2025-05-26 13:09:38 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_118b ....
+2025-05-26 13:09:38 - root - INFO - Received 1 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:09:38 - root - INFO - MetaData for RegionBB_118b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:09:38 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_118b
+2025-05-26 13:09:39 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:09:58 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_118b/2020-05-04.tiff after 1 tries
+2025-05-26 13:09:58 - root - INFO - Ended the download proccess for fieldid: RegionBB_118b number: 36 out of 40
+
+2025-05-26 13:09:58 - root - INFO - Starting the download proccess for fieldid: RegionBB_119a number: 37 out of 40
+2025-05-26 13:09:58 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_119a ....
+2025-05-26 13:09:58 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:09:58 - root - INFO - MetaData for RegionBB_119a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:09:58 - root - INFO - MetaData for RegionBB_119a on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:09:58 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_119a
+2025-05-26 13:09:59 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:10:20 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_119a/2020-05-04.tiff after 1 tries
+2025-05-26 13:10:20 - root - INFO - Ended the download proccess for fieldid: RegionBB_119a number: 37 out of 40
+
+2025-05-26 13:10:20 - root - INFO - Starting the download proccess for fieldid: RegionBB_119b number: 38 out of 40
+2025-05-26 13:10:20 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_119b ....
+2025-05-26 13:10:20 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:10:20 - root - INFO - MetaData for RegionBB_119b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:10:20 - root - INFO - MetaData for RegionBB_119b on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:10:20 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_119b
+2025-05-26 13:10:21 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:10:42 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_119b/2020-05-04.tiff after 1 tries
+2025-05-26 13:10:42 - root - INFO - Ended the download proccess for fieldid: RegionBB_119b number: 38 out of 40
+
+2025-05-26 13:10:42 - root - INFO - Starting the download proccess for fieldid: RegionBB_120a number: 39 out of 40
+2025-05-26 13:10:42 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_120a ....
+2025-05-26 13:10:42 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:10:42 - root - INFO - MetaData for RegionBB_120a on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:10:42 - root - INFO - MetaData for RegionBB_120a on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:10:42 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_120a
+2025-05-26 13:10:43 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:11:02 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_120a/2020-05-04.tiff after 1 tries
+2025-05-26 13:11:02 - root - INFO - Ended the download proccess for fieldid: RegionBB_120a number: 39 out of 40
+
+2025-05-26 13:11:02 - root - INFO - Starting the download proccess for fieldid: RegionBB_120b number: 40 out of 40
+2025-05-26 13:11:02 - root - INFO - Calling the Catalog api for catalog data on Feild with id: RegionBB_120b ....
+2025-05-26 13:11:02 - root - INFO - Received 2 features from 2020-05-03T00:00:00Z to 2020-05-05T00:00:00Z
+2025-05-26 13:11:02 - root - INFO - MetaData for RegionBB_120b on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-26 13:11:02 - root - INFO - MetaData for RegionBB_120b on the 2020-05-04T10:35:32.388Z has been updated
+2025-05-26 13:11:02 - root - INFO - Catalog API found 1 dates for polygon with id RegionBB_120b
+2025-05-26 13:11:03 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 1250
+2025-05-26 13:11:23 - root - INFO - Image saved to PicturesBB/FieldIdRegionBB_120b/2020-05-04.tiff after 1 tries
+2025-05-26 13:11:23 - root - INFO - Ended the download proccess for fieldid: RegionBB_120b number: 40 out of 40
+
+2025-05-26 13:11:23 - root - INFO - Completed the download proccess on the dates from: 2020-05-03T00:00:00Z To: 2020-05-05T00:00:00Z 
+
+2025-05-26 13:11:23 - root - INFO - The process took 968.5843315124512 secounds
+2025-05-26 19:59:04 - root - INFO - Logging initialized. Writing to Logs/Fyn_vs_Field/ProcessForBB_1250res_1.log
+2025-05-26 19:59:04 - root - INFO - Received MessagesData: 2019-05-15T00:00:00Z|2019-05-22T00:00:00Z|Field|all|512|37|2443
+2025-05-26 19:59:04 - root - INFO - Validated date range: From 2019-05-15T00:00:00Z to 2019-05-22T00:00:00Z
+2025-05-26 19:59:04 - root - INFO - Starting the DownloadProcess using the dates 2019-05-15T00:00:00Z, 2019-05-22T00:00:00Z, the mode: Field, the region: all resolution: 512 and cropid: 37
+2025-05-26 19:59:04 - root - INFO - Connected to the database successfully.
+2025-05-26 19:59:04 - root - INFO - Database schema is set up.
+2025-05-26 19:59:04 - root - INFO - ClientId sh-75cb8c59-8ef0-4f7e-bfa0-7e433503b5b3
+2025-05-26 19:59:04 - root - INFO - DownloadProcess will use Fields
+2025-05-26 19:59:04 - root - INFO - DownloadProcess will use a specefic Field: 2443
+2025-05-26 19:59:04 - root - INFO - Queryed all Field Polygons found: 1 Fields
+2025-05-26 19:59:04 - root - INFO - Starting the download proccess for fieldid: 2443 number: 1 out of 1
+2025-05-26 19:59:04 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 2443 ....
+2025-05-26 19:59:04 - root - ERROR - Access code has expired or is incorrect.
+2025-05-26 19:59:04 - root - INFO - Attempting to get an API Token...
+2025-05-26 19:59:04 - root - INFO - Successfully obtained a new token.
+2025-05-26 19:59:04 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 2443 ....
+2025-05-26 19:59:05 - root - INFO - Received 6 features from 2019-05-15T00:00:00Z to 2019-05-22T00:00:00Z
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-20T10:35:50.566Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-20T10:35:46.564Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-18T10:45:52.235Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-18T10:45:44.254Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-15T10:35:55.61Z has been inserted
+2025-05-26 19:59:05 - root - INFO - MetaData for 2443 on the 2019-05-15T10:35:51.606Z has been inserted
+2025-05-26 19:59:05 - root - INFO - Catalog API found 3 dates for polygon with id 2443
+2025-05-26 19:59:06 - root - INFO - Get picture from satalite on the date of: 2019-05-20 with resolution: 512 x 512
+2025-05-26 19:59:06 - root - ERROR - HTTP Error 401: 401 Client Error: Unauthorized for url: https://sh.dataspace.copernicus.eu/api/v1/process
+2025-05-26 19:59:06 - root - INFO - Attempting to get an API Token...
+2025-05-26 19:59:06 - root - INFO - Successfully obtained a new token.
+2025-05-26 19:59:06 - root - INFO - Get picture from satalite on the date of: 2019-05-20 with resolution: 512 x 512
+2025-05-26 19:59:07 - root - INFO - Image saved to PicturesField/FieldId2443/2019-05-20.tiff after 1 tries
+2025-05-26 19:59:07 - root - INFO - Get picture from satalite on the date of: 2019-05-18 with resolution: 512 x 512
+2025-05-26 19:59:07 - root - INFO - Image saved to PicturesField/FieldId2443/2019-05-18.tiff after 1 tries
+2025-05-26 19:59:07 - root - INFO - Get picture from satalite on the date of: 2019-05-15 with resolution: 512 x 512
+2025-05-26 19:59:08 - root - INFO - Image saved to PicturesField/FieldId2443/2019-05-15.tiff after 1 tries
+2025-05-26 19:59:08 - root - INFO - Ended the download proccess for fieldid: 2443 number: 1 out of 1
+
+2025-05-26 19:59:08 - root - INFO - Completed the download proccess on the dates from: 2019-05-15T00:00:00Z To: 2019-05-22T00:00:00Z 
+
+2025-05-26 19:59:08 - root - INFO - The process took 4.0685319900512695 secounds

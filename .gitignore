@@ -173,3 +173,4 @@ Code/Shapefiles/*.zip
 Code/Shapefiles/Mark*/*
 Code/Users.csv
 Code/Process/dumb.csv
+!Report/Sources/**/*.log

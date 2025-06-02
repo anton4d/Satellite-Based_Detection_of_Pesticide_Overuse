@@ -1,0 +1,51 @@
+2025-05-25 11:33:40 - root - INFO - Download Worker started. Logging to Logs/Test_2_worker/Worker_1.log
+2025-05-25 11:33:40 - pika.adapters.utils.connection_workflow - INFO - Pika version 1.3.2 connecting to ('127.0.0.1', 5672)
+2025-05-25 11:33:40 - pika.adapters.utils.io_services_utils - INFO - Socket connected: <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55986), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:33:40 - pika.adapters.utils.connection_workflow - INFO - Streaming transport linked up: (<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x789de3f12f80>, _StreamingProtocolShim: <SelectConnection PROTOCOL transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x789de3f12f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>).
+2025-05-25 11:33:40 - pika.adapters.utils.connection_workflow - INFO - AMQPConnector - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x789de3f12f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-05-25 11:33:40 - pika.adapters.utils.connection_workflow - INFO - AMQPConnectionWorkflow - reporting success: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x789de3f12f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-05-25 11:33:40 - pika.adapters.blocking_connection - INFO - Connection workflow succeeded: <SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x789de3f12f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>
+2025-05-25 11:33:40 - pika.adapters.blocking_connection - INFO - Created channel=1
+2025-05-25 11:33:40 - root - INFO - Starting RabbitMQ consumer...
+2025-05-25 11:33:49 - root - INFO - Received message: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:33:49 - root - INFO - Starting download process with message: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:34:13 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all, it took 23.90881609916687 seconds
+2025-05-25 11:34:13 - root - INFO - Received message: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:34:13 - root - INFO - Starting download process with message: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:34:54 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all, it took 40.78793144226074 seconds
+
+2025-05-25 11:35:12 - root - INFO - Received message: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:35:12 - root - INFO - Starting download process with message: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:35:33 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all, it took 21.141454935073853 seconds
+2025-05-25 11:35:33 - root - INFO - Received message: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:35:33 - root - INFO - Starting download process with message: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:36:12 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all, it took 39.54025650024414 seconds
+
+2025-05-25 11:36:53 - root - INFO - Received message: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:36:53 - root - INFO - Starting download process with message: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:37:16 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all, it took 22.40981388092041 seconds
+2025-05-25 11:37:16 - root - INFO - Received message: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:37:16 - root - INFO - Starting download process with message: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:37:57 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all, it took 41.19617295265198 seconds
+
+2025-05-25 11:38:19 - root - INFO - Received message: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:38:19 - root - INFO - Starting download process with message: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:38:40 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-11T00:00:00Z|2020-05-15T00:00:00Z|Field|Test|512|37|all, it took 21.171705961227417 seconds
+2025-05-25 11:38:40 - root - INFO - Received message: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:38:40 - root - INFO - Starting download process with message: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:39:20 - root - INFO - Download process completed successfully, ACK sent for: 2020-05-15T00:00:00Z|2020-05-25T00:00:00Z|Field|Test|512|37|all, it took 40.44211673736572 seconds
+2025-05-25 11:40:56 - root - INFO - Received message: Stop
+2025-05-25 11:40:56 - root - INFO - Download worker stopping...
+2025-05-25 11:40:56 - root - INFO - Closing RabbitMQ connection...
+2025-05-25 11:40:56 - pika.adapters.blocking_connection - INFO - Closing connection (200): Normal shutdown
+2025-05-25 11:40:56 - pika.channel - INFO - Closing channel (200): 'Normal shutdown' on <Channel number=1 OPEN conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x789de3f12f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-05-25 11:40:56 - pika.channel - INFO - Received <Channel.CloseOk> on <Channel number=1 CLOSING conn=<SelectConnection OPEN transport=<pika.adapters.utils.io_services_utils._AsyncPlaintextTransport object at 0x789de3f12f80> params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>>
+2025-05-25 11:40:56 - pika.connection - INFO - Closing connection (200): 'Normal shutdown'
+2025-05-25 11:40:56 - pika.adapters.utils.io_services_utils - INFO - Aborting transport connection: state=1; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55986), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:40:56 - pika.adapters.utils.io_services_utils - INFO - _AsyncTransportBase._initate_abort(): Initiating abrupt asynchronous transport shutdown: state=1; error=None; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55986), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:40:56 - pika.adapters.utils.io_services_utils - INFO - Deactivating transport: state=1; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55986), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:40:56 - pika.connection - INFO - AMQP stack terminated, failed to connect, or aborted: opened=True, error-arg=None; pending-error=ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-05-25 11:40:56 - pika.connection - INFO - Stack terminated due to ConnectionClosedByClient: (200) 'Normal shutdown'
+2025-05-25 11:40:56 - pika.adapters.utils.io_services_utils - INFO - Closing transport socket and unlinking: state=3; <socket.socket fd=7, family=AddressFamily.AF_INET, type=SocketKind.SOCK_STREAM, proto=6, laddr=('127.0.0.1', 55986), raddr=('127.0.0.1', 5672)>
+2025-05-25 11:40:56 - pika.adapters.blocking_connection - INFO - User-initiated close: result=BlockingConnection__OnClosedArgs(connection=<SelectConnection CLOSED transport=None params=<ConnectionParameters host=localhost port=5672 virtual_host=/ ssl=False>>, error=ConnectionClosedByClient: (200) 'Normal shutdown')
+2025-05-25 11:40:56 - root - INFO - RabbitMQ connection closed. Exiting gracefully.

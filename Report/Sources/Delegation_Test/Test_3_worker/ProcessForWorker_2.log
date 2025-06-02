@@ -1,0 +1,860 @@
+2025-05-25 11:41:19 - root - INFO - Logging initialized. Writing to Logs/Test_3_worker/ProcessForWorker_2.log
+2025-05-25 11:41:19 - root - INFO - Received MessagesData: 2020-05-01T00:00:00Z|2020-05-10T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:41:19 - root - INFO - Validated date range: From 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:19 - root - INFO - Starting the DownloadProcess using the dates 2020-05-01T00:00:00Z, 2020-05-10T00:00:00Z, the mode: Field, the region: Test resolution: 512 and cropid: 37
+2025-05-25 11:41:19 - root - INFO - Connected to the database successfully.
+2025-05-25 11:41:19 - root - INFO - Database schema is set up.
+2025-05-25 11:41:19 - root - INFO - ClientId sh-3f9ee5d0-f740-4b6f-89e4-6f9abd54a474
+2025-05-25 11:41:19 - root - INFO - DownloadProcess will use Fields
+2025-05-25 11:41:19 - root - INFO - DownloadProcess will use all Fields
+2025-05-25 11:41:19 - root - INFO - DownloadProcess will use a specefic Cropid:37
+2025-05-25 11:41:19 - root - INFO - DownloadProcess will use a specefic region:Test
+2025-05-25 11:41:19 - root - INFO - Queryed all Field Polygons found: 10 Fields
+2025-05-25 11:41:19 - root - INFO - Starting the download proccess for fieldid: 11 number: 1 out of 10
+2025-05-25 11:41:19 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 11 ....
+2025-05-25 11:41:19 - root - INFO - Received 4 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:19 - root - INFO - MetaData for 11 on the 2020-05-09T10:35:30.758Z has been updated
+2025-05-25 11:41:19 - root - INFO - MetaData for 11 on the 2020-05-07T10:45:33.837Z has been updated
+2025-05-25 11:41:20 - root - INFO - MetaData for 11 on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-25 11:41:20 - root - INFO - MetaData for 11 on the 2020-05-02T10:45:26.319Z has been updated
+2025-05-25 11:41:20 - root - INFO - Catalog API found 4 dates for polygon with id 11
+2025-05-25 11:41:21 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 512
+2025-05-25 11:41:21 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-04.tiff after 1 tries
+2025-05-25 11:41:21 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:41:23 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-07.tiff after 1 tries
+2025-05-25 11:41:23 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:41:24 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-02.tiff after 1 tries
+2025-05-25 11:41:24 - root - INFO - Get picture from satalite on the date of: 2020-05-09 with resolution: 512
+2025-05-25 11:41:24 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-09.tiff after 1 tries
+2025-05-25 11:41:24 - root - INFO - Ended the download proccess for fieldid: 11 number: 1 out of 10
+
+2025-05-25 11:41:24 - root - INFO - Starting the download proccess for fieldid: 82 number: 2 out of 10
+2025-05-25 11:41:24 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 82 ....
+2025-05-25 11:41:25 - root - INFO - Received 6 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:25 - root - INFO - MetaData for 82 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:41:25 - root - INFO - MetaData for 82 on the 2020-05-07T10:45:09.856Z has been updated
+2025-05-25 11:41:25 - root - INFO - MetaData for 82 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:41:25 - root - INFO - MetaData for 82 on the 2020-05-05T10:55:00.337Z has been updated
+2025-05-25 11:41:25 - root - INFO - MetaData for 82 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:41:25 - root - INFO - MetaData for 82 on the 2020-05-02T10:45:02.333Z has been updated
+2025-05-25 11:41:25 - root - INFO - Catalog API found 3 dates for polygon with id 82
+2025-05-25 11:41:26 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:41:26 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-05.tiff after 1 tries
+2025-05-25 11:41:26 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:41:27 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-02.tiff after 1 tries
+2025-05-25 11:41:27 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:41:28 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-07.tiff after 1 tries
+2025-05-25 11:41:28 - root - INFO - Ended the download proccess for fieldid: 82 number: 2 out of 10
+
+2025-05-25 11:41:28 - root - INFO - Starting the download proccess for fieldid: 104 number: 3 out of 10
+2025-05-25 11:41:28 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 104 ....
+2025-05-25 11:41:28 - root - INFO - Received 3 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:28 - root - INFO - MetaData for 104 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:41:28 - root - INFO - MetaData for 104 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:41:28 - root - INFO - MetaData for 104 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:41:28 - root - INFO - Catalog API found 3 dates for polygon with id 104
+2025-05-25 11:41:29 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:41:30 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-05.tiff after 1 tries
+2025-05-25 11:41:30 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:41:30 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-02.tiff after 1 tries
+2025-05-25 11:41:30 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:41:31 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-07.tiff after 1 tries
+2025-05-25 11:41:31 - root - INFO - Ended the download proccess for fieldid: 104 number: 3 out of 10
+
+2025-05-25 11:41:31 - root - INFO - Starting the download proccess for fieldid: 148 number: 4 out of 10
+2025-05-25 11:41:31 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 148 ....
+2025-05-25 11:41:31 - root - INFO - Received 4 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:31 - root - INFO - MetaData for 148 on the 2020-05-09T10:35:30.758Z has been updated
+2025-05-25 11:41:31 - root - INFO - MetaData for 148 on the 2020-05-07T10:45:33.837Z has been updated
+2025-05-25 11:41:31 - root - INFO - MetaData for 148 on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-25 11:41:31 - root - INFO - MetaData for 148 on the 2020-05-02T10:45:26.319Z has been updated
+2025-05-25 11:41:31 - root - INFO - Catalog API found 4 dates for polygon with id 148
+2025-05-25 11:41:32 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 512
+2025-05-25 11:41:33 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-04.tiff after 1 tries
+2025-05-25 11:41:33 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:41:33 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-07.tiff after 1 tries
+2025-05-25 11:41:33 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:41:34 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-02.tiff after 1 tries
+2025-05-25 11:41:34 - root - INFO - Get picture from satalite on the date of: 2020-05-09 with resolution: 512
+2025-05-25 11:41:35 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-09.tiff after 1 tries
+2025-05-25 11:41:35 - root - INFO - Ended the download proccess for fieldid: 148 number: 4 out of 10
+
+2025-05-25 11:41:35 - root - INFO - Starting the download proccess for fieldid: 174 number: 5 out of 10
+2025-05-25 11:41:35 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 174 ....
+2025-05-25 11:41:35 - root - INFO - Received 3 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:35 - root - INFO - MetaData for 174 on the 2020-05-07T10:45:38.445Z has been updated
+2025-05-25 11:41:35 - root - INFO - MetaData for 174 on the 2020-05-05T10:55:28.09Z has been updated
+2025-05-25 11:41:35 - root - INFO - MetaData for 174 on the 2020-05-02T10:45:30.919Z has been updated
+2025-05-25 11:41:35 - root - INFO - Catalog API found 3 dates for polygon with id 174
+2025-05-25 11:41:36 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:41:38 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-05.tiff after 1 tries
+2025-05-25 11:41:38 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:41:39 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-02.tiff after 1 tries
+2025-05-25 11:41:39 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:41:39 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-07.tiff after 1 tries
+2025-05-25 11:41:39 - root - INFO - Ended the download proccess for fieldid: 174 number: 5 out of 10
+
+2025-05-25 11:41:39 - root - INFO - Starting the download proccess for fieldid: 191 number: 6 out of 10
+2025-05-25 11:41:39 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 191 ....
+2025-05-25 11:41:40 - root - INFO - Received 6 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:40 - root - INFO - MetaData for 191 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:41:40 - root - INFO - MetaData for 191 on the 2020-05-07T10:45:19.664Z has been updated
+2025-05-25 11:41:40 - root - INFO - MetaData for 191 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:41:40 - root - INFO - MetaData for 191 on the 2020-05-05T10:55:06.921Z has been updated
+2025-05-25 11:41:40 - root - INFO - MetaData for 191 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:41:40 - root - INFO - MetaData for 191 on the 2020-05-02T10:45:12.135Z has been updated
+2025-05-25 11:41:40 - root - INFO - Catalog API found 3 dates for polygon with id 191
+2025-05-25 11:41:41 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:41:41 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-05.tiff after 1 tries
+2025-05-25 11:41:41 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:41:42 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-02.tiff after 1 tries
+2025-05-25 11:41:42 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:41:43 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-07.tiff after 1 tries
+2025-05-25 11:41:43 - root - INFO - Ended the download proccess for fieldid: 191 number: 6 out of 10
+
+2025-05-25 11:41:43 - root - INFO - Starting the download proccess for fieldid: 204 number: 7 out of 10
+2025-05-25 11:41:43 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 204 ....
+2025-05-25 11:41:43 - root - INFO - Received 3 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:43 - root - INFO - MetaData for 204 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:41:43 - root - INFO - MetaData for 204 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:41:43 - root - INFO - MetaData for 204 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:41:43 - root - INFO - Catalog API found 3 dates for polygon with id 204
+2025-05-25 11:41:44 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:41:45 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-05.tiff after 1 tries
+2025-05-25 11:41:45 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:41:45 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-02.tiff after 1 tries
+2025-05-25 11:41:45 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:41:46 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-07.tiff after 1 tries
+2025-05-25 11:41:46 - root - INFO - Ended the download proccess for fieldid: 204 number: 7 out of 10
+
+2025-05-25 11:41:46 - root - INFO - Starting the download proccess for fieldid: 239 number: 8 out of 10
+2025-05-25 11:41:46 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 239 ....
+2025-05-25 11:41:46 - root - INFO - Received 6 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:46 - root - INFO - MetaData for 239 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:41:46 - root - INFO - MetaData for 239 on the 2020-05-07T10:45:09.856Z has been updated
+2025-05-25 11:41:46 - root - INFO - MetaData for 239 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:41:46 - root - INFO - MetaData for 239 on the 2020-05-05T10:55:00.337Z has been updated
+2025-05-25 11:41:46 - root - INFO - MetaData for 239 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:41:46 - root - INFO - MetaData for 239 on the 2020-05-02T10:45:02.333Z has been updated
+2025-05-25 11:41:46 - root - INFO - Catalog API found 3 dates for polygon with id 239
+2025-05-25 11:41:47 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:41:48 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-05.tiff after 1 tries
+2025-05-25 11:41:48 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:41:49 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-02.tiff after 1 tries
+2025-05-25 11:41:49 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:41:49 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-07.tiff after 1 tries
+2025-05-25 11:41:49 - root - INFO - Ended the download proccess for fieldid: 239 number: 8 out of 10
+
+2025-05-25 11:41:49 - root - INFO - Starting the download proccess for fieldid: 321 number: 9 out of 10
+2025-05-25 11:41:49 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 321 ....
+2025-05-25 11:41:50 - root - INFO - Received 8 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:50 - root - INFO - MetaData for 321 on the 2020-05-09T10:35:30.758Z has been updated
+2025-05-25 11:41:50 - root - INFO - MetaData for 321 on the 2020-05-09T10:35:16.46Z has been updated
+2025-05-25 11:41:50 - root - INFO - MetaData for 321 on the 2020-05-07T10:45:33.837Z has been updated
+2025-05-25 11:41:50 - root - INFO - MetaData for 321 on the 2020-05-07T10:45:19.664Z has been updated
+2025-05-25 11:41:50 - root - INFO - MetaData for 321 on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-25 11:41:50 - root - INFO - MetaData for 321 on the 2020-05-04T10:35:21.939Z has been updated
+2025-05-25 11:41:50 - root - INFO - MetaData for 321 on the 2020-05-02T10:45:26.319Z has been updated
+2025-05-25 11:41:50 - root - INFO - MetaData for 321 on the 2020-05-02T10:45:12.135Z has been updated
+2025-05-25 11:41:50 - root - INFO - Catalog API found 4 dates for polygon with id 321
+2025-05-25 11:41:51 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 512
+2025-05-25 11:41:51 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-04.tiff after 1 tries
+2025-05-25 11:41:51 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:41:52 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-07.tiff after 1 tries
+2025-05-25 11:41:52 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:41:53 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-02.tiff after 1 tries
+2025-05-25 11:41:53 - root - INFO - Get picture from satalite on the date of: 2020-05-09 with resolution: 512
+2025-05-25 11:41:53 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-09.tiff after 1 tries
+2025-05-25 11:41:53 - root - INFO - Ended the download proccess for fieldid: 321 number: 9 out of 10
+
+2025-05-25 11:41:53 - root - INFO - Starting the download proccess for fieldid: 356 number: 10 out of 10
+2025-05-25 11:41:53 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 356 ....
+2025-05-25 11:41:53 - root - INFO - Received 4 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:41:53 - root - INFO - MetaData for 356 on the 2020-05-09T10:35:41.166Z has been updated
+2025-05-25 11:41:53 - root - INFO - MetaData for 356 on the 2020-05-06T10:25:43.25Z has been updated
+2025-05-25 11:41:53 - root - INFO - MetaData for 356 on the 2020-05-04T10:35:46.626Z has been updated
+2025-05-25 11:41:53 - root - INFO - MetaData for 356 on the 2020-05-01T10:25:48.858Z has been updated
+2025-05-25 11:41:53 - root - INFO - Catalog API found 4 dates for polygon with id 356
+2025-05-25 11:41:54 - root - INFO - Get picture from satalite on the date of: 2020-05-01 with resolution: 512
+2025-05-25 11:41:55 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-01.tiff after 1 tries
+2025-05-25 11:41:55 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 512
+2025-05-25 11:41:56 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-04.tiff after 1 tries
+2025-05-25 11:41:56 - root - INFO - Get picture from satalite on the date of: 2020-05-06 with resolution: 512
+2025-05-25 11:41:56 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-06.tiff after 1 tries
+2025-05-25 11:41:56 - root - INFO - Get picture from satalite on the date of: 2020-05-09 with resolution: 512
+2025-05-25 11:41:57 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-09.tiff after 1 tries
+2025-05-25 11:41:57 - root - INFO - Ended the download proccess for fieldid: 356 number: 10 out of 10
+
+2025-05-25 11:41:57 - root - INFO - Completed the download proccess on the dates from: 2020-05-01T00:00:00Z To: 2020-05-10T00:00:00Z 
+
+2025-05-25 11:41:57 - root - INFO - The process took 37.740084409713745 secounds
+2025-05-25 11:41:57 - root - INFO - Logging initialized. Writing to Logs/Test_3_worker/ProcessForWorker_2.log
+2025-05-25 11:41:57 - root - INFO - Received MessagesData: 2020-05-29T00:00:00Z|2020-05-30T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:41:57 - root - INFO - Validated date range: From 2020-05-29T00:00:00Z to 2020-05-30T00:00:00Z
+2025-05-25 11:41:57 - root - INFO - Starting the DownloadProcess using the dates 2020-05-29T00:00:00Z, 2020-05-30T00:00:00Z, the mode: Field, the region: Test resolution: 512 and cropid: 37
+2025-05-25 11:41:57 - root - INFO - Connected to the database successfully.
+2025-05-25 11:41:57 - root - INFO - Database schema is set up.
+2025-05-25 11:41:57 - root - INFO - ClientId sh-3f9ee5d0-f740-4b6f-89e4-6f9abd54a474
+2025-05-25 11:41:57 - root - INFO - DownloadProcess will use Fields
+2025-05-25 11:41:57 - root - INFO - DownloadProcess will use all Fields
+2025-05-25 11:41:57 - root - INFO - DownloadProcess will use a specefic Cropid:37
+2025-05-25 11:41:57 - root - INFO - DownloadProcess will use a specefic region:Test
+2025-05-25 11:41:57 - root - INFO - Queryed all Field Polygons found: 10 Fields
+2025-05-25 11:41:57 - root - INFO - Starting the download proccess for fieldid: 11 number: 1 out of 10
+2025-05-25 11:41:57 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 11 ....
+2025-05-25 11:41:58 - root - INFO - Received 1 features from 2020-05-29T00:00:00Z to 2020-05-30T00:00:00Z
+2025-05-25 11:41:58 - root - INFO - MetaData for 11 on the 2020-05-29T10:35:33.934Z has been updated
+2025-05-25 11:41:58 - root - INFO - Catalog API found 1 dates for polygon with id 11
+2025-05-25 11:41:59 - root - INFO - Get picture from satalite on the date of: 2020-05-29 with resolution: 512
+2025-05-25 11:41:59 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-29.tiff after 1 tries
+2025-05-25 11:41:59 - root - INFO - Ended the download proccess for fieldid: 11 number: 1 out of 10
+
+2025-05-25 11:41:59 - root - INFO - Starting the download proccess for fieldid: 82 number: 2 out of 10
+2025-05-25 11:41:59 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 82 ....
+2025-05-25 11:41:59 - root - WARNING - No features found; dumping response to ResponseCatalog.txt
+2025-05-25 11:41:59 - root - WARNING - No image dates found for polygon with id 82, skipping...
+2025-05-25 11:41:59 - root - INFO - Starting the download proccess for fieldid: 104 number: 2 out of 10
+2025-05-25 11:41:59 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 104 ....
+2025-05-25 11:42:00 - root - WARNING - No features found; dumping response to ResponseCatalog.txt
+2025-05-25 11:42:00 - root - WARNING - No image dates found for polygon with id 104, skipping...
+2025-05-25 11:42:00 - root - INFO - Starting the download proccess for fieldid: 148 number: 2 out of 10
+2025-05-25 11:42:00 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 148 ....
+2025-05-25 11:42:00 - root - INFO - Received 1 features from 2020-05-29T00:00:00Z to 2020-05-30T00:00:00Z
+2025-05-25 11:42:00 - root - INFO - MetaData for 148 on the 2020-05-29T10:35:33.934Z has been updated
+2025-05-25 11:42:00 - root - INFO - Catalog API found 1 dates for polygon with id 148
+2025-05-25 11:42:01 - root - INFO - Get picture from satalite on the date of: 2020-05-29 with resolution: 512
+2025-05-25 11:42:01 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-29.tiff after 1 tries
+2025-05-25 11:42:01 - root - INFO - Ended the download proccess for fieldid: 148 number: 2 out of 10
+
+2025-05-25 11:42:01 - root - INFO - Starting the download proccess for fieldid: 174 number: 3 out of 10
+2025-05-25 11:42:01 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 174 ....
+2025-05-25 11:42:01 - root - WARNING - No features found; dumping response to ResponseCatalog.txt
+2025-05-25 11:42:01 - root - WARNING - No image dates found for polygon with id 174, skipping...
+2025-05-25 11:42:01 - root - INFO - Starting the download proccess for fieldid: 191 number: 3 out of 10
+2025-05-25 11:42:01 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 191 ....
+2025-05-25 11:42:02 - root - WARNING - No features found; dumping response to ResponseCatalog.txt
+2025-05-25 11:42:02 - root - WARNING - No image dates found for polygon with id 191, skipping...
+2025-05-25 11:42:02 - root - INFO - Starting the download proccess for fieldid: 204 number: 3 out of 10
+2025-05-25 11:42:02 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 204 ....
+2025-05-25 11:42:02 - root - WARNING - No features found; dumping response to ResponseCatalog.txt
+2025-05-25 11:42:02 - root - WARNING - No image dates found for polygon with id 204, skipping...
+2025-05-25 11:42:02 - root - INFO - Starting the download proccess for fieldid: 239 number: 3 out of 10
+2025-05-25 11:42:02 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 239 ....
+2025-05-25 11:42:02 - root - WARNING - No features found; dumping response to ResponseCatalog.txt
+2025-05-25 11:42:02 - root - WARNING - No image dates found for polygon with id 239, skipping...
+2025-05-25 11:42:02 - root - INFO - Starting the download proccess for fieldid: 321 number: 3 out of 10
+2025-05-25 11:42:02 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 321 ....
+2025-05-25 11:42:02 - root - INFO - Received 2 features from 2020-05-29T00:00:00Z to 2020-05-30T00:00:00Z
+2025-05-25 11:42:02 - root - INFO - MetaData for 321 on the 2020-05-29T10:35:33.934Z has been updated
+2025-05-25 11:42:02 - root - INFO - MetaData for 321 on the 2020-05-29T10:35:19.649Z has been updated
+2025-05-25 11:42:02 - root - INFO - Catalog API found 1 dates for polygon with id 321
+2025-05-25 11:42:03 - root - INFO - Get picture from satalite on the date of: 2020-05-29 with resolution: 512
+2025-05-25 11:42:04 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-29.tiff after 1 tries
+2025-05-25 11:42:04 - root - INFO - Ended the download proccess for fieldid: 321 number: 3 out of 10
+
+2025-05-25 11:42:04 - root - INFO - Starting the download proccess for fieldid: 356 number: 4 out of 10
+2025-05-25 11:42:04 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 356 ....
+2025-05-25 11:42:04 - root - INFO - Received 1 features from 2020-05-29T00:00:00Z to 2020-05-30T00:00:00Z
+2025-05-25 11:42:04 - root - INFO - MetaData for 356 on the 2020-05-29T10:35:44.35Z has been updated
+2025-05-25 11:42:04 - root - INFO - Catalog API found 1 dates for polygon with id 356
+2025-05-25 11:42:05 - root - INFO - Get picture from satalite on the date of: 2020-05-29 with resolution: 512
+2025-05-25 11:42:05 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-29.tiff after 1 tries
+2025-05-25 11:42:05 - root - INFO - Ended the download proccess for fieldid: 356 number: 4 out of 10
+
+2025-05-25 11:42:05 - root - INFO - Completed the download proccess on the dates from: 2020-05-29T00:00:00Z To: 2020-05-30T00:00:00Z 
+
+2025-05-25 11:42:05 - root - INFO - The process took 7.972724914550781 secounds
+2025-05-25 11:42:47 - root - INFO - Logging initialized. Writing to Logs/Test_3_worker/ProcessForWorker_2.log
+2025-05-25 11:42:47 - root - INFO - Received MessagesData: 2020-05-01T00:00:00Z|2020-05-10T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:42:47 - root - INFO - Validated date range: From 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:42:47 - root - INFO - Starting the DownloadProcess using the dates 2020-05-01T00:00:00Z, 2020-05-10T00:00:00Z, the mode: Field, the region: Test resolution: 512 and cropid: 37
+2025-05-25 11:42:47 - root - INFO - Connected to the database successfully.
+2025-05-25 11:42:47 - root - INFO - Database schema is set up.
+2025-05-25 11:42:47 - root - INFO - ClientId sh-3f9ee5d0-f740-4b6f-89e4-6f9abd54a474
+2025-05-25 11:42:47 - root - INFO - DownloadProcess will use Fields
+2025-05-25 11:42:47 - root - INFO - DownloadProcess will use all Fields
+2025-05-25 11:42:47 - root - INFO - DownloadProcess will use a specefic Cropid:37
+2025-05-25 11:42:47 - root - INFO - DownloadProcess will use a specefic region:Test
+2025-05-25 11:42:47 - root - INFO - Queryed all Field Polygons found: 10 Fields
+2025-05-25 11:42:47 - root - INFO - Starting the download proccess for fieldid: 11 number: 1 out of 10
+2025-05-25 11:42:47 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 11 ....
+2025-05-25 11:42:47 - root - INFO - Received 4 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:42:47 - root - INFO - MetaData for 11 on the 2020-05-09T10:35:30.758Z has been updated
+2025-05-25 11:42:47 - root - INFO - MetaData for 11 on the 2020-05-07T10:45:33.837Z has been updated
+2025-05-25 11:42:47 - root - INFO - MetaData for 11 on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-25 11:42:47 - root - INFO - MetaData for 11 on the 2020-05-02T10:45:26.319Z has been updated
+2025-05-25 11:42:47 - root - INFO - Catalog API found 4 dates for polygon with id 11
+2025-05-25 11:42:48 - root - INFO - Get picture from satalite on the date of: 2020-05-09 with resolution: 512
+2025-05-25 11:42:49 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-09.tiff after 1 tries
+2025-05-25 11:42:49 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 512
+2025-05-25 11:42:50 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-04.tiff after 1 tries
+2025-05-25 11:42:50 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:42:51 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-02.tiff after 1 tries
+2025-05-25 11:42:51 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:42:51 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-07.tiff after 1 tries
+2025-05-25 11:42:51 - root - INFO - Ended the download proccess for fieldid: 11 number: 1 out of 10
+
+2025-05-25 11:42:51 - root - INFO - Starting the download proccess for fieldid: 82 number: 2 out of 10
+2025-05-25 11:42:51 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 82 ....
+2025-05-25 11:42:51 - root - INFO - Received 6 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:42:51 - root - INFO - MetaData for 82 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:42:51 - root - INFO - MetaData for 82 on the 2020-05-07T10:45:09.856Z has been updated
+2025-05-25 11:42:51 - root - INFO - MetaData for 82 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:42:51 - root - INFO - MetaData for 82 on the 2020-05-05T10:55:00.337Z has been updated
+2025-05-25 11:42:51 - root - INFO - MetaData for 82 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:42:52 - root - INFO - MetaData for 82 on the 2020-05-02T10:45:02.333Z has been updated
+2025-05-25 11:42:52 - root - INFO - Catalog API found 3 dates for polygon with id 82
+2025-05-25 11:42:53 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:42:53 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-02.tiff after 1 tries
+2025-05-25 11:42:53 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:42:54 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-05.tiff after 1 tries
+2025-05-25 11:42:54 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:42:54 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-07.tiff after 1 tries
+2025-05-25 11:42:54 - root - INFO - Ended the download proccess for fieldid: 82 number: 2 out of 10
+
+2025-05-25 11:42:54 - root - INFO - Starting the download proccess for fieldid: 104 number: 3 out of 10
+2025-05-25 11:42:54 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 104 ....
+2025-05-25 11:42:55 - root - INFO - Received 3 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:42:55 - root - INFO - MetaData for 104 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:42:55 - root - INFO - MetaData for 104 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:42:55 - root - INFO - MetaData for 104 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:42:55 - root - INFO - Catalog API found 3 dates for polygon with id 104
+2025-05-25 11:42:56 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:42:56 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-02.tiff after 1 tries
+2025-05-25 11:42:56 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:42:57 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-05.tiff after 1 tries
+2025-05-25 11:42:57 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:42:58 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-07.tiff after 1 tries
+2025-05-25 11:42:58 - root - INFO - Ended the download proccess for fieldid: 104 number: 3 out of 10
+
+2025-05-25 11:42:58 - root - INFO - Starting the download proccess for fieldid: 148 number: 4 out of 10
+2025-05-25 11:42:58 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 148 ....
+2025-05-25 11:42:58 - root - INFO - Received 4 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:42:58 - root - INFO - MetaData for 148 on the 2020-05-09T10:35:30.758Z has been updated
+2025-05-25 11:42:58 - root - INFO - MetaData for 148 on the 2020-05-07T10:45:33.837Z has been updated
+2025-05-25 11:42:58 - root - INFO - MetaData for 148 on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-25 11:42:58 - root - INFO - MetaData for 148 on the 2020-05-02T10:45:26.319Z has been updated
+2025-05-25 11:42:58 - root - INFO - Catalog API found 4 dates for polygon with id 148
+2025-05-25 11:42:59 - root - INFO - Get picture from satalite on the date of: 2020-05-09 with resolution: 512
+2025-05-25 11:43:00 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-09.tiff after 1 tries
+2025-05-25 11:43:00 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 512
+2025-05-25 11:43:00 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-04.tiff after 1 tries
+2025-05-25 11:43:00 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:43:01 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-02.tiff after 1 tries
+2025-05-25 11:43:01 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:43:02 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-07.tiff after 1 tries
+2025-05-25 11:43:02 - root - INFO - Ended the download proccess for fieldid: 148 number: 4 out of 10
+
+2025-05-25 11:43:02 - root - INFO - Starting the download proccess for fieldid: 174 number: 5 out of 10
+2025-05-25 11:43:02 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 174 ....
+2025-05-25 11:43:02 - root - INFO - Received 3 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:43:02 - root - INFO - MetaData for 174 on the 2020-05-07T10:45:38.445Z has been updated
+2025-05-25 11:43:02 - root - INFO - MetaData for 174 on the 2020-05-05T10:55:28.09Z has been updated
+2025-05-25 11:43:02 - root - INFO - MetaData for 174 on the 2020-05-02T10:45:30.919Z has been updated
+2025-05-25 11:43:02 - root - INFO - Catalog API found 3 dates for polygon with id 174
+2025-05-25 11:43:03 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:43:04 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-02.tiff after 1 tries
+2025-05-25 11:43:04 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:43:05 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-05.tiff after 1 tries
+2025-05-25 11:43:05 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:43:05 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-07.tiff after 1 tries
+2025-05-25 11:43:05 - root - INFO - Ended the download proccess for fieldid: 174 number: 5 out of 10
+
+2025-05-25 11:43:05 - root - INFO - Starting the download proccess for fieldid: 191 number: 6 out of 10
+2025-05-25 11:43:05 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 191 ....
+2025-05-25 11:43:06 - root - INFO - Received 6 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:43:06 - root - INFO - MetaData for 191 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:43:06 - root - INFO - MetaData for 191 on the 2020-05-07T10:45:19.664Z has been updated
+2025-05-25 11:43:06 - root - INFO - MetaData for 191 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:43:06 - root - INFO - MetaData for 191 on the 2020-05-05T10:55:06.921Z has been updated
+2025-05-25 11:43:06 - root - INFO - MetaData for 191 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:43:06 - root - INFO - MetaData for 191 on the 2020-05-02T10:45:12.135Z has been updated
+2025-05-25 11:43:06 - root - INFO - Catalog API found 3 dates for polygon with id 191
+2025-05-25 11:43:07 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:43:08 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-02.tiff after 1 tries
+2025-05-25 11:43:08 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:43:09 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-05.tiff after 1 tries
+2025-05-25 11:43:09 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:43:10 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-07.tiff after 1 tries
+2025-05-25 11:43:10 - root - INFO - Ended the download proccess for fieldid: 191 number: 6 out of 10
+
+2025-05-25 11:43:10 - root - INFO - Starting the download proccess for fieldid: 204 number: 7 out of 10
+2025-05-25 11:43:10 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 204 ....
+2025-05-25 11:43:10 - root - INFO - Received 3 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:43:10 - root - INFO - MetaData for 204 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:43:10 - root - INFO - MetaData for 204 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:43:10 - root - INFO - MetaData for 204 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:43:10 - root - INFO - Catalog API found 3 dates for polygon with id 204
+2025-05-25 11:43:11 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:43:12 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-02.tiff after 1 tries
+2025-05-25 11:43:12 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:43:12 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-05.tiff after 1 tries
+2025-05-25 11:43:12 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:43:13 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-07.tiff after 1 tries
+2025-05-25 11:43:13 - root - INFO - Ended the download proccess for fieldid: 204 number: 7 out of 10
+
+2025-05-25 11:43:13 - root - INFO - Starting the download proccess for fieldid: 239 number: 8 out of 10
+2025-05-25 11:43:13 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 239 ....
+2025-05-25 11:43:13 - root - INFO - Received 6 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:43:13 - root - INFO - MetaData for 239 on the 2020-05-07T10:45:24.133Z has been updated
+2025-05-25 11:43:13 - root - INFO - MetaData for 239 on the 2020-05-07T10:45:09.856Z has been updated
+2025-05-25 11:43:13 - root - INFO - MetaData for 239 on the 2020-05-05T10:55:14.097Z has been updated
+2025-05-25 11:43:13 - root - INFO - MetaData for 239 on the 2020-05-05T10:55:00.337Z has been updated
+2025-05-25 11:43:13 - root - INFO - MetaData for 239 on the 2020-05-02T10:45:16.586Z has been updated
+2025-05-25 11:43:13 - root - INFO - MetaData for 239 on the 2020-05-02T10:45:02.333Z has been updated
+2025-05-25 11:43:13 - root - INFO - Catalog API found 3 dates for polygon with id 239
+2025-05-25 11:43:14 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:43:16 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-02.tiff after 1 tries
+2025-05-25 11:43:16 - root - INFO - Get picture from satalite on the date of: 2020-05-05 with resolution: 512
+2025-05-25 11:43:16 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-05.tiff after 1 tries
+2025-05-25 11:43:16 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:43:17 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-07.tiff after 1 tries
+2025-05-25 11:43:17 - root - INFO - Ended the download proccess for fieldid: 239 number: 8 out of 10
+
+2025-05-25 11:43:17 - root - INFO - Starting the download proccess for fieldid: 321 number: 9 out of 10
+2025-05-25 11:43:17 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 321 ....
+2025-05-25 11:43:17 - root - INFO - Received 8 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:43:17 - root - INFO - MetaData for 321 on the 2020-05-09T10:35:30.758Z has been updated
+2025-05-25 11:43:17 - root - INFO - MetaData for 321 on the 2020-05-09T10:35:16.46Z has been updated
+2025-05-25 11:43:17 - root - INFO - MetaData for 321 on the 2020-05-07T10:45:33.837Z has been updated
+2025-05-25 11:43:17 - root - INFO - MetaData for 321 on the 2020-05-07T10:45:19.664Z has been updated
+2025-05-25 11:43:17 - root - INFO - MetaData for 321 on the 2020-05-04T10:35:36.222Z has been updated
+2025-05-25 11:43:17 - root - INFO - MetaData for 321 on the 2020-05-04T10:35:21.939Z has been updated
+2025-05-25 11:43:17 - root - INFO - MetaData for 321 on the 2020-05-02T10:45:26.319Z has been updated
+2025-05-25 11:43:17 - root - INFO - MetaData for 321 on the 2020-05-02T10:45:12.135Z has been updated
+2025-05-25 11:43:17 - root - INFO - Catalog API found 4 dates for polygon with id 321
+2025-05-25 11:43:18 - root - INFO - Get picture from satalite on the date of: 2020-05-09 with resolution: 512
+2025-05-25 11:43:19 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-09.tiff after 1 tries
+2025-05-25 11:43:19 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 512
+2025-05-25 11:43:21 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-04.tiff after 1 tries
+2025-05-25 11:43:21 - root - INFO - Get picture from satalite on the date of: 2020-05-02 with resolution: 512
+2025-05-25 11:43:22 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-02.tiff after 1 tries
+2025-05-25 11:43:22 - root - INFO - Get picture from satalite on the date of: 2020-05-07 with resolution: 512
+2025-05-25 11:43:22 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-07.tiff after 1 tries
+2025-05-25 11:43:22 - root - INFO - Ended the download proccess for fieldid: 321 number: 9 out of 10
+
+2025-05-25 11:43:22 - root - INFO - Starting the download proccess for fieldid: 356 number: 10 out of 10
+2025-05-25 11:43:22 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 356 ....
+2025-05-25 11:43:22 - root - INFO - Received 4 features from 2020-05-01T00:00:00Z to 2020-05-10T00:00:00Z
+2025-05-25 11:43:22 - root - INFO - MetaData for 356 on the 2020-05-09T10:35:41.166Z has been updated
+2025-05-25 11:43:22 - root - INFO - MetaData for 356 on the 2020-05-06T10:25:43.25Z has been updated
+2025-05-25 11:43:22 - root - INFO - MetaData for 356 on the 2020-05-04T10:35:46.626Z has been updated
+2025-05-25 11:43:22 - root - INFO - MetaData for 356 on the 2020-05-01T10:25:48.858Z has been updated
+2025-05-25 11:43:22 - root - INFO - Catalog API found 4 dates for polygon with id 356
+2025-05-25 11:43:23 - root - INFO - Get picture from satalite on the date of: 2020-05-06 with resolution: 512
+2025-05-25 11:43:25 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-06.tiff after 1 tries
+2025-05-25 11:43:25 - root - INFO - Get picture from satalite on the date of: 2020-05-09 with resolution: 512
+2025-05-25 11:43:25 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-09.tiff after 1 tries
+2025-05-25 11:43:25 - root - INFO - Get picture from satalite on the date of: 2020-05-04 with resolution: 512
+2025-05-25 11:43:26 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-04.tiff after 1 tries
+2025-05-25 11:43:26 - root - INFO - Get picture from satalite on the date of: 2020-05-01 with resolution: 512
+2025-05-25 11:43:27 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-01.tiff after 1 tries
+2025-05-25 11:43:27 - root - INFO - Ended the download proccess for fieldid: 356 number: 10 out of 10
+
+2025-05-25 11:43:27 - root - INFO - Completed the download proccess on the dates from: 2020-05-01T00:00:00Z To: 2020-05-10T00:00:00Z 
+
+2025-05-25 11:43:27 - root - INFO - The process took 39.845855712890625 secounds
+2025-05-25 11:43:51 - root - INFO - Logging initialized. Writing to Logs/Test_3_worker/ProcessForWorker_2.log
+2025-05-25 11:43:51 - root - INFO - Received MessagesData: 2020-05-10T00:00:00Z|2020-05-19T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:43:51 - root - INFO - Validated date range: From 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:43:51 - root - INFO - Starting the DownloadProcess using the dates 2020-05-10T00:00:00Z, 2020-05-19T00:00:00Z, the mode: Field, the region: Test resolution: 512 and cropid: 37
+2025-05-25 11:43:51 - root - INFO - Connected to the database successfully.
+2025-05-25 11:43:51 - root - INFO - Database schema is set up.
+2025-05-25 11:43:51 - root - INFO - ClientId sh-3f9ee5d0-f740-4b6f-89e4-6f9abd54a474
+2025-05-25 11:43:51 - root - INFO - DownloadProcess will use Fields
+2025-05-25 11:43:51 - root - INFO - DownloadProcess will use all Fields
+2025-05-25 11:43:51 - root - INFO - DownloadProcess will use a specefic Cropid:37
+2025-05-25 11:43:51 - root - INFO - DownloadProcess will use a specefic region:Test
+2025-05-25 11:43:51 - root - INFO - Queryed all Field Polygons found: 10 Fields
+2025-05-25 11:43:51 - root - INFO - Starting the download proccess for fieldid: 11 number: 1 out of 10
+2025-05-25 11:43:51 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 11 ....
+2025-05-25 11:43:51 - root - INFO - Received 3 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:43:51 - root - INFO - MetaData for 11 on the 2020-05-17T10:45:35.034Z has been updated
+2025-05-25 11:43:51 - root - INFO - MetaData for 11 on the 2020-05-14T10:35:37.582Z has been updated
+2025-05-25 11:43:51 - root - INFO - MetaData for 11 on the 2020-05-12T10:45:28.5Z has been updated
+2025-05-25 11:43:51 - root - INFO - Catalog API found 3 dates for polygon with id 11
+2025-05-25 11:43:52 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:43:52 - root - ERROR - HTTP Error 401: 401 Client Error: Unauthorized for url: https://sh.dataspace.copernicus.eu/api/v1/process
+2025-05-25 11:43:52 - root - INFO - Attempting to get an API Token...
+2025-05-25 11:43:52 - root - INFO - Successfully obtained a new token.
+2025-05-25 11:43:52 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:43:53 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-17.tiff after 1 tries
+2025-05-25 11:43:53 - root - INFO - Get picture from satalite on the date of: 2020-05-14 with resolution: 512
+2025-05-25 11:43:54 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-14.tiff after 1 tries
+2025-05-25 11:43:54 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:43:54 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-12.tiff after 1 tries
+2025-05-25 11:43:54 - root - INFO - Ended the download proccess for fieldid: 11 number: 1 out of 10
+
+2025-05-25 11:43:54 - root - INFO - Starting the download proccess for fieldid: 82 number: 2 out of 10
+2025-05-25 11:43:54 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 82 ....
+2025-05-25 11:43:54 - root - ERROR - Access code has expired or is incorrect.
+2025-05-25 11:43:54 - root - INFO - Attempting to get an API Token...
+2025-05-25 11:43:55 - root - INFO - Successfully obtained a new token.
+2025-05-25 11:43:55 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 82 ....
+2025-05-25 11:43:55 - root - INFO - Received 8 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:43:55 - root - INFO - MetaData for 82 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:43:55 - root - INFO - MetaData for 82 on the 2020-05-17T10:45:11.062Z has been updated
+2025-05-25 11:43:55 - root - INFO - MetaData for 82 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:43:55 - root - INFO - MetaData for 82 on the 2020-05-15T10:55:02.354Z has been updated
+2025-05-25 11:43:55 - root - INFO - MetaData for 82 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:43:55 - root - INFO - MetaData for 82 on the 2020-05-12T10:45:04.513Z has been updated
+2025-05-25 11:43:55 - root - INFO - MetaData for 82 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:43:55 - root - INFO - MetaData for 82 on the 2020-05-10T10:55:07.562Z has been updated
+2025-05-25 11:43:55 - root - INFO - Catalog API found 4 dates for polygon with id 82
+2025-05-25 11:43:56 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:43:56 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-15.tiff after 1 tries
+2025-05-25 11:43:56 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:43:57 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-10.tiff after 1 tries
+2025-05-25 11:43:57 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:43:58 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-17.tiff after 1 tries
+2025-05-25 11:43:58 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:43:59 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-12.tiff after 1 tries
+2025-05-25 11:43:59 - root - INFO - Ended the download proccess for fieldid: 82 number: 2 out of 10
+
+2025-05-25 11:43:59 - root - INFO - Starting the download proccess for fieldid: 104 number: 3 out of 10
+2025-05-25 11:43:59 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 104 ....
+2025-05-25 11:43:59 - root - INFO - Received 4 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:43:59 - root - INFO - MetaData for 104 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:43:59 - root - INFO - MetaData for 104 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:43:59 - root - INFO - MetaData for 104 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:43:59 - root - INFO - MetaData for 104 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:43:59 - root - INFO - Catalog API found 4 dates for polygon with id 104
+2025-05-25 11:44:00 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:44:01 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-15.tiff after 1 tries
+2025-05-25 11:44:01 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:44:02 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-10.tiff after 1 tries
+2025-05-25 11:44:02 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:44:03 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-17.tiff after 1 tries
+2025-05-25 11:44:03 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:44:05 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-12.tiff after 1 tries
+2025-05-25 11:44:05 - root - INFO - Ended the download proccess for fieldid: 104 number: 3 out of 10
+
+2025-05-25 11:44:05 - root - INFO - Starting the download proccess for fieldid: 148 number: 4 out of 10
+2025-05-25 11:44:05 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 148 ....
+2025-05-25 11:44:05 - root - INFO - Received 3 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:44:05 - root - INFO - MetaData for 148 on the 2020-05-17T10:45:35.034Z has been updated
+2025-05-25 11:44:05 - root - INFO - MetaData for 148 on the 2020-05-14T10:35:37.582Z has been updated
+2025-05-25 11:44:05 - root - INFO - MetaData for 148 on the 2020-05-12T10:45:28.5Z has been updated
+2025-05-25 11:44:05 - root - INFO - Catalog API found 3 dates for polygon with id 148
+2025-05-25 11:44:06 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:44:07 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-17.tiff after 1 tries
+2025-05-25 11:44:07 - root - INFO - Get picture from satalite on the date of: 2020-05-14 with resolution: 512
+2025-05-25 11:44:07 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-14.tiff after 1 tries
+2025-05-25 11:44:07 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:44:08 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-12.tiff after 1 tries
+2025-05-25 11:44:08 - root - INFO - Ended the download proccess for fieldid: 148 number: 4 out of 10
+
+2025-05-25 11:44:08 - root - INFO - Starting the download proccess for fieldid: 174 number: 5 out of 10
+2025-05-25 11:44:08 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 174 ....
+2025-05-25 11:44:08 - root - INFO - Received 4 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:44:08 - root - INFO - MetaData for 174 on the 2020-05-17T10:45:39.648Z has been updated
+2025-05-25 11:44:08 - root - INFO - MetaData for 174 on the 2020-05-15T10:55:30.116Z has been updated
+2025-05-25 11:44:08 - root - INFO - MetaData for 174 on the 2020-05-12T10:45:33.1Z has been updated
+2025-05-25 11:44:08 - root - INFO - MetaData for 174 on the 2020-05-10T10:55:35.333Z has been updated
+2025-05-25 11:44:08 - root - INFO - Catalog API found 4 dates for polygon with id 174
+2025-05-25 11:44:09 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:44:10 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-15.tiff after 1 tries
+2025-05-25 11:44:10 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:44:11 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-10.tiff after 1 tries
+2025-05-25 11:44:11 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:44:12 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-17.tiff after 1 tries
+2025-05-25 11:44:12 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:44:12 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-12.tiff after 1 tries
+2025-05-25 11:44:12 - root - INFO - Ended the download proccess for fieldid: 174 number: 5 out of 10
+
+2025-05-25 11:44:12 - root - INFO - Starting the download proccess for fieldid: 191 number: 6 out of 10
+2025-05-25 11:44:12 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 191 ....
+2025-05-25 11:44:12 - root - INFO - Received 8 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:44:12 - root - INFO - MetaData for 191 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:44:12 - root - INFO - MetaData for 191 on the 2020-05-17T10:45:20.873Z has been updated
+2025-05-25 11:44:12 - root - INFO - MetaData for 191 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:44:12 - root - INFO - MetaData for 191 on the 2020-05-15T10:55:08.896Z has been updated
+2025-05-25 11:44:13 - root - INFO - MetaData for 191 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:44:13 - root - INFO - MetaData for 191 on the 2020-05-12T10:45:14.324Z has been updated
+2025-05-25 11:44:13 - root - INFO - MetaData for 191 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:44:13 - root - INFO - MetaData for 191 on the 2020-05-10T10:55:13.968Z has been updated
+2025-05-25 11:44:13 - root - INFO - Catalog API found 4 dates for polygon with id 191
+2025-05-25 11:44:14 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:44:14 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-15.tiff after 1 tries
+2025-05-25 11:44:14 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:44:15 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-10.tiff after 1 tries
+2025-05-25 11:44:15 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:44:15 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-17.tiff after 1 tries
+2025-05-25 11:44:15 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:44:16 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-12.tiff after 1 tries
+2025-05-25 11:44:16 - root - INFO - Ended the download proccess for fieldid: 191 number: 6 out of 10
+
+2025-05-25 11:44:16 - root - INFO - Starting the download proccess for fieldid: 204 number: 7 out of 10
+2025-05-25 11:44:16 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 204 ....
+2025-05-25 11:44:16 - root - INFO - Received 4 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:44:16 - root - INFO - MetaData for 204 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:44:16 - root - INFO - MetaData for 204 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:44:16 - root - INFO - MetaData for 204 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:44:16 - root - INFO - MetaData for 204 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:44:16 - root - INFO - Catalog API found 4 dates for polygon with id 204
+2025-05-25 11:44:17 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:44:18 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-15.tiff after 1 tries
+2025-05-25 11:44:18 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:44:18 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-10.tiff after 1 tries
+2025-05-25 11:44:18 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:44:19 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-17.tiff after 1 tries
+2025-05-25 11:44:19 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:44:19 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-12.tiff after 1 tries
+2025-05-25 11:44:19 - root - INFO - Ended the download proccess for fieldid: 204 number: 7 out of 10
+
+2025-05-25 11:44:19 - root - INFO - Starting the download proccess for fieldid: 239 number: 8 out of 10
+2025-05-25 11:44:19 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 239 ....
+2025-05-25 11:44:20 - root - INFO - Received 8 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:44:20 - root - INFO - MetaData for 239 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:44:20 - root - INFO - MetaData for 239 on the 2020-05-17T10:45:11.062Z has been updated
+2025-05-25 11:44:20 - root - INFO - MetaData for 239 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:44:20 - root - INFO - MetaData for 239 on the 2020-05-15T10:55:02.354Z has been updated
+2025-05-25 11:44:20 - root - INFO - MetaData for 239 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:44:20 - root - INFO - MetaData for 239 on the 2020-05-12T10:45:04.513Z has been updated
+2025-05-25 11:44:20 - root - INFO - MetaData for 239 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:44:20 - root - INFO - MetaData for 239 on the 2020-05-10T10:55:07.562Z has been updated
+2025-05-25 11:44:20 - root - INFO - Catalog API found 4 dates for polygon with id 239
+2025-05-25 11:44:21 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:44:21 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-15.tiff after 1 tries
+2025-05-25 11:44:21 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:44:22 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-10.tiff after 1 tries
+2025-05-25 11:44:22 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:44:23 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-17.tiff after 1 tries
+2025-05-25 11:44:23 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:44:24 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-12.tiff after 1 tries
+2025-05-25 11:44:24 - root - INFO - Ended the download proccess for fieldid: 239 number: 8 out of 10
+
+2025-05-25 11:44:24 - root - INFO - Starting the download proccess for fieldid: 321 number: 9 out of 10
+2025-05-25 11:44:24 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 321 ....
+2025-05-25 11:44:24 - root - INFO - Received 6 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:44:24 - root - INFO - MetaData for 321 on the 2020-05-17T10:45:35.034Z has been updated
+2025-05-25 11:44:24 - root - INFO - MetaData for 321 on the 2020-05-17T10:45:20.873Z has been updated
+2025-05-25 11:44:24 - root - INFO - MetaData for 321 on the 2020-05-14T10:35:37.582Z has been updated
+2025-05-25 11:44:24 - root - INFO - MetaData for 321 on the 2020-05-14T10:35:23.313Z has been updated
+2025-05-25 11:44:24 - root - INFO - MetaData for 321 on the 2020-05-12T10:45:28.5Z has been updated
+2025-05-25 11:44:24 - root - INFO - MetaData for 321 on the 2020-05-12T10:45:14.324Z has been updated
+2025-05-25 11:44:24 - root - INFO - Catalog API found 3 dates for polygon with id 321
+2025-05-25 11:44:25 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:44:26 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-17.tiff after 1 tries
+2025-05-25 11:44:26 - root - INFO - Get picture from satalite on the date of: 2020-05-14 with resolution: 512
+2025-05-25 11:44:27 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-14.tiff after 1 tries
+2025-05-25 11:44:27 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:44:27 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-12.tiff after 1 tries
+2025-05-25 11:44:27 - root - INFO - Ended the download proccess for fieldid: 321 number: 9 out of 10
+
+2025-05-25 11:44:27 - root - INFO - Starting the download proccess for fieldid: 356 number: 10 out of 10
+2025-05-25 11:44:27 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 356 ....
+2025-05-25 11:44:27 - root - INFO - Received 3 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:44:27 - root - INFO - MetaData for 356 on the 2020-05-16T10:25:45.217Z has been updated
+2025-05-25 11:44:27 - root - INFO - MetaData for 356 on the 2020-05-14T10:35:47.994Z has been updated
+2025-05-25 11:44:27 - root - INFO - MetaData for 356 on the 2020-05-11T10:25:50.385Z has been updated
+2025-05-25 11:44:27 - root - INFO - Catalog API found 3 dates for polygon with id 356
+2025-05-25 11:44:28 - root - INFO - Get picture from satalite on the date of: 2020-05-11 with resolution: 512
+2025-05-25 11:44:29 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-11.tiff after 1 tries
+2025-05-25 11:44:29 - root - INFO - Get picture from satalite on the date of: 2020-05-14 with resolution: 512
+2025-05-25 11:44:30 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-14.tiff after 1 tries
+2025-05-25 11:44:30 - root - INFO - Get picture from satalite on the date of: 2020-05-16 with resolution: 512
+2025-05-25 11:44:31 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-16.tiff after 1 tries
+2025-05-25 11:44:31 - root - INFO - Ended the download proccess for fieldid: 356 number: 10 out of 10
+
+2025-05-25 11:44:31 - root - INFO - Completed the download proccess on the dates from: 2020-05-10T00:00:00Z To: 2020-05-19T00:00:00Z 
+
+2025-05-25 11:44:31 - root - INFO - The process took 39.850433111190796 secounds
+2025-05-25 11:47:36 - root - INFO - Logging initialized. Writing to Logs/Test_3_worker/ProcessForWorker_2.log
+2025-05-25 11:47:36 - root - INFO - Received MessagesData: 2020-05-10T00:00:00Z|2020-05-19T00:00:00Z|Field|Test|512|37|all
+2025-05-25 11:47:36 - root - INFO - Validated date range: From 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:47:36 - root - INFO - Starting the DownloadProcess using the dates 2020-05-10T00:00:00Z, 2020-05-19T00:00:00Z, the mode: Field, the region: Test resolution: 512 and cropid: 37
+2025-05-25 11:47:36 - root - INFO - Connected to the database successfully.
+2025-05-25 11:47:36 - root - INFO - Database schema is set up.
+2025-05-25 11:47:36 - root - INFO - ClientId sh-3f9ee5d0-f740-4b6f-89e4-6f9abd54a474
+2025-05-25 11:47:36 - root - INFO - DownloadProcess will use Fields
+2025-05-25 11:47:36 - root - INFO - DownloadProcess will use all Fields
+2025-05-25 11:47:36 - root - INFO - DownloadProcess will use a specefic Cropid:37
+2025-05-25 11:47:36 - root - INFO - DownloadProcess will use a specefic region:Test
+2025-05-25 11:47:36 - root - INFO - Queryed all Field Polygons found: 10 Fields
+2025-05-25 11:47:36 - root - INFO - Starting the download proccess for fieldid: 11 number: 1 out of 10
+2025-05-25 11:47:36 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 11 ....
+2025-05-25 11:47:36 - root - INFO - Received 3 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:47:36 - root - INFO - MetaData for 11 on the 2020-05-17T10:45:35.034Z has been updated
+2025-05-25 11:47:36 - root - INFO - MetaData for 11 on the 2020-05-14T10:35:37.582Z has been updated
+2025-05-25 11:47:36 - root - INFO - MetaData for 11 on the 2020-05-12T10:45:28.5Z has been updated
+2025-05-25 11:47:36 - root - INFO - Catalog API found 3 dates for polygon with id 11
+2025-05-25 11:47:37 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:47:38 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-17.tiff after 1 tries
+2025-05-25 11:47:38 - root - INFO - Get picture from satalite on the date of: 2020-05-14 with resolution: 512
+2025-05-25 11:47:39 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-14.tiff after 1 tries
+2025-05-25 11:47:39 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:47:40 - root - INFO - Image saved to PicturesField/FieldId11/2020-05-12.tiff after 1 tries
+2025-05-25 11:47:40 - root - INFO - Ended the download proccess for fieldid: 11 number: 1 out of 10
+
+2025-05-25 11:47:40 - root - INFO - Starting the download proccess for fieldid: 82 number: 2 out of 10
+2025-05-25 11:47:40 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 82 ....
+2025-05-25 11:47:40 - root - INFO - Received 8 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:47:40 - root - INFO - MetaData for 82 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:47:40 - root - INFO - MetaData for 82 on the 2020-05-17T10:45:11.062Z has been updated
+2025-05-25 11:47:40 - root - INFO - MetaData for 82 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:47:40 - root - INFO - MetaData for 82 on the 2020-05-15T10:55:02.354Z has been updated
+2025-05-25 11:47:40 - root - INFO - MetaData for 82 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:47:40 - root - INFO - MetaData for 82 on the 2020-05-12T10:45:04.513Z has been updated
+2025-05-25 11:47:40 - root - INFO - MetaData for 82 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:47:40 - root - INFO - MetaData for 82 on the 2020-05-10T10:55:07.562Z has been updated
+2025-05-25 11:47:40 - root - INFO - Catalog API found 4 dates for polygon with id 82
+2025-05-25 11:47:41 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:47:42 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-17.tiff after 1 tries
+2025-05-25 11:47:42 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:47:42 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-15.tiff after 1 tries
+2025-05-25 11:47:42 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:47:43 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-10.tiff after 1 tries
+2025-05-25 11:47:43 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:47:44 - root - INFO - Image saved to PicturesField/FieldId82/2020-05-12.tiff after 1 tries
+2025-05-25 11:47:44 - root - INFO - Ended the download proccess for fieldid: 82 number: 2 out of 10
+
+2025-05-25 11:47:44 - root - INFO - Starting the download proccess for fieldid: 104 number: 3 out of 10
+2025-05-25 11:47:44 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 104 ....
+2025-05-25 11:47:44 - root - INFO - Received 4 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:47:44 - root - INFO - MetaData for 104 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:47:44 - root - INFO - MetaData for 104 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:47:44 - root - INFO - MetaData for 104 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:47:44 - root - INFO - MetaData for 104 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:47:44 - root - INFO - Catalog API found 4 dates for polygon with id 104
+2025-05-25 11:47:45 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:47:45 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-17.tiff after 1 tries
+2025-05-25 11:47:45 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:47:46 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-15.tiff after 1 tries
+2025-05-25 11:47:46 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:47:47 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-10.tiff after 1 tries
+2025-05-25 11:47:47 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:47:47 - root - INFO - Image saved to PicturesField/FieldId104/2020-05-12.tiff after 1 tries
+2025-05-25 11:47:47 - root - INFO - Ended the download proccess for fieldid: 104 number: 3 out of 10
+
+2025-05-25 11:47:47 - root - INFO - Starting the download proccess for fieldid: 148 number: 4 out of 10
+2025-05-25 11:47:47 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 148 ....
+2025-05-25 11:47:47 - root - INFO - Received 3 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:47:47 - root - INFO - MetaData for 148 on the 2020-05-17T10:45:35.034Z has been updated
+2025-05-25 11:47:47 - root - INFO - MetaData for 148 on the 2020-05-14T10:35:37.582Z has been updated
+2025-05-25 11:47:47 - root - INFO - MetaData for 148 on the 2020-05-12T10:45:28.5Z has been updated
+2025-05-25 11:47:47 - root - INFO - Catalog API found 3 dates for polygon with id 148
+2025-05-25 11:47:48 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:47:50 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-17.tiff after 1 tries
+2025-05-25 11:47:50 - root - INFO - Get picture from satalite on the date of: 2020-05-14 with resolution: 512
+2025-05-25 11:47:51 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-14.tiff after 1 tries
+2025-05-25 11:47:51 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:47:52 - root - INFO - Image saved to PicturesField/FieldId148/2020-05-12.tiff after 1 tries
+2025-05-25 11:47:52 - root - INFO - Ended the download proccess for fieldid: 148 number: 4 out of 10
+
+2025-05-25 11:47:52 - root - INFO - Starting the download proccess for fieldid: 174 number: 5 out of 10
+2025-05-25 11:47:52 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 174 ....
+2025-05-25 11:47:52 - root - INFO - Received 4 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:47:52 - root - INFO - MetaData for 174 on the 2020-05-17T10:45:39.648Z has been updated
+2025-05-25 11:47:52 - root - INFO - MetaData for 174 on the 2020-05-15T10:55:30.116Z has been updated
+2025-05-25 11:47:52 - root - INFO - MetaData for 174 on the 2020-05-12T10:45:33.1Z has been updated
+2025-05-25 11:47:52 - root - INFO - MetaData for 174 on the 2020-05-10T10:55:35.333Z has been updated
+2025-05-25 11:47:52 - root - INFO - Catalog API found 4 dates for polygon with id 174
+2025-05-25 11:47:53 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:47:54 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-17.tiff after 1 tries
+2025-05-25 11:47:54 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:47:55 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-15.tiff after 1 tries
+2025-05-25 11:47:55 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:47:57 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-10.tiff after 1 tries
+2025-05-25 11:47:57 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:47:58 - root - INFO - Image saved to PicturesField/FieldId174/2020-05-12.tiff after 1 tries
+2025-05-25 11:47:58 - root - INFO - Ended the download proccess for fieldid: 174 number: 5 out of 10
+
+2025-05-25 11:47:58 - root - INFO - Starting the download proccess for fieldid: 191 number: 6 out of 10
+2025-05-25 11:47:58 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 191 ....
+2025-05-25 11:47:58 - root - INFO - Received 8 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:47:58 - root - INFO - MetaData for 191 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:47:58 - root - INFO - MetaData for 191 on the 2020-05-17T10:45:20.873Z has been updated
+2025-05-25 11:47:58 - root - INFO - MetaData for 191 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:47:58 - root - INFO - MetaData for 191 on the 2020-05-15T10:55:08.896Z has been updated
+2025-05-25 11:47:58 - root - INFO - MetaData for 191 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:47:58 - root - INFO - MetaData for 191 on the 2020-05-12T10:45:14.324Z has been updated
+2025-05-25 11:47:58 - root - INFO - MetaData for 191 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:47:58 - root - INFO - MetaData for 191 on the 2020-05-10T10:55:13.968Z has been updated
+2025-05-25 11:47:58 - root - INFO - Catalog API found 4 dates for polygon with id 191
+2025-05-25 11:47:59 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:48:00 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-17.tiff after 1 tries
+2025-05-25 11:48:00 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:48:01 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-15.tiff after 1 tries
+2025-05-25 11:48:01 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:48:02 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-10.tiff after 1 tries
+2025-05-25 11:48:02 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:48:03 - root - INFO - Image saved to PicturesField/FieldId191/2020-05-12.tiff after 1 tries
+2025-05-25 11:48:03 - root - INFO - Ended the download proccess for fieldid: 191 number: 6 out of 10
+
+2025-05-25 11:48:03 - root - INFO - Starting the download proccess for fieldid: 204 number: 7 out of 10
+2025-05-25 11:48:03 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 204 ....
+2025-05-25 11:48:03 - root - INFO - Received 4 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:48:03 - root - INFO - MetaData for 204 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:48:03 - root - INFO - MetaData for 204 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:48:03 - root - INFO - MetaData for 204 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:48:03 - root - INFO - MetaData for 204 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:48:03 - root - INFO - Catalog API found 4 dates for polygon with id 204
+2025-05-25 11:48:04 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:48:05 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-17.tiff after 1 tries
+2025-05-25 11:48:05 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:48:05 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-15.tiff after 1 tries
+2025-05-25 11:48:05 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:48:07 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-10.tiff after 1 tries
+2025-05-25 11:48:07 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:48:07 - root - INFO - Image saved to PicturesField/FieldId204/2020-05-12.tiff after 1 tries
+2025-05-25 11:48:07 - root - INFO - Ended the download proccess for fieldid: 204 number: 7 out of 10
+
+2025-05-25 11:48:07 - root - INFO - Starting the download proccess for fieldid: 239 number: 8 out of 10
+2025-05-25 11:48:07 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 239 ....
+2025-05-25 11:48:07 - root - INFO - Received 8 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:48:07 - root - INFO - MetaData for 239 on the 2020-05-17T10:45:25.339Z has been updated
+2025-05-25 11:48:07 - root - INFO - MetaData for 239 on the 2020-05-17T10:45:11.062Z has been updated
+2025-05-25 11:48:07 - root - INFO - MetaData for 239 on the 2020-05-15T10:55:16.114Z has been updated
+2025-05-25 11:48:07 - root - INFO - MetaData for 239 on the 2020-05-15T10:55:02.354Z has been updated
+2025-05-25 11:48:07 - root - INFO - MetaData for 239 on the 2020-05-12T10:45:18.779Z has been updated
+2025-05-25 11:48:07 - root - INFO - MetaData for 239 on the 2020-05-12T10:45:04.513Z has been updated
+2025-05-25 11:48:07 - root - INFO - MetaData for 239 on the 2020-05-10T10:55:21.314Z has been updated
+2025-05-25 11:48:07 - root - INFO - MetaData for 239 on the 2020-05-10T10:55:07.562Z has been updated
+2025-05-25 11:48:07 - root - INFO - Catalog API found 4 dates for polygon with id 239
+2025-05-25 11:48:08 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:48:09 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-17.tiff after 1 tries
+2025-05-25 11:48:09 - root - INFO - Get picture from satalite on the date of: 2020-05-15 with resolution: 512
+2025-05-25 11:48:10 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-15.tiff after 1 tries
+2025-05-25 11:48:10 - root - INFO - Get picture from satalite on the date of: 2020-05-10 with resolution: 512
+2025-05-25 11:48:11 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-10.tiff after 1 tries
+2025-05-25 11:48:11 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:48:12 - root - INFO - Image saved to PicturesField/FieldId239/2020-05-12.tiff after 1 tries
+2025-05-25 11:48:12 - root - INFO - Ended the download proccess for fieldid: 239 number: 8 out of 10
+
+2025-05-25 11:48:12 - root - INFO - Starting the download proccess for fieldid: 321 number: 9 out of 10
+2025-05-25 11:48:12 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 321 ....
+2025-05-25 11:48:12 - root - INFO - Received 6 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:48:12 - root - INFO - MetaData for 321 on the 2020-05-17T10:45:35.034Z has been updated
+2025-05-25 11:48:12 - root - INFO - MetaData for 321 on the 2020-05-17T10:45:20.873Z has been updated
+2025-05-25 11:48:12 - root - INFO - MetaData for 321 on the 2020-05-14T10:35:37.582Z has been updated
+2025-05-25 11:48:12 - root - INFO - MetaData for 321 on the 2020-05-14T10:35:23.313Z has been updated
+2025-05-25 11:48:12 - root - INFO - MetaData for 321 on the 2020-05-12T10:45:28.5Z has been updated
+2025-05-25 11:48:12 - root - INFO - MetaData for 321 on the 2020-05-12T10:45:14.324Z has been updated
+2025-05-25 11:48:12 - root - INFO - Catalog API found 3 dates for polygon with id 321
+2025-05-25 11:48:13 - root - INFO - Get picture from satalite on the date of: 2020-05-17 with resolution: 512
+2025-05-25 11:48:14 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-17.tiff after 1 tries
+2025-05-25 11:48:14 - root - INFO - Get picture from satalite on the date of: 2020-05-14 with resolution: 512
+2025-05-25 11:48:14 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-14.tiff after 1 tries
+2025-05-25 11:48:14 - root - INFO - Get picture from satalite on the date of: 2020-05-12 with resolution: 512
+2025-05-25 11:48:15 - root - INFO - Image saved to PicturesField/FieldId321/2020-05-12.tiff after 1 tries
+2025-05-25 11:48:15 - root - INFO - Ended the download proccess for fieldid: 321 number: 9 out of 10
+
+2025-05-25 11:48:15 - root - INFO - Starting the download proccess for fieldid: 356 number: 10 out of 10
+2025-05-25 11:48:15 - root - INFO - Calling the Catalog api for catalog data on Feild with id: 356 ....
+2025-05-25 11:48:15 - root - INFO - Received 3 features from 2020-05-10T00:00:00Z to 2020-05-19T00:00:00Z
+2025-05-25 11:48:15 - root - INFO - MetaData for 356 on the 2020-05-16T10:25:45.217Z has been updated
+2025-05-25 11:48:15 - root - INFO - MetaData for 356 on the 2020-05-14T10:35:47.994Z has been updated
+2025-05-25 11:48:15 - root - INFO - MetaData for 356 on the 2020-05-11T10:25:50.385Z has been updated
+2025-05-25 11:48:15 - root - INFO - Catalog API found 3 dates for polygon with id 356
+2025-05-25 11:48:16 - root - INFO - Get picture from satalite on the date of: 2020-05-11 with resolution: 512
+2025-05-25 11:48:17 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-11.tiff after 1 tries
+2025-05-25 11:48:17 - root - INFO - Get picture from satalite on the date of: 2020-05-16 with resolution: 512
+2025-05-25 11:48:18 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-16.tiff after 1 tries
+2025-05-25 11:48:18 - root - INFO - Get picture from satalite on the date of: 2020-05-14 with resolution: 512
+2025-05-25 11:48:18 - root - INFO - Image saved to PicturesField/FieldId356/2020-05-14.tiff after 1 tries
+2025-05-25 11:48:18 - root - INFO - Ended the download proccess for fieldid: 356 number: 10 out of 10
+
+2025-05-25 11:48:18 - root - INFO - Completed the download proccess on the dates from: 2020-05-10T00:00:00Z To: 2020-05-19T00:00:00Z 
+
+2025-05-25 11:48:18 - root - INFO - The process took 42.26097226142883 secounds
