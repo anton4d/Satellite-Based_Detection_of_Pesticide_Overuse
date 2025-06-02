@@ -16,8 +16,6 @@ python3 -m venv .venv &&
 source .venv/bin/activate &&
 pip install -r requirements.txt
 
-
-
 ```
 ### 2. Configure Environment Variables
 You will need .env files for the different parts of the project.
@@ -53,7 +51,6 @@ Within the corresponding folder, run the following command:
 
 ```bash
 python3 Worker_Start.py {Number of workers to start} {LogFileName} {LogFolder}
-
 ```
 Next, you need to create a RabbitMQ Work Order in either new_Download_Work_Order or new_Process_Work_Order.
 This will assign tasks to the workers to either start collecting data or process already collected data.
