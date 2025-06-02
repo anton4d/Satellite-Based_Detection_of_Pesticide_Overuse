@@ -42,7 +42,11 @@ ApiClienSecret=""
 APIToken=""
 ```
 ### 3. Setup Database
-with the databasepopulator and a a given sapefile in the shapefile folde the database can be setup easily
+
+With the `DatabasePopulator` and a given GeoJSON file placed in the `shapefiles` folder, the database can be set up easily. The process is not particularly fast, but it will insert all the fields from the GeoJSON file.
+
+After the `Region_Checker`can be run to find all field that are on Fyn to narrow scope.
+
 
 
 ### 4. Running the Code

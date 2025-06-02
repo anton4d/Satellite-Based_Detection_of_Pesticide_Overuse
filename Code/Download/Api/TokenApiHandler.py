@@ -15,9 +15,10 @@ class TokenApiHandler:
         self.SQLHandler = SQLHandler
 
     def Set_A_New_User_If_Any(self,OldClientID):
+        logging.info(f"Getting a new user with {OldClientID}")
         if OldClientID == self.ClientId:
             ClientID,ClientSecret = self.SQLHandler.Api_User(OldClientID)
-            if ClientID:
+            if ClientID !=None:
                 dotenvFile = dotenv.find_dotenv()
                 logging.info(f"Using client_id: {ClientID}, client_secret: {ClientSecret}")
                 self.ClientId = ClientID

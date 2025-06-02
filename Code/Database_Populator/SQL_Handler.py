@@ -32,7 +32,7 @@ class SQL_Handler:
             )
             self.cursor = self.connection.cursor()
             logging.info("Connected to the database successfully.")
-            self.Setup_Cchema()
+            self.Setup_Schema()
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
                 logging.error("Invalid username or password.")
@@ -41,7 +41,7 @@ class SQL_Handler:
             else:
                 logging.error(f"{err}")
 
-    def Setup_Cchema(self):
+    def Setup_Schema(self):
         """Create the necessary tables if they do not exist."""
         try:
             Create_Table_Query = """
@@ -162,6 +162,7 @@ class SQL_Handler:
                 ID INT AUTO_INCREMENT PRIMARY KEY,
                 ClientID VARCHAR(255) NOT NULL,
                 ClientSecret VARCHAR(255) NOT NULL,
+                Tokens VARCHAR(255) NOT NULL,
                 UploadedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             );

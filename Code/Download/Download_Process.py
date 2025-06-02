@@ -54,7 +54,7 @@ class TIFFDataDownloader:
         )
         client_id, client_secret = self.db_handler.Api_User("None")
         self.token_api = TokenApiHandler(client_id, client_secret, self.db_handler)
-        token = self.token_api.Set_A_New_User_If_Any("None")
+        token,client_id = self.token_api.Set_A_New_User_If_Any(None)
         self.catalog_api = CatalogApiHandler(token, self.token_api, self.db_handler, client_id)
         self.process_api = ProcessApiHandler(token, self.token_api, self.db_handler, client_id)
 
