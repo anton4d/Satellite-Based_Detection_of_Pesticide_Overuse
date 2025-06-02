@@ -77,6 +77,10 @@ class Download_Worker:
                 if exit_code == 0:
                     logging.info(f"Download process completed successfully, ACK sent for: {message}, it took {fullTime} seconds")
                     ch.basic_ack(delivery_tag=method.delivery_tag)
+                elif exit_code == 2:
+                    logging.error("No ENVFIle was found")
+                    ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
+                    sys.exit(1)
                 elif exit_code == 4:
                     logging.error(f"Download process gotten a message that is not supportet-> Sending NACK (not requeued)")
                     ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)

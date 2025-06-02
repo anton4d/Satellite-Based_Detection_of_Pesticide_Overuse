@@ -42,6 +42,7 @@ class TiffProcessor:
             logging.info(f"Loaded environment variables from {dotenv_path}")
         else:
             logging.warning("No .env file found.")
+            sys.exit(2)
 
     def validate_message_data(self, message_data):
         if not self.DATEPATTERN.match(message_data):

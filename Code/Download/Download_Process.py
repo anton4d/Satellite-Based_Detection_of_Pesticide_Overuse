@@ -36,6 +36,7 @@ class TIFFDataDownloader:
             logging.info(f"Loaded environment variables from {dotenv_path}")
         else:
             logging.warning("No .env file found.")
+            sys.exit(2)
 
     def validate_message_data(self, message_data):
         pattern = re.compile(r"^\w{1,}\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|(BB|Field)\|(Fyn|all|Test)\|(\d{3,4}|-1)\|(\d{1,}|all)\|(\d{1,}|all)$")

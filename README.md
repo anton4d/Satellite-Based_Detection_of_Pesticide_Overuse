@@ -5,12 +5,12 @@ GitHub repository for the **SDU Master Project** by **Oskar and Anton**
 
 ## **Setup Instructions**
 
-To set up the environment and start the project, follow these steps inside the `code` folder:
+To set up the environment and start the project, follow these steps inside the `Code` folder:
 
 ### 1. Start Docker and Set Up the Environment
 
 ```bash
-cd code &&
+cd Code &&
 docker compose up -d &&
 python3 -m venv .venv &&
 source .venv/bin/activate &&

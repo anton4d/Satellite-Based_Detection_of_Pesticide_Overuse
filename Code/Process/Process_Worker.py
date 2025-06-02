@@ -80,6 +80,10 @@ class TiffWorker:
                 elif exit_code == 1:
                     logging.error(f"TIFF process failed (exit {exit_code}), not requeued.")
                     ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
+                elif exit_code == 2:
+                    logging.error("No ENVFIle was found")
+                    ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
+                    sys.exit(1)
                 else:
                     logging.error(f"TIFF process failed (exit {exit_code}), requeued.")
                     ch.basic_nack(delivery_tag=method.delivery_tag, requeue=True)
