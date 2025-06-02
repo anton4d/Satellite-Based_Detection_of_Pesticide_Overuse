@@ -47,6 +47,8 @@ With the `DatabasePopulator` and a given GeoJSON file placed in the `shapefiles`
 
 After the `Region_Checker`can be run to find all field that are on Fyn to narrow scope.
 
+In the localhost:8080 phpmyadmin add a copernicus user secret and client id
+
 
 
 ### 4. Running the Code
