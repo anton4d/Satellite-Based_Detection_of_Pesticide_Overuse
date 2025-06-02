@@ -8,7 +8,7 @@ from Database.SQL_Handler import SQLHandler
 
 class TiffProcessor:
     DATEPATTERN = re.compile(
-        r"^\w{1,}\|\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}\|(True|False)\|(Plot|ToDb)\|(NDVI|EVI|GNDVI|CVI|NDRE|ALL)\|(Kdeplot|Histogram|HeatMap|None)\|\d{1,2}\|(\d{1,}|All)\|(BB|Field)$"
+        r"^\w{1,}\|\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}\|(True|False)\|(Plot|ToDb)\|(NDVI|EVI|GNDVI|CVI|NDRE|ALL)\|(Kdeplot|Histogram|HeatMap|None)\|\d{1,2}\|(\d{1,}|All)\|(Fyn|all|Test)\|(BB|Field)$"
     )
 
     def __init__(self, log_file="Process.log",log_folder="Logs/"):
@@ -55,9 +55,9 @@ class TiffProcessor:
             yield start_date + timedelta(n)
 
     def process(self, message_data):
-        Work_order_id, start_date, end_date, save_tiff, data_mode, data_type, plot_type, crop_id, field_id, tiff_mode = self.validate_message_data(message_data)
+        Work_order_id, start_date, end_date, save_tiff, data_mode, data_type, plot_type, crop_id, field_id,region, tiff_mode = self.validate_message_data(message_data)
         start_time = time.time()
-        self.run_TIFF_Process(start_date, end_date, save_tiff, data_mode, data_type, plot_type, crop_id, field_id, tiff_mode)
+        self.run_TIFF_Process(start_date, end_date, save_tiff, data_mode, data_type, plot_type, crop_id, field_id,region, tiff_mode)
         elapsed = time.time() - start_time
         logging.info(f"Process completed in {elapsed:.2f} seconds.")
 
@@ -71,8 +71,8 @@ class TiffProcessor:
         self.intersector = TiffIntersector(self.db_handler, self.BBTIFF_root)
         self.to_db = ComputeTiffData(self.db_handler)
 
-    def run_TIFF_Process(self, start_date_str, end_date_str, save_tiff, data_mode, data_type, plot_type, crop_id, field_id, tiff_mode):
-        logging.info(f"Starting TIFF Processing from {start_date_str} to {end_date_str} with crop id: {crop_id}")
+    def run_TIFF_Process(self, start_date_str, end_date_str, save_tiff, data_mode, data_type, plot_type, crop_id, field_id,Region, tiff_mode):
+        logging.info(f"Starting TIFF Processing from {start_date_str} to {end_date_str} with crop id: {crop_id} with region {Region}")
         id_list = []
         last_polygon_year = None
         polygons = []
@@ -90,9 +90,12 @@ class TiffProcessor:
                 if tiff_mode == "BB":
                     if last_polygon_year != year:
                         logging.info(f"Getting polygons for year: {year} and CropId: {crop_id}")
-                        polygons = self.db_handler.Get_Field_Polygon_Based_On_Year_CropId_And_FieldId(year, crop_id, field_id) \
-                            if field_id != "All" else self.db_handler.Get_All_Polygons_Based_On_Year_And_CropId(year, crop_id)
-                        last_polygon_year = year
+                        if field_id != "All":
+                            polygons = self.db_handler.Get_Field_Polygon_Based_On_Year_CropId_And_FieldId(year, crop_id, field_id)
+                        elif Region != "all":
+                            polygons = self.db_handler.Get_All_Polygons_Based_On_Year_And_CropId_And_Region(year, crop_id, Region)
+                        else:
+                            polygons = self.db_handler.Get_All_Polygons_Based_On_Year_And_CropId(year, crop_id)
 
                     if polygons is not None and not polygons.empty:
                         for _, row in polygons.iterrows():
@@ -115,7 +118,12 @@ class TiffProcessor:
                         logging.info(f"No polygons found for year {year} and crop ID {crop_id}")
 
                 elif tiff_mode == "Field":
-                    field_ids = [field_id] if field_id != "All" else self.db_handler.Get_All_Field_Based_On_YearAnd_CropId(crop_id, year)
+                    if field_id != "All":
+                        field_ids = [field_id]
+                    elif Region != "all":
+                        field_ids = self.db_handler.Get_All_Field_Based_On_YearAnd_CropId_And_Region( crop_id,year, Region)
+                    else:
+                        field_ids = self.db_handler.Get_All_Field_Based_On_YearAnd_CropId(crop_id, year)
                     for fid in field_ids:
                         tiff_path = f"{self.FieldTIFF_root}/FieldId{fid}/{date_str}.tiff"
                         folder_name = os.path.basename(os.path.dirname(tiff_path))

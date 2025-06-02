@@ -25,9 +25,9 @@ def Split_Date_Range(Start_Date, End_Date, Workers, Max_Days=10):
 
     return Final_Chunks
 
-def Distribute_Tasks(Work_Order_ID,Start_Date, End_Date, Crop_ID,Save_TIFF, Workers,Data,Field_ID,Data_Mode,Plot_Type,TIFF_mode):
+def Distribute_Tasks(Work_Order_ID,Start_Date, End_Date, Crop_ID,Save_TIFF, Workers,Data,Field_ID,Data_Mode,Plot_Type,region,TIFF_mode):
     Chunks = Split_Date_Range(Start_Date, End_Date, Workers)
-    Messages = [f"{Work_Order_ID}|{Chunk[0].strftime('%Y-%m-%d')}|{Chunk[1].strftime('%Y-%m-%d')}|{Save_TIFF}|{Data_Mode}|{Data}|{Plot_Type}|{Crop_ID}|{Field_ID}|{TIFF_mode}" for Chunk in Chunks]
+    Messages = [f"{Work_Order_ID}|{Chunk[0].strftime('%Y-%m-%d')}|{Chunk[1].strftime('%Y-%m-%d')}|{Save_TIFF}|{Data_Mode}|{Data}|{Plot_Type}|{Crop_ID}|{Field_ID}|{region}|{TIFF_mode}" for Chunk in Chunks]
     return Messages
 
 def Send_Messages(messages):
@@ -59,6 +59,8 @@ if __name__ == "__main__":
     parser.add_argument("Plot_Type",choices=["Kdeplot","Histogram","HeatMap","None"])
     parser.add_argument("Crop_ID",type=int, help="The cropid you want to process")
     parser.add_argument("Field_ID",default="All", help="A field id default is All")
+    parser.add_argument("Region", type=str,choices=["all", "Fyn","Test"], help="Region name")
+    
 
     args = parser.parse_args()
 
@@ -73,7 +75,9 @@ if __name__ == "__main__":
         Field_ID = args.Field_ID
         Data_Mode= args.Data_Mode
         Plot_Type= args.Plot_Type
+        region = args.Region
         TIFF_Mode = args.TIFF_Mode
+        
     except ValueError:
         print("Invalid date format. Use YYYY-MM-DD.")
         sys.exit(1)
@@ -82,5 +86,5 @@ if __name__ == "__main__":
         print("Error: Workers must be at least 1.")
         sys.exit(1)
 
-    Messages = Distribute_Tasks(Work_Order_ID,Start_Date, End_Date, Crop_ID,Save_TIFF, Workers,Data,Field_ID,Data_Mode,Plot_Type,TIFF_Mode)
+    Messages = Distribute_Tasks(Work_Order_ID,Start_Date, End_Date, Crop_ID,Save_TIFF, Workers,Data,Field_ID,Data_Mode,Plot_Type,region,TIFF_Mode)
     Send_Messages(Messages)

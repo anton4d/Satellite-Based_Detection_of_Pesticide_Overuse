@@ -11,7 +11,7 @@ import os
 class TiffWorker:
     DATEPATTERN = re.compile(
         r"^\w{1,}\|\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}\|(True|False)\|(Plot|ToDb)\|"
-        r"(NDVI|EVI|GNDVI|CVI|NDRE|ALL)\|(Kdeplot|Histogram|HeatMap|None)\|\d{1,2}\|(\d{1,}|All)\|(BB|Field)$"
+        r"(NDVI|EVI|GNDVI|CVI|NDRE|ALL)\|(Kdeplot|Histogram|HeatMap|None)\|\d{1,2}\|(\d{1,}|All)\|(Fyn|all|Test)\|(BB|Field)$"
     )
 
     def __init__(self, log_filename="tiff_process.log", folder_name="Workerlogs"):

@@ -243,12 +243,54 @@ class SQLHandler:
         except mysql.connector.Error as err:
             logging.error(f"Error retrieving data: {err}")
             raise
+    
+    def Get_All_Polygons_Based_On_Year_And_CropId_And_Region(self, year: int, cropid: int, region:str) -> gpd.GeoDataFrame:
+        try:
+            get_query = """
+            SELECT Field.FieldId, ST_AsText(Field.Polygon)
+            FROM Field 
+            INNER JOIN FieldCropYear ON Field.FieldId = FieldCropYear.FieldId
+            WHERE FieldCropYear.Year = %s AND FieldCropYear.CropId = %s AND Field.Region = %s
+            ORDER BY Field.FieldId ASC
+            """
+            values = (year, cropid,region)
+            self.cursor.execute(get_query, values)
+            records = self.cursor.fetchall()
+
+            if not records:
+                logging.warning("No polygons found for the given year and crop type.")
+                return gpd.GeoDataFrame(columns=["FieldId", "geometry"], crs="EPSG:4326")
+
+            polygons = [{"FieldId": row[0], "geometry": wkt.loads(row[1])} for row in records]
+            gdf = gpd.GeoDataFrame(polygons, crs="EPSG:4326")
+
+            logging.info(f"Retrieved {len(gdf)} polygons from the database.")
+            return gdf
+
+        except mysql.connector.Error as err:
+            logging.error(f"Error retrieving data: {err}")
+            raise
+
 
     def Get_All_Field_Based_On_YearAnd_CropId(self,cropid,year):
         "Method that queries all of the different fields. based on cropid and year"
         Getquery = """SELECT FieldCropYear.FieldId FROM `FieldCropYear` 
             WHERE CropId = %s AND Year = %s;"""
         values=(cropid,year)
+        self.cursor.execute(Getquery,values)
+        results = self.cursor.fetchall()
+
+        fieldIdList = [field_id[0] for field_id in results]
+        logging.info(f"Queryed all Fieldids found: {len(fieldIdList)} Fields")
+        return fieldIdList
+    
+    def Get_All_Field_Based_On_YearAnd_CropId_And_Region(self,cropid,year,Region):
+        "Method that queries all of the different fields. based on cropid and year"
+        Getquery = """SELECT FieldCropYear.FieldId FROM FieldCropYear
+             INNER JOIN Field ON FieldCropYear.FieldId = Field.FieldId 
+            WHERE FieldCropYear.CropId = %s AND FieldCropYear.Year = %s AND Field.Region = %s """
+        values=(cropid,year,Region)
+        logging.info(values)
         self.cursor.execute(Getquery,values)
         results = self.cursor.fetchall()
 
