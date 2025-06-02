@@ -28,6 +28,7 @@ class Download_Worker:
 
     def Validate_Message(self,message):
         return bool(self.Work_Order_Pattern.match(message))
+    
     def Extract_Work_Order_ID(self, message):
         self.Work_Order_ID = message.split('|', 1)[0]
 

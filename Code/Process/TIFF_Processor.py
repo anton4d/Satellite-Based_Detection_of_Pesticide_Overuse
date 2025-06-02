@@ -11,36 +11,37 @@ class TiffProcessor:
         r"^\w{1,}\|\d{4}-\d{2}-\d{2}\|\d{4}-\d{2}-\d{2}\|(True|False)\|(Plot|ToDb)\|(NDVI|EVI|GNDVI|CVI|NDRE|ALL)\|(Kdeplot|Histogram|HeatMap|None)\|\d{1,2}\|(\d{1,}|All)\|(BB|Field)$"
     )
 
-    def __init__(self, log_file="Process.log"):
-        self.workername = ""
-        self.setup_logging(log_file)
-        self.load_environment()
-        self.db_handler = SQLHandler(
-            host=os.getenv("SQLHOST"),
-            user=os.getenv("DBUSER"),
-            password=os.getenv("DBPASSWORD"),
-            database=os.getenv("DBDB")
-        )
-        self.tiff_root = "../Download/PicturesBB"
+    def __init__(self, log_file="Process.log",log_folder="Logs/"):
+        self.log_file = os.path.join(log_folder, f"{log_file}.log")
+        self.db_handler = None
+        self.to_db = None
+        self.intersector = None
+        self.BBTIFF_root = "../Download/PicturesBB"
+        self.FieldTIFF_root = "../Download/PicturesField"
         self.output_folder = "Processed_TIFFs"
+        self.setup_logging()
+        self.load_environment()
+        self.initialize_handlers()
         os.makedirs(self.output_folder, exist_ok=True)
 
-    def setup_logging(self, log_file):
+    def setup_logging(self):
         logging.basicConfig(
-            filename=log_file,
+            filename=self.log_file,
             level=logging.INFO,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S"
         )
         logging.getLogger('rasterio').setLevel(logging.ERROR)
-        logging.info(f"Logging initialized. Writing to {log_file}")
-        match = re.search(r"ProcessFor(.*?)\.log", log_file)
-        if match:
-            self.workername = match.group(1)
+        logging.info(f"Logging initialized. Writing to {self.log_file}")
+
 
     def load_environment(self):
-        dotenv_file = dotenv.find_dotenv()
-        dotenv.load_dotenv(dotenv_file)
+        dotenv_path = dotenv.find_dotenv()
+        if dotenv_path:
+            dotenv.load_dotenv(dotenv_path)
+            logging.info(f"Loaded environment variables from {dotenv_path}")
+        else:
+            logging.warning("No .env file found.")
 
     def validate_message_data(self, message_data):
         if not self.DATEPATTERN.match(message_data):
@@ -48,7 +49,7 @@ class TiffProcessor:
             sys.exit(1)
         return message_data.split("|")
 
-    def daterange(self, start_date, end_date):
+    def date_range(self, start_date, end_date):
         for n in range((end_date - start_date).days + 1):
             yield start_date + timedelta(n)
 
@@ -59,14 +60,24 @@ class TiffProcessor:
         elapsed = time.time() - start_time
         logging.info(f"Process completed in {elapsed:.2f} seconds.")
 
+    def initialize_handlers(self):
+        self.db_handler = SQLHandler(
+            host=os.getenv("SQLHOST"),
+            user=os.getenv("DBUSER"),
+            password=os.getenv("DBPASSWORD"),
+            database=os.getenv("DBDB")
+        )
+        self.intersector = TiffIntersector(self.db_handler, self.BBTIFF_root)
+        self.to_db = ComputeTiffData(self.db_handler)
 
-    def run_TIFF_Process(self, start_date, end_date, save_tiff, data_mode, data_type, plot_type, crop_id, field_id, tiff_mode):
-        logging.info(f"Starting TIFF Processing from {start_date} to {end_date} with crop id: {crop_id}")
+    def run_TIFF_Process(self, start_date_str, end_date_str, save_tiff, data_mode, data_type, plot_type, crop_id, field_id, tiff_mode):
+        logging.info(f"Starting TIFF Processing from {start_date_str} to {end_date_str} with crop id: {crop_id}")
         id_list = []
         last_polygon_year = None
         polygons = []
-
-        for date in self.daterange(start_date, end_date):
+        start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
+        end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
+        for date in self.date_range(start_date, end_date):
             date_str = date.strftime("%Y-%m-%d")
             year = date.strftime("%Y")
             small_id_list = []
@@ -75,9 +86,6 @@ class TiffProcessor:
             logging.info(f"Processing the date: {date_str}")
 
             try:
-                intersector = TiffIntersector(self.db_handler, self.tiff_root)
-                to_db = ComputeTiffData(self.db_handler)
-
                 if tiff_mode == "BB":
                     if last_polygon_year != year:
                         logging.info(f"Getting polygons for year: {year} and CropId: {crop_id}")
@@ -93,11 +101,11 @@ class TiffProcessor:
                                 os.path.join(self.output_folder, f"processed_field_{field_id_val}_{date_str}_{tiff_mode}.tiff")
                                 if save_tiff == "True" else "None"
                             )
-                            intersections = intersector.find_intersecting_tiffs(polygon, date_str)
+                            intersections = self.intersector.find_intersecting_tiffs(polygon, date_str)
                             if intersections:
                                 id_list.append(field_id_val)
                                 small_id_list.append(field_id_val)
-                                to_db.Compute_Data_From_Tiff(
+                                self.to_db.Compute_Data_From_Tiff(
                                     intersections, field_id_val, crop_id, date_str, year, polygon, output_tiff,
                                     data_type, data_mode, plot_type, tiff_mode
                                 )
@@ -108,7 +116,7 @@ class TiffProcessor:
                 elif tiff_mode == "Field":
                     field_ids = [field_id] if field_id != "All" else self.db_handler.Get_All_Field_Based_On_YearAnd_CropId(crop_id, year)
                     for fid in field_ids:
-                        tiff_path = f"../Download/PicturesField/FieldId{fid}/{date_str}.tiff"
+                        tiff_path = f"{self.FieldTIFF_root}/FieldId{fid}/{date_str}.tiff"
                         folder_name = os.path.basename(os.path.dirname(tiff_path))
                         bb_id = folder_name.replace("FieldId", "")
                         bb_list = [tiff_path, bb_id]
@@ -120,7 +128,7 @@ class TiffProcessor:
                         if os.path.exists(tiff_path):
                             id_list.append(fid)
                             small_id_list.append(fid)
-                            to_db.Compute_Data_From_Tiff(
+                            self.to_db.Compute_Data_From_Tiff(
                                 bb_list, fid, crop_id, date_str, year, "null", output_tiff,
                                 data_type, data_mode, plot_type, tiff_mode
                             )

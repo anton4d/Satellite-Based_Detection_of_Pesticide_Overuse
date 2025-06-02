@@ -83,7 +83,7 @@ def plot_individual_datapoints(id_list, db_handler: SQLHandler, from_date, to_da
         filename = f"{datatypeName}_Field_{field_id}_{cropType}_{from_date}_to_{to_date}_MaxCloud_{max_cloud_cover}_{tiffFormat}.png"
         SavePlot(filename, output_dir)
 
-def plot_NdviAndCvi(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, output_dir,cropType,tiffFormat):
+def plot_Ndvi_And_Cvi(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, output_dir,cropType,tiffFormat):
     print("start the method NDviAndCvi")
     for CropYearId in id_list:
         ndvi = 5
@@ -110,7 +110,7 @@ def plot_NdviAndCvi(id_list, db_handler: SQLHandler, from_date, to_date, max_clo
         filename = f"{ndviname}_and_{cviName}_Field_{field_id}_{cropType}_{from_date}_to_{to_date}_MaxCloud_{max_cloud_cover}_{tiffFormat}.png"
         SavePlot(filename, output_dir)
     
-def plot_NdviAndNdre(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, output_dir,cropType,tiffFormat):
+def plot_Ndvi_And_Ndre(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, output_dir,cropType,tiffFormat):
     print("start the method NDviAndCvi")
     for CropYearId in id_list:
         ndvi = 5
@@ -359,16 +359,16 @@ def plot_ndvi_heatmap_synced_dips(id_list, db_handler: SQLHandler, from_date, to
 
 
 
-def Plot_all_Datapoints_with_and_average_line(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, data_mode, output_dir, cropType, datatype):
+def Plot_all_Datapoints_with_and_average_line(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, data_mode, output_dir, cropType, datatype,TiffFormat):
     print("start the method Plot_all_ndvi_with_and_average_line")
 
-    datatypeName = db_handler.Get_Datatype_Name(datatype)
+    datatype_Name = db_handler.Get_Datatype_Name(datatype)
 
 
     ndvi_by_date = defaultdict(list)
     plt.figure(figsize=(12, 6))
     for id in id_list:
-        datadict = db_handler.GetallDataPointsBasedOnIdAndDateRangeAndDatatype(id, from_date, to_date, datatype)
+        datadict = db_handler.Get_All_DataPoints_Based_On_Id_And_DateRange_And_Datatype_And_TiffFormat(id, from_date, to_date, datatype,TiffFormat)
         filtered_dict = filter_cloudy_dates(datadict,id, db_handler, max_cloud_cover)
         dates = list(filtered_dict.keys())
         data = dataModeswitch(filtered_dict,data_mode)
@@ -398,24 +398,24 @@ def Plot_all_Datapoints_with_and_average_line(id_list, db_handler: SQLHandler, f
 
     
     
-    title = f"{datatypeName} ({data_mode}) for All Fields with croptype: {cropType} from {from_date} to {to_date} with avg line, MaxCloud:{max_cloud_cover}"
-    setupPlot(title,datatypeName)
+    title = f"{datatype_Name} ({data_mode}) for All Fields with croptype: {cropType} from {from_date} to {to_date} with avg line, MaxCloud:{max_cloud_cover}"
+    setupPlot(title,datatype_Name)
     #plt.scatter(flat_x, flat_y, label="{datatype_name} values", alpha=0.5, s=10)
-    plt.plot(avg_x, avg_y, color="red", label="Daily Average {datatype_name}", linewidth=2)
+    plt.plot(avg_x, avg_y, color="red", label=f"Daily Average {datatype_Name}", linewidth=2)
     plt.legend()
 
-    filename = f"{datatypeName}_All_Avg_Line_{data_mode}_{cropType}_{from_date}_to_{to_date}_MaxCloud_{max_cloud_cover}.png"
+    filename = f"{datatype_Name}_All_Avg_Line_{data_mode}_{cropType}_{from_date}_to_{to_date}_MaxCloud_{max_cloud_cover}.png"
     SavePlot(filename, output_dir)
 
 
     
-def plot_Datapoints_heatmap_matplotlib(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, data_mode, output_dir, cropType,datatype):
+def plot_Datapoints_heatmap_matplotlib(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, data_mode, output_dir, cropType,datatype,TiffFormat):
     print("Generating {datatype_name} heatmap with matplotlib...")
     datatypeName = db_handler.Get_Datatype_Name(datatype)
     Data_matrix = defaultdict(dict)
 
     for CropYearId in id_list:
-        datadict = db_handler.GetallDataPointsBasedOnIdAndDateRangeAndDatatype(CropYearId, from_date, to_date,datatype)
+        datadict = db_handler.Get_All_DataPoints_Based_On_Id_And_DateRange_And_Datatype_And_TiffFormat(CropYearId, from_date, to_date,datatype,TiffFormat)
         FilteredDatadict = filter_cloudy_dates(datadict, CropYearId, db_handler, max_cloud_cover)
         
         dates = list(FilteredDatadict.keys())
@@ -463,7 +463,7 @@ def plot_Datapoints_heatmap_matplotlib(id_list, db_handler: SQLHandler, from_dat
     print(f"Saved heatmap to {filename}")
 
 
-def plot_AllCalcDataTypes(id_list, db_handler: SQLHandler, from_date,data_mode, to_date, max_cloud_cover, output_dir,cropType,tiffFormat):
+def plot_All_Calc_DataTypes(id_list, db_handler: SQLHandler, from_date,data_mode, to_date, max_cloud_cover, output_dir,cropType,tiffFormat):
     print("start the method plot_AllCalcDataTypes")
     
     for CropYearId in id_list:
@@ -488,7 +488,7 @@ def plot_AllCalcDataTypes(id_list, db_handler: SQLHandler, from_date,data_mode, 
 
 def plot_Datapoints_gradient_and_rank_ids_Ndvi_vs_chosenData(id_list, db_handler: SQLHandler, from_date, to_date, max_cloud_cover, output_dir, cropType, datatype, dataMode,tifformat):
     print("Start the method plot_Datapoints_gradient_and_rank_ids")
-    if(datatype ==5):
+    if(int(datatype) ==5):
         print("Can not combare ndvi with ndvi")
         sys.exit(1)
     results = []
@@ -508,7 +508,7 @@ def plot_Datapoints_gradient_and_rank_ids_Ndvi_vs_chosenData(id_list, db_handler
         Ndvidatadict = db_handler.Get_All_DataPoints_Based_On_Id_And_DateRange_And_Datatype_And_TiffFormat(CropYearId, from_date, to_date, ndvidatatypeid,tifformat)
         NdviFilteredDatadict = filter_cloudy_dates(Ndvidatadict, CropYearId, db_handler, max_cloud_cover)
 
-        if (len(FilteredDatadict) < 2) and (len(NdviFilteredDatadict < 2)):
+        if (len(FilteredDatadict) < 2) and (len(NdviFilteredDatadict) < 2):
             continue  
 
         DataPoints = dataModeswitch(FilteredDatadict, dataMode)
@@ -622,19 +622,19 @@ def main():
     elif plotmode == "All":
         plot_all_datapoints(id_list, db_handler, from_date, to_date, maxCloud, Datamode, output_dir,cropType,datatype,TiffFormat)
     elif plotmode == "AllAvgLine":
-        Plot_all_Datapoints_with_and_average_line(id_list,db_handler,from_date,to_date,maxCloud, Datamode ,output_dir,cropType,datatype)
+        Plot_all_Datapoints_with_and_average_line(id_list,db_handler,from_date,to_date,maxCloud, Datamode ,output_dir,cropType,datatype,TiffFormat)
     elif plotmode == "Heatmap":
-        plot_Datapoints_heatmap_matplotlib(id_list, db_handler, from_date, to_date, maxCloud, Datamode, output_dir, cropType,datatype)
+        plot_Datapoints_heatmap_matplotlib(id_list, db_handler, from_date, to_date, maxCloud, Datamode, output_dir, cropType,datatype,TiffFormat)
     elif plotmode =="Gradient":
         plot_Datapoints_gradient_and_rank_ids(id_list, db_handler, from_date, to_date, maxCloud, output_dir, cropType, datatype, Datamode,TiffFormat)
     elif plotmode == "Deviation":
         plot_field_deviation_boxplots(db_handler,from_date,to_date,datatype,maxCloud,output_dir,cropType,Datamode)
     elif plotmode == "CvivsNdvi":
-        plot_NdviAndCvi(id_list, db_handler, from_date, to_date, maxCloud, output_dir,cropType,TiffFormat)
+        plot_Ndvi_And_Cvi(id_list, db_handler, from_date, to_date, maxCloud, output_dir,cropType,TiffFormat)
     elif plotmode == "NdrevsNdvi":
-        plot_NdviAndNdre(id_list, db_handler, from_date, to_date, maxCloud, output_dir,cropType,TiffFormat)
+        plot_Ndvi_And_Ndre(id_list, db_handler, from_date, to_date, maxCloud, output_dir,cropType,TiffFormat)
     elif plotmode == "allcalc":
-        plot_AllCalcDataTypes(id_list, db_handler, from_date,Datamode, to_date, maxCloud, output_dir,cropType,TiffFormat)
+        plot_All_Calc_DataTypes(id_list, db_handler, from_date,Datamode, to_date, maxCloud, output_dir,cropType,TiffFormat)
     elif plotmode == "Gradiant_Ndvi_vs_datatype":
         plot_Datapoints_gradient_and_rank_ids_Ndvi_vs_chosenData(id_list, db_handler, from_date, to_date, maxCloud, output_dir, cropType, datatype, Datamode,TiffFormat)
 

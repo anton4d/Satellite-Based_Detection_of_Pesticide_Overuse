@@ -206,7 +206,7 @@ class SQLHandler:
         try:
             self.cursor.execute("SELECT * FROM BoundingboxMetaData WHERE BoundingBoxId=%s AND FullDate=%s", (metadata[0], metadata[1]))
             foundMetaData = self.cursor.fetchone()
-            logging.info(metadata)
+
             if foundMetaData is not None:
                 query = """
                 UPDATE BoundingboxMetaData 
@@ -220,9 +220,7 @@ class SQLHandler:
                 INSERT INTO BoundingboxMetaData (BoundingBoxId, FullDate, DateOnly, Platform, CloudCover)
                 VALUES (%s, %s, %s, %s, %s)
                 """
-                logging.info("bith")
                 values = metadata
-                logging.info(values)
                 logging.info(f"MetaData for {metadata[0]} on the {metadata[1]} has been inserted")
 
             self.cursor.execute(query, values)

@@ -15,22 +15,22 @@ class TiffWorker:
     )
 
     def __init__(self, log_filename="tiff_process.log", folder_name="Workerlogs"):
-        self.log_filename = f"{log_filename}.log"
+        self.log_filename = f"{log_filename}"
         self.folder_name = f"Logs/{folder_name}/"
+        self.log_File = os.path.join(self.folder_name, f"{self.log_filename}.log")
         self.Work_Order_ID = None
         self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
         os.makedirs(self.folder_name, exist_ok=True)
         self.setup_logging()
 
     def setup_logging(self):
-        logfile = self.folder_name + self.log_filename
         logging.basicConfig(
-            filename=logfile,
+            filename=self.log_File,
             level=logging.INFO,
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
             datefmt="%Y-%m-%d %H:%M:%S"
         )
-        logging.info(f"TIFF Worker started. Logging to {logfile}")
+        logging.info(f"TIFF Worker started. Logging to {self.log_File}")
 
     def validate_message(self, message):
         return bool(self.DATEPATTERN.match(message))
