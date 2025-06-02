@@ -1,16 +1,38 @@
 # **Satellite-Based Detection of Pesticide Overuse**  
-GitHub repository for the **SDU Master Project** by **Oskar and Anton**  
+GitHub repository for the **SDU Master Project** by **Oskar and Anton**
 
-## **Setup Instructions**  
+---
 
-Run the following command inside the code folder to set up the virtual environment and install dependencies:  
+## **Setup Instructions**
+
+To set up the environment and start the project, follow these steps inside the `code` folder:
+
+### 1. Start Docker and Set Up the Environment
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
-```
+cd code &&
+docker compose up -d &&
+python3 -m venv .venv &&
+source .venv/bin/activate &&
+pip install -r requirements.txt
 
-In Database_Populator, Download and Process a .env file is needed to connect to the database and more
-in donwload it should look like 
+
+
+```
+### 2. Configure Environment Variables
+You will need .env files for the different parts of the project.
+
+In Database_Populator and Process folders:
+Create a .env file with the following content:
+
+```.env
+SQLHOST="localhost"
+DBUSER="user"
+DBPASSWORD="password"
+DBDB="db"
+```
+In Download folder:
+Create a .env file with the following content:
 
 ```.env
 SQLHOST="localhost"
@@ -22,11 +44,16 @@ ApiClienSecret=""
 APIToken=""
 ```
 
-In Process it should look like
-```.env
-SQLHOST="localhost"
-DBUSER="user"
-DBPASSWORD="password"
-DBDB="db"
+
+
+### 4. Running the Code
+
+The first step is to start either a process or a download worker.  
+Within the corresponding folder, run the following command:
+
+```bash
+python3 Worker_Start.py {Number of workers to start} {LogFileName} {LogFolder}
+
 ```
-Now you're ready to start working on the project! 🚀
+Next, you need to create a RabbitMQ Work Order in either new_Download_Work_Order or new_Process_Work_Order.
+This will assign tasks to the workers to either start collecting data or process already collected data.
