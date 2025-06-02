@@ -10,5 +10,23 @@ python3 -m venv .venv && source .venv/bin/activate && pip install -r requirement
 ```
 
 In Database_Populator, Download and Process a .env file is needed to connect to the database and more
+in donwload it should look like 
 
+```.env
+SQLHOST="localhost"
+DBUSER="user"
+DBPASSWORD="password"
+DBDB="db"
+ApiClienId=""
+ApiClienSecret=""
+APIToken=""
+```
+
+In Process it should look like
+```.env
+SQLHOST="localhost"
+DBUSER="user"
+DBPASSWORD="password"
+DBDB="db"
+```
 Now you're ready to start working on the project! 🚀
