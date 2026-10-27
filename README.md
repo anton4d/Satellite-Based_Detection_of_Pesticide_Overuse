@@ -4,8 +4,6 @@ Master's thesis in Software Engineering at the University of Southern Denmark (J
 **Anton Christensen** and **Oskar Thomsen**, advised by Aslak Johansen. Built on a case from the
 Danish Environmental Protection Agency (Miljøstyrelsen).
 
-Write-up: **[My Master's Thesis: Satellite-Based Detection of Pesticide Overuse](https://oskar.kjaer-thomsen.dk/blog/masters-thesis-satellite-pesticide-detection)**
-
 ![NDVI through 2020 for one certified seed potato field](docs/images/ndvi-season-field-2443.png)
 
 ## The problem
